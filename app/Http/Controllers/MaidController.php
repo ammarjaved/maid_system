@@ -78,39 +78,39 @@ class MaidController extends Controller
 
         $img = maid::find($data->id);
 
-        $file = $request->file('profile_image');
+        $file1 = $request->file('profile_image');
         $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file->getClientOriginalName();
+        $img1_dbopen = $file1->getClientOriginalName();
         $filename = strtotime(now()) . $img1_dbopen;
-        $file->move($destinationPath, $filename);
+        $file1->move($destinationPath, $filename);
         $img->profile_image = $filename;
 
-        $file = $request->file('passport_image_front');
+        $file2 = $request->file('passport_image_front');
         $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file->getClientOriginalName();
+        $img1_dbopen = $file2->getClientOriginalName();
         $filename = strtotime(now()) . $img1_dbopen;
-        $file->move($destinationPath, $filename);
+        $file2->move($destinationPath, $filename);
         $img->passport_image_front = $filename;
 
-        $file = $request->file('passport_image_back');
+        $file3 = $request->file('passport_image_back');
         $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file->getClientOriginalName();
+        $img1_dbopen = $file3->getClientOriginalName();
         $filename = strtotime(now()) . $img1_dbopen;
-        $file->move($destinationPath, $filename);
+        $file3->move($destinationPath, $filename);
         $img->passport_image_back = $filename;
 
-        $file = $request->file('visa_image_front');
+        $file4 = $request->file('visa_image_front');
         $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file->getClientOriginalName();
+        $img1_dbopen = $file4->getClientOriginalName();
         $filename = strtotime(now()) . $img1_dbopen;
-        $file->move($destinationPath, $filename);
+        $file4->move($destinationPath, $filename);
         $img->visa_image_front = $filename;
 
-        $file = $request->file('visa_image_back');
+        $file5 = $request->file('visa_image_back');
         $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file->getClientOriginalName();
+        $img1_dbopen = $file5->getClientOriginalName();
         $filename = strtotime(now()) . $img1_dbopen;
-        $file->move($destinationPath, $filename);
+        $file5->move($destinationPath, $filename);
         $img->visa_image_back = $filename;
 
         try{
