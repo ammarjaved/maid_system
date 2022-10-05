@@ -8,6 +8,8 @@ use Exception;
 use App\Http\Requests\MaidRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Country;
+use Mockery\Expectation;
+use App\Models\tbl_login;
 
 class MaidController extends Controller
 {
@@ -19,7 +21,9 @@ class MaidController extends Controller
     public function index()
     {
         //
+    
         $maids = maid::where('created_by' , Auth::user()->email)->get();
+        
         return view('Maids.index',['maids'=>$maids]);
     }
 
@@ -31,7 +35,12 @@ class MaidController extends Controller
     public function create()
     {
         //
-        $countries = Country::all();
+        try{
+         $countries = Country::all();
+        }
+        catch(Expectation $e){
+            $countries = "";
+        }
         return view('Maids.create',['countries'=>$countries]);
     }
 
@@ -122,6 +131,16 @@ class MaidController extends Controller
             return redirect()->route('maid.create')->with('message','Images not Saved ');
         }
 
+        try{
+            tbl_login::create([
+                'user_name'=>$request->user_name,
+                'password' => "abcd1234",
+                'user_type' => 'maid'
+            ]);
+        }catch(Exception $e){
+            // return $e->getMessage();
+            return redirect()->route('maid.create')->with('message' , 'Except user login all data is saved');
+        }
         
         return redirect()->route('maid.index');
     }

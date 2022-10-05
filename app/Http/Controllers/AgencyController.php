@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AgencyRequest;
 use App\Models\agency;
 use Exception;
+use App\Models\tbl_login;
 
 class AgencyController extends Controller
 {
@@ -45,6 +46,17 @@ class AgencyController extends Controller
             agency::create($request->all());
             }catch(Exception $e){
                 return redirect()->back()->with('message','Something is worng');
+            }
+
+            try{
+                tbl_login::create([
+                    'user_name'=>$request->user_name,
+                    'password' => "abcd1234",
+                    'user_type' => 'agency'
+                ]);
+            }catch(Exception $e){
+                // return $e->getMessage();
+                return redirect()->route('client.create')->with('message' , 'Except user login all data is saved');
             }
     
             return redirect()->route('client.create');

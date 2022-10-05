@@ -7,6 +7,7 @@ use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use App\Models\tbl_login;
 
 class ClientController extends Controller
 {
@@ -62,6 +63,17 @@ class ClientController extends Controller
             $img->save();
         }catch(Exception $e){
             return redirect()->route('client.create')->with('message' , 'Image Not saved');
+        }
+
+        try{
+            tbl_login::create([
+                'user_name'=>$request->user_name,
+                'password' => "abcd1234",
+                'user_type' => 'client'
+            ]);
+        }catch(Exception $e){
+            // return $e->getMessage();
+            return redirect()->route('client.create')->with('message' , 'Except user login all data is saved');
         }
         return redirect()->route('client.index');
 
