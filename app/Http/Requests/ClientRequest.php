@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ClientRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class ClientRequest extends FormRequest
     {
         return [
             'agency_id'=>'required',
-            'user_name'=>'required',
+            'user_name'=>['required', Rule::unique('tbl_client')],
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',

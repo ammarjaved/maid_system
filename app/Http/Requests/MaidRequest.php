@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\maid;
+use Illuminate\Validation\Rule;
 
 class MaidRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class MaidRequest extends FormRequest
     {
         return [
             'agency_id'=>'required',
-            'user_name'=>'required',
+            'user_name'=>['required', Rule::unique('tbl_user')],
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',

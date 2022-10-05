@@ -121,6 +121,8 @@ class MaidController extends Controller
             return $e->getMessage();
             return redirect()->route('maid.create')->with('message','Images not Saved ');
         }
+
+        
         return redirect()->route('maid.index');
     }
 
