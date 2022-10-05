@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MaidController;
 
 
@@ -27,6 +28,7 @@ require __DIR__ . '/auth.php';
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('agency',AgencyController::class);
     Route::resource('maid',MaidController::class);
+    Route::resource('client',ClientController::class);
 });
 
 

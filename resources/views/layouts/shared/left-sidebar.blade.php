@@ -80,32 +80,54 @@
 
                     </a>
                 </li>
+                
+                <li>
+                    <a href="#sidebarClient" data-bs-toggle="collapse">
+                        <i data-feather="file-text"></i>
+                        <span> Client </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarClient">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{route ('client.create')}}">
+                                    
+                                    <span>Add Client</span>
+            
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('client.index')}}">Show</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </li>
+
 
                 <li>
-                    <a href="{{route ('maid.create')}}">
-                        <i data-feather="calendar"></i>
-                        <span>Add Maid</span>
-
+                    <a href="#sidebarMaid" data-bs-toggle="collapse">
+                        <i data-feather="file-text"></i>
+                        <span> Maid </span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <div class="collapse" id="sidebarMaid">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="{{route ('maid.create')}}">
+                                    
+                                    <span>Add Maid</span>
+            
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('maid.index')}}">Show</a>
+                            </li>
+                           
+                        </ul>
+                    </div>
                 </li>
-                {{-- <li>
-                    <a href="{{route('second', ['apps', 'calendar'])}}">
-                        <i data-feather="calendar"></i>
-                        <span> Calendar </span>
-                    </a>
-                </li> --}}
 
-                {{-- <li>
-                    <a href="{{route('second', ['apps', 'chat'])}}">
-                        <i data-feather="message-square"></i>
-                        <span> Chat </span>
-                    </a>
-                </li> --}}
-
-                
-                
-                
-               
 
                
                 

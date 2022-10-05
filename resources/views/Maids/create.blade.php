@@ -8,7 +8,7 @@
         @if (Session::has('message'))
         <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
     @endif
-        <form action="{{ route ('maid.store') }}" method="POST">
+        <form action="{{ route ('maid.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
         <div>
@@ -45,7 +45,7 @@
             <label for="gender">Gender</label>
             <span class="text-danger">@error('gender'){{ $message }}@enderror</span>
             <select name="gender" id="gender" class="form-control">
-                <option hidden>Select Gender</option>
+                <option hidden value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
@@ -106,11 +106,7 @@
             <span class="text-danger">@error('religion'){{ $message }}@enderror</span>
             <input id="religion" name="religion" class="form-control" value="{{old('religion')}}">
         </div>
-        <div>
-            <label for="profile_image">Profile Image</label>
-            <span class="text-danger">@error('profile_image'){{ $message }}@enderror</span>
-            <input id="profile_image" name="profile_image" class="form-control" value="{{old('profile_image')}}">
-        </div>
+        
         <div>
             <label for="passport_number">Passport Number</label>
             <span class="text-danger">@error('passport_number'){{ $message }}@enderror</span>
@@ -121,31 +117,40 @@
             <span class="text-danger">@error('passport_expiry'){{ $message }}@enderror</span>
             <input id="passport_expiry" type="date" name="passport_expiry" class="form-control" value="{{old('passport_expiry')}}">
         </div>
-        <div>
-            <label for="passport_image_front">Passport Image front</label>
-            <span class="text-danger">@error('passport_image_front'){{ $message }}@enderror</span>
-            <input id="passport_image_front" name="passport_image_front" class="form-control" value="{{old('passport_image_front')}}">
-        </div>
+       
 
         <div>
             <label for="visa_expiry_date">Visa Expiry Date</label>
             <span class="text-danger">@error('visa_expiry_date'){{ $message }}@enderror</span>
             <input id="visa_expiry_date" type="date" name="visa_expiry_date" class="form-control" value="{{old('visa_expiry_date')}}">
         </div>
+
+        <div>
+            <label for="profile_image">Profile Image</label>
+            <span class="text-danger">@error('profile_image'){{ $message }}@enderror</span>
+            <input id="profile_image" type="file" name="profile_image" class="form-control" value="{{old('profile_image')}}">
+        </div>
+
+        <div>
+            <label for="passport_image_front">Passport Image front</label>
+            <span class="text-danger">@error('passport_image_front'){{ $message }}@enderror</span>
+            <input id="passport_image_front" name="passport_image_front" type="file" class="form-control" value="{{old('passport_image_front')}}">
+        </div>
+
         <div>
             <label for="passport_image_back">Passport image back</label>
             <span class="text-danger">@error('passport_image_front'){{ $message }}@enderror</span>
-            <input id="passport_image_back" name="passport_image_back" class="form-control" value="{{old('passport_image_back')}}">
+            <input id="passport_image_back" type="file" name="passport_image_back" class="form-control" value="{{old('passport_image_back')}}">
         </div>
         <div>
             <label for="visa_image_front">Visa image front</label>
             <span class="text-danger">@error('visa_image_front'){{ $message }}@enderror</span>
-            <input id="visa_image_front" name="visa_image_front" class="form-control" value="{{old('visa_image_front')}}">
+            <input id="visa_image_front" name="visa_image_front" type="file" class="form-control" value="{{old('visa_image_front')}}">
         </div>
         <div>
             <label for="visa_image_back">Visa image back</label>
             <span class="text-danger">@error('visa_image_back'){{ $message }}@enderror</span>
-            <input id="visa_image_back" name="visa_image_back" class="form-control" value="{{old('visa_image_back')}}">
+            <input id="visa_image_back" name="visa_image_back" type="file" class="form-control" value="{{old('visa_image_back')}}">
         </div>
 
 
