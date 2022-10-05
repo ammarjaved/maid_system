@@ -73,7 +73,13 @@
         <div>
             <label for="country">Country</label>
             <span class="text-danger">@error('country'){{ $message }}@enderror</span>
-            <input id="country" name="country" class="form-control" value="{{old('country')}}">
+            <select name="country" class="form-control">
+                <option hidden value="">Select Country</option>
+                @foreach ($countries as $country)
+                    <option value="{{$country->name}}" class="form-control">{{$country->name}}</option>
+                @endforeach
+            </select>
+            {{-- <input id="country" name="country" class="form-control" value="{{old('country')}}"> --}}
         </div>
 
         <div>

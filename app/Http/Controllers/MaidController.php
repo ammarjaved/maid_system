@@ -7,6 +7,7 @@ use App\Models\maid;
 use Exception;
 use App\Http\Requests\MaidRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Country;
 
 class MaidController extends Controller
 {
@@ -30,7 +31,8 @@ class MaidController extends Controller
     public function create()
     {
         //
-        return view('Maids.create');
+        $countries = Country::all();
+        return view('Maids.create',['countries'=>$countries]);
     }
 
     /**
