@@ -63,7 +63,7 @@ class ClientController extends Controller
         }catch(Exception $e){
             return redirect()->route('client.create')->with('message' , 'Image Not saved');
         }
-        return redirect()->route('client.create');
+        return redirect()->route('client.index');
 
     }
 

@@ -20,19 +20,19 @@
 
                             <div class="text-center w-75 m-auto">
                                 <div class="auth-logo">
-                                    <a href="{{route('any', 'index')}}" class="logo logo-dark text-center">
+                                    <a href="" class="logo logo-dark text-center">
                                         <span class="logo-lg">
-                                            <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="22">
+                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="35">
                                         </span>
                                     </a>
 
-                                    <a href="{{route('any', 'index')}}" class="logo logo-light text-center">
+                                    <a href="" class="logo logo-light text-center">
                                         <span class="logo-lg">
-                                            <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="22">
+                                            <img src="{{asset('images/main-logo.png')}}" alt="" height="22">
                                         </span>
                                     </a>
                                 </div>
-                                <p class="text-muted mb-4 mt-3">Don't have an account? Create your account, it takes less than a minute</p>
+                                <p class="text-muted mb-4 mt-3">Don't have an account? Create your account</p>
                             </div>
 
                             @if(session('error'))<div class="alert alert-danger">{{ session('error') }}</div>
@@ -79,12 +79,12 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" id="checkbox-signup">
                                         <label class="form-check-label" for="checkbox-signup">I accept <a href="javascript: void(0);" class="text-dark">Terms and Conditions</a></label>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="text-center d-grid">
                                     <button class="btn btn-success" type="submit"> Sign Up </button>
                                 </div>

@@ -265,8 +265,8 @@
  --}}
             <li class="dropdown notification-list topbar-dropdown">
                 <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-                    <img src="{{asset('assets/images/users/user-9.jpg')}}" alt="user-image" class="rounded-circle">
-                    <span class="pro-user-name ms-1">
+                    <img src="{{asset('images/user-logo.png')}}" alt="user-image" class="rounded-circle">
+                    <span class="pro-user-name ms-1 ">
                         {{ auth()->user()->name }} <i class="mdi mdi-chevron-down"></i>
                     </span>
                 </a>
@@ -277,10 +277,10 @@
                     </div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account</span>
-                    </a>
+                    </a> --}}
 
                     <!-- item-->
                     {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
@@ -341,11 +341,14 @@
         </div>
 
         <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+            @if (!request()->is("agency/create"))
+           
             <li>
                 <button class="button-menu-mobile waves-effect waves-light">
                     <i class="fe-menu"></i>
                 </button>
             </li>
+            @endif
 
             <li>
                 <!-- Mobile menu toggle (Horizontal Layout)-->

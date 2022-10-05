@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ["page_title"=> "Agency"])
+@extends('layouts.vertical', ["page_title"=> "Maid"])
 
 @section('content')
 
@@ -14,7 +14,7 @@
         <div>
             <label for="agency_id">Agency id</label>
             <span class="text-danger">@error('agency_id'){{ $message }}@enderror</span>
-            <input id="agency_id" type="integer" name="agency_id" class="form-control" value="{{old('agency_id')}}">
+            <input id="agency_id" type="number" name="agency_id" class="form-control" value="{{old('agency_id')}}">
         </div>
 
         <div>

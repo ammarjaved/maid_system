@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('agency',AgencyController::class);
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
+    Route::view('/','client.create');
+
 });
 
 

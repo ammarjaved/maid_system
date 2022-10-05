@@ -20,7 +20,7 @@ class RoutingController extends Controller
     public function index(Request $request)
     {
         if (Auth::user()) {
-            return redirect('Agency.create');
+            return redirect('client.create');
         } else {
             return redirect('/login');
         }

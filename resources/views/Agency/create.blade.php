@@ -1,12 +1,24 @@
-@extends('layouts.vertical', ["page_title"=> "Agency"])
+<!DOCTYPE html>
+<html lang="en">
 
-@section('content')
-<!-- Start Content-->
-<div class=" ">
+<head>
+
+    @include('layouts.shared/title-meta', ['title' => "Log In"])
+    @include('layouts.shared/head-css', ["mode" => $mode ?? '', "demo" => $demo ?? ''])
+    @include('layouts.shared/topbar')
+
+
+</head>
+
+
+<body class="loading authentication-bg authentication-bg-pattern">
+    <div class="account-pages  mb-3">
+        <div class="container">
+            <div class="row justify-content-center pt-5">
  
-    <div class="card m-5 p-4" >
+    <div class="card p-4 bg-white col-8 mt-5" >
   
-            <h1 class="text-center">Create Agency</h1>
+            <h1 class="text-center">Add Agency Details </h1>
             @if (Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
         @endif
@@ -77,22 +89,24 @@
     
             {{-- <div>
                 <label for="created_by">created_by</label>
-                <input id="created_by" name="created_by" class="form-control" value="">
+                <input id="created_by" name="created_by" hidden class="form-control" value="">
             </div> --}}
-            <input id="created_by" type="hidden" name="created_by" class="form-control" value="{{Auth::user()->email}}">
+             <input id="created_by" type="hidden" name="created_by" class="form-control" value="{{Auth::user()->email}}">
             <div class="text-center">
             <button type="submit" class="btn btn-success btn-sm mt-3">Submit</div>
             </div>
         </div>
             </form>
     
-        </div>
+        </div> 
     
     
     
 
 
 
-</div>
+</div> 
 
-@endsection
+    </div></body></html>
+    @include('layouts.shared/footer-script')
+

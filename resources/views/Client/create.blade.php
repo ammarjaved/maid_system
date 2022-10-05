@@ -14,7 +14,7 @@
         <div>
             <label for="agency_id">Agency id</label>
             <span class="text-danger">@error('agency_id'){{ $message }}@enderror</span>
-            <input id="agency_id" type="integer" name="agency_id" class="form-control" value="{{old('agency_id')}}">
+            <input id="agency_id" type="number" name="agency_id" class="form-control" value="{{old('agency_id')}}">
         </div>
 
         <div>
@@ -58,17 +58,17 @@
             <input id="emergency_contact" type="integer" name="emergency_contact" class="form-control" value="{{old('emergency_contact')}}">
         </div>
         <div>
-            <label for="client_address">client_address</label>
+            <label for="client_address">Client address</label>
             <span class="text-danger">@error('client_address'){{ $message }}@enderror</span>
             <input id="client_address" name="client_address" class="form-control" value="{{old('client_address')}}">
         </div>
         <div>
-            <label for="house_coords">house_coords</label>
+            <label for="house_coords">House coords</label>
             <span class="text-danger">@error('house_coords'){{ $message }}@enderror</span>
             <input id="house_coords" name="house_coords" class="form-control" value="{{old('house_coords')}}">
         </div>
         <div>
-            <label for="maid_working_address">maid_working_address</label>
+            <label for="maid_working_address">Maid working address</label>
             <span class="text-danger">@error('maid_working_address'){{ $message }}@enderror</span>
             <input id="maid_working_address" name="maid_working_address" class="form-control" value="{{old('maid_working_address')}}">
         </div>

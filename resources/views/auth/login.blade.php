@@ -71,10 +71,10 @@
 
 
                                 <div class="mb-3">
-                                    <div class="form-check">
+                                    {{-- <div class="form-check">
                                         <input type="checkbox" name="remember" class="form-check-input" id="checkbox-signin" checked>
                                         <label class="form-check-label" for="checkbox-signin">Remember me</label>
-                                    </div>
+                                    </div> --}}
                                 </div>
 
                                 <div class="text-center d-grid">
@@ -91,7 +91,7 @@
 
                     <div class="row mt-3">
                         <div class="col-12 text-center">
-                            <p> <a href="{{route('password.request')}}" class="text-white-50 ms-1">Forgot your password?</a></p>
+                            {{-- <p> <a href="{{route('password.request')}}" class="text-white-50 ms-1">Forgot your password?</a></p> --}}
                             <p class="text-white-50">Don't have an account? <a href="/register" class="text-white ms-1"><b>Sign Up</b></a></p>
                         </div> <!-- end col -->
                     </div>

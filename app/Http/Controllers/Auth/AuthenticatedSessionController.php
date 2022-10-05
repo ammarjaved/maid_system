@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\agency;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -33,7 +34,15 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         // return redirect('home');
-        return redirect()->intended(RouteServiceProvider::HOME);
+       $agency_check =  agency::where('created_by' , Auth::user()->email)->first();
+        if($agency_check)
+        {
+            return redirect()->route('client.create');
+        }        
+        else{
+            return redirect()->route('agency.create');
+        }
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

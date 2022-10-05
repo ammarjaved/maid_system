@@ -26,6 +26,7 @@ class AgencyController extends Controller
      */
     public function create()
     {
+       
         //
         // return "asdasd";
         return view('Agency.create');
@@ -46,7 +47,7 @@ class AgencyController extends Controller
                 return redirect()->back()->with('message','Something is worng');
             }
     
-            return redirect()->route('agency.create');
+            return redirect()->route('client.create');
     }
 
     /**

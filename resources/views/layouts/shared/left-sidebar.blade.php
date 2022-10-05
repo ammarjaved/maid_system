@@ -73,13 +73,13 @@
 
                 {{-- <li class="menu-title mt-2">Apps</li> --}}
 
-                <li>
+                {{-- <li>
                     <a href="{{route ('agency.create')}}">
                         <i data-feather="calendar"></i>
                         <span>Add agency</span>
 
                     </a>
-                </li>
+                </li> --}}
                 
                 <li>
                     <a href="#sidebarClient" data-bs-toggle="collapse">
@@ -107,7 +107,7 @@
 
                 <li>
                     <a href="#sidebarMaid" data-bs-toggle="collapse">
-                        <i data-feather="file-text"></i>
+                        <i data-feather="layout"></i>
                         <span> Maid </span>
                         <span class="menu-arrow"></span>
                     </a>
