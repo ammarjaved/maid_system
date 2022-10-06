@@ -27,7 +27,7 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
 
-        Route::resource('agency',AgencyController::class)->middleware(['middleware' => 'superAdmin']);
+    Route::resource('agency',AgencyController::class)->middleware(['middleware' => 'superAdmin']);
 
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
