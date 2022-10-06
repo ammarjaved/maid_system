@@ -18,6 +18,8 @@ class AgencyController extends Controller
     public function index()
     {
         //
+        return view('Agency.index',['agencys'=> agency::all()]);
+
     }
 
     /**
@@ -56,10 +58,10 @@ class AgencyController extends Controller
                 ]);
             }catch(Exception $e){
                 // return $e->getMessage();
-                return redirect()->route('client.create')->with('message' , 'Except user login all data is saved');
+                return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
             }
     
-            return redirect()->route('client.create');
+            return redirect()->route('agency.index');
     }
 
     /**
@@ -71,6 +73,8 @@ class AgencyController extends Controller
     public function show($id)
     {
         //
+        $agency = agency::find($id);
+        return $agency != "" ? view('Agency.show',['agency'=>$agency]) : abort('404');
     }
 
     /**
@@ -82,6 +86,8 @@ class AgencyController extends Controller
     public function edit($id)
     {
         //
+        $agency = agency::find($id);
+        return $agency != "" ? view('Agency.edit',['agency'=>$agency]) : abort('404');
     }
 
     /**
@@ -94,6 +100,12 @@ class AgencyController extends Controller
     public function update(Request $request, $id)
     {
         //
+        try{
+            agency::find($id)->update($request->all());
+        }catch(Exception $e){
+            return redirect()->back()->with('message' , 'Something is worng Try again later');
+        }
+        return redirect()->route('agency.index');
     }
 
     /**
@@ -105,5 +117,7 @@ class AgencyController extends Controller
     public function destroy($id)
     {
         //
+        agency::find($id)->delete();
+        return redirect()->route('agency.index');
     }
 }

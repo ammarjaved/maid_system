@@ -73,13 +73,35 @@
 
                 {{-- <li class="menu-title mt-2">Apps</li> --}}
 
-                {{-- <li>
-                    <a href="{{route ('agency.create')}}">
-                        <i data-feather="calendar"></i>
-                        <span>Add agency</span>
+                @if (Auth::user()->type == "superAdmin")
+                 
+                <li>
+                <a href="#sidebarClient" data-bs-toggle="collapse">
+                    <i data-feather="file-text"></i>
+                    <span> Agency </span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <div class="collapse" id="sidebarClient">
+                    <ul class="nav-second-level">
+                        <li>
+                            <a href="{{route ('agency.create')}}">
+                                
+                                <span>Add Agency</span>
+        
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('agency.index')}}">Show</a>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </li>
 
-                    </a>
-                </li> --}}
+                
+                 
+                @else
+                
                 
                 <li>
                     <a href="#sidebarClient" data-bs-toggle="collapse">
@@ -129,7 +151,7 @@
                 </li>
 
 
-               
+                @endif
                 
                
                 

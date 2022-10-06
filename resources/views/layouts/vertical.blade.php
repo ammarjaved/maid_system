@@ -5,6 +5,8 @@
     @include('layouts.shared/title-meta', ['title' => $page_title])
 
     @include('layouts.shared/head-css', ["mode" => $mode ?? '', "demo" => $demo ?? ''])
+    <script src="{{ URL::asset('dist/js/lightbox-plus-jquery.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ URL::asset('dist/css/lightbox.min.css') }}">
 
 </head>
 

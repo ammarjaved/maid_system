@@ -24,13 +24,15 @@ class ClientRequest extends FormRequest
      */
     public function rules()
     {
+        $currentURL = \Request::url();
+        if ($currentURL == route('client.store')){
         return [
             'agency_id'=>'required',
             'user_name'=>['required', Rule::unique('tbl_client')],
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'contact_number'=>'required',
             'emergency_contact'=>'required',
             'client_address'=>'required',
@@ -38,6 +40,24 @@ class ClientRequest extends FormRequest
             'maid_working_address'=>'required',
             'agency_id'=>'required',
             'profile_image'=>'required',
+            'created_by'=>'required',
+
+        ];
+        }
+        return [
+            'agency_id'=>'required',
+            'user_name'=>'required',
+            'first_name'=>'required',
+            'last_name'=>'required',
+            'full_name'=>'required',
+            'email'=>'required|email',
+            'contact_number'=>'required',
+            'emergency_contact'=>'required',
+            'client_address'=>'required',
+            'house_coords'=>'required',
+            'maid_working_address'=>'required',
+            'agency_id'=>'required',
+            // 'profile_image'=>'required',
             'created_by'=>'required',
 
         ];

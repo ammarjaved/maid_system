@@ -35,12 +35,12 @@ class MaidController extends Controller
     public function create()
     {
         //
-        try{
+        
          $countries = Country::all();
-        }
-        catch(Expectation $e){
+         if(!$countries){
             $countries = "";
-        }
+         }
+        
         return view('Maids.create',['countries'=>$countries]);
     }
 
@@ -87,49 +87,9 @@ class MaidController extends Controller
             return redirect()->route('maid.create')->with('message' , "Something is worg try again later");
         }
 
-        $img = maid::find($data->id);
-
-        $file1 = $request->file('profile_image');
-        $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file1->getClientOriginalName();
-        $filename = strtotime(now()) . $img1_dbopen;
-        $file1->move($destinationPath, $filename);
-        $img->profile_image = $filename;
-
-        $file2 = $request->file('passport_image_front');
-        $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file2->getClientOriginalName();
-        $filename = strtotime(now()) . $img1_dbopen;
-        $file2->move($destinationPath, $filename);
-        $img->passport_image_front = $filename;
-
-        $file3 = $request->file('passport_image_back');
-        $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file3->getClientOriginalName();
-        $filename = strtotime(now()) . $img1_dbopen;
-        $file3->move($destinationPath, $filename);
-        $img->passport_image_back = $filename;
-
-        $file4 = $request->file('visa_image_front');
-        $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file4->getClientOriginalName();
-        $filename = strtotime(now()) . $img1_dbopen;
-        $file4->move($destinationPath, $filename);
-        $img->visa_image_front = $filename;
-
-        $file5 = $request->file('visa_image_back');
-        $destinationPath = 'asset/images/Maid';
-        $img1_dbopen = $file5->getClientOriginalName();
-        $filename = strtotime(now()) . $img1_dbopen;
-        $file5->move($destinationPath, $filename);
-        $img->visa_image_back = $filename;
-
-        try{
-            $img->save();
-        }catch(Exception $e){
-            return $e->getMessage();
-            return redirect()->route('maid.create')->with('message','Images not Saved ');
-        }
+        $this->save_images($request , $data->id);
+        
+        
 
         try{
             tbl_login::create([
@@ -154,6 +114,8 @@ class MaidController extends Controller
     public function show($id)
     {
         //
+        $maid = maid::find($id);
+        return $maid != "" ? view('Maids.show',['maid'=> $maid]): abort('404');
     }
 
     /**
@@ -165,6 +127,11 @@ class MaidController extends Controller
     public function edit($id)
     {
         //
+        $maid = maid::find($id);
+        return $maid != "" ? view('Maids.edit',['maid'=> $maid,'countries'=> Country::all()]) : abort('404');
+        
+      
+       
     }
 
     /**
@@ -174,9 +141,18 @@ class MaidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MaidRequest $request, $id)
     {
         //
+        try{
+            maid::find($id)->update($request->all());
+            }catch(Exception $e){
+                return redirect()->route('maid.edit',$id)->with('message' , 'something is  worng try again later');
+            }
+
+            $this->save_images($request , $id);
+
+        return redirect()->route('maid.index');
     }
 
     /**
@@ -188,5 +164,62 @@ class MaidController extends Controller
     public function destroy($id)
     {
         //
+         maid::find($id)->delete();
+        return redirect()->route('maid.index');
+    }
+
+    public function save_images($request , $id){
+
+        $img = maid::find($id);
+
+        
+        if($request->profile_image != ""){
+            $file1 = $request->file('profile_image');
+            $destinationPath = 'asset/images/Maid';
+            $img1_dbopen = $file1->getClientOriginalName();
+            $filename = strtotime(now()) . $img1_dbopen;
+            $file1->move($destinationPath, $filename);  
+            $img->profile_image = $filename;
+        }
+      
+        if($request->passport_image_front !=""){
+            $file2 = $request->file('passport_image_front');
+            $destinationPath = 'asset/images/Maid';
+            $img1_dbopen = $file2->getClientOriginalName();
+            $filename = strtotime(now()) . $img1_dbopen;
+            $file2->move($destinationPath, $filename);
+            $img->passport_image_front = $filename;
+        }
+
+        if($request->passport_image_back !=""){
+            $file3 = $request->file('passport_image_back');
+            $destinationPath = 'asset/images/Maid';
+            $img1_dbopen = $file3->getClientOriginalName();
+            $filename = strtotime(now()) . $img1_dbopen;
+            $file3->move($destinationPath, $filename);
+            $img->passport_image_back = $filename;
+        }
+
+        if($request->visa_image_front !=""){
+            $file4 = $request->file('visa_image_front');
+            $destinationPath = 'asset/images/Maid';
+            $img1_dbopen = $file4->getClientOriginalName();
+            $filename = strtotime(now()) . $img1_dbopen;
+            $file4->move($destinationPath, $filename);
+            $img->visa_image_front = $filename;
+        } 
+
+        if($request->visa_image_back !=""){
+            $file5 = $request->file('visa_image_back');
+            $destinationPath = 'asset/images/Maid';
+            $img1_dbopen = $file5->getClientOriginalName();
+            $filename = strtotime(now()) . $img1_dbopen;
+            $file5->move($destinationPath, $filename);
+            $img->visa_image_back = $filename;
+        }
+
+      
+        $img->save();
+       
     }
 }

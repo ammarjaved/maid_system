@@ -4,6 +4,7 @@
 <head>
     @include('layouts.shared/title-meta', ['title' => $page_title])
     @include('layouts.shared/head-css', ["mode" => $mode ?? '', "demo" => $demo ?? ''])
+    
 </head>
 
 

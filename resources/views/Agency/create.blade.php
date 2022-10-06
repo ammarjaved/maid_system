@@ -1,24 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.vertical', ["page_title"=> "Agency"])
 
-<head>
+@section('content')
 
-    @include('layouts.shared/title-meta', ['title' => "Log In"])
-    @include('layouts.shared/head-css', ["mode" => $mode ?? '', "demo" => $demo ?? ''])
-    @include('layouts.shared/topbar')
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Agency</a></li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Create Agency</h4>
+        </div>
+    </div>
+</div>
 
-
-</head>
-
-
-<body class="loading authentication-bg authentication-bg-pattern">
-    <div class="account-pages  mb-3">
-        <div class="container">
-            <div class="row justify-content-center pt-5">
- 
-    <div class="card p-4 bg-white col-8 mt-5" >
+    <div class="container col-9">
+        <div class="card p-3 ">
+        
+      
   
-            <h1 class="text-center">Add Agency Details </h1>
+            <h2 class="text-center">Add Agency </h2>
             @if (Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
         @endif
@@ -53,7 +57,7 @@
             <div class="col-6 mb-2 px-3">
                 <label for="agency_contact_number">Agency Contact No</label>
                 <span class="text-danger">@error('agency_contact_number'){{ $message }}@enderror</span>
-                <input id="agency_contact_number" name="agency_contact_number" class="form-control" value="{{old('agency_contact_no')}}">
+                <input id="agency_contact_number" type="number" name="agency_contact_number" class="form-control" value="{{old('agency_contact_no')}}">
             </div>
     
             <div class="col-6 mb-2 px-3">
@@ -107,6 +111,6 @@
 
 </div> 
 
-    </div></body></html>
-    @include('layouts.shared/footer-script')
+    </div>
+    @endsection
 

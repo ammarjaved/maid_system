@@ -33,16 +33,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return redirect('home');
-       $agency_check =  agency::where('created_by' , Auth::user()->email)->first();
-        if($agency_check)
-        {
-            return redirect()->route('client.create');
-        }        
-        else{
-            return redirect()->route('agency.create');
-        }
-        // return redirect()->intended(RouteServiceProvider::HOME);
+      
+            return Auth::user()->type == "superAdmin" ? redirect()->route('agency.index') : redirect()->route('client.index');
+        
     }
 
     /**

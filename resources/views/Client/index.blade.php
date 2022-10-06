@@ -28,6 +28,7 @@
                             <th>House Coords</th>
                             <th>Created By</th>
                             <th>Client Address</th>
+                            <th>Action</th>
                             
                         </tr>
                     </thead>
@@ -45,6 +46,32 @@
                             <td>{{$client->house_coords}}</td>
                             <td>{{$client->created_by}}</td>
                             <td>{{$client->client_address}}</td>
+                            <td class="text-center p-1">
+                                <div class="dropdown">
+                                    <button class="btn" type="button" id="dropdownMenuButton1"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="{{ URL::asset('images/three-dots-vertical.svg') }}">
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                        <li><a href="{{route ('client.show',$client->id)}}" class="btn  btn-sm dropdown-item">Detail</a>
+                                        </li>
+
+                                        <li><a href="{{ route('client.edit', $client->id) }}"
+                                                class="btn btn-sm dropdown-item">Edit</a></li>
+                                        
+                                        <li>
+                                            <form method="POST" action="{{ route('client.destroy', $client->id) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn  btn-sm dropdown-item"
+                                                    onclick="return confirm('Are you Sure')">Delete</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+
 
                         </tr>
                         @endforeach

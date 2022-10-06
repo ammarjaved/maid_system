@@ -45,7 +45,8 @@
             <label for="gender">Gender</label>
             <span class="text-danger">@error('gender'){{ $message }}@enderror</span>
             <select name="gender" id="gender" class="form-control">
-                <option hidden value="">Select Gender</option>
+                <option value="{{ old('gender') }}" selected="" hidden>
+                    {{ old('gender',"Select Gender") }}</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
@@ -74,7 +75,8 @@
             <label for="country">Country</label>
             <span class="text-danger">@error('country'){{ $message }}@enderror</span>
             <select name="country" class="form-control">
-                <option hidden value="">Select Country</option>
+                <option value="{{ old('country') }}" selected="" hidden>
+                    {{ old('country',"Select Country") }}</option>
                 @foreach ($countries as $country)
                     <option value="{{$country->name}}" class="form-control">{{$country->name}}</option>
                 @endforeach
@@ -85,12 +87,12 @@
         <div>
             <label for="contact_number">Contact Number</label>
             <span class="text-danger">@error('contact_number'){{ $message }}@enderror</span>
-            <input id="contact_number" type="integer" name="contact_number" class="form-control" value="{{old('contact_number')}}">
+            <input id="contact_number" type="number" name="contact_number" class="form-control" value="{{old('contact_number')}}">
         </div>
         <div>
             <label for="emergency_contact">Emergency Contact</label>
             <span class="text-danger">@error('emergency_contact'){{ $message }}@enderror</span>
-            <input id="emergency_contact" type="integer" name="emergency_contact" class="form-control" value="{{old('emergency_contact')}}">
+            <input id="emergency_contact" type="number" name="emergency_contact" class="form-control" value="{{old('emergency_contact')}}">
         </div>
         <div>
             <label for="education">Education</label>

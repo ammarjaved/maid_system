@@ -88,6 +88,8 @@ class ClientController extends Controller
     public function show($id)
     {
         //
+        $client = Client::find($id);
+        return $client != "" ? view('Client.show',['client'=>$client]) : abort('404');
     }
 
     /**
@@ -98,7 +100,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+       //
+        $client = Client::find($id);
+        return $client != "" ? view('Client.edit',['client'=> $client]) : abort('404');
     }
 
     /**
@@ -111,6 +115,26 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $client = Client::find($id);
+        try{
+        $client->update($request->all());
+        }catch(Exception $e){
+            return redirect()->back()->with('message' , "Something is worng try again later");
+        }
+
+        if($request->profile_image !=''){
+            $file = $request->file('profile_image');
+            $destinationPath = 'asset/images/Client';
+            $img1_dbopen = $file->getClientOriginalName();
+            $filename = strtotime(now()) . $img1_dbopen;
+            $file->move($destinationPath, $filename);
+            $client->profile_image = $filename;
+            $client->update();
+        }
+
+        
+        return redirect()->route('client.index');
+
     }
 
     /**
@@ -121,6 +145,7 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Client::find($id)->delete();
+        return redirect()->route("client.index");
     }
 }
