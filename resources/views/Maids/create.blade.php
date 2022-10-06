@@ -2,8 +2,24 @@
 
 @section('content')
 
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                    <li class="breadcrumb-item"><a href="javascript: void(0);">Maid</a></li>
+                    <li class="breadcrumb-item active">create</li>
+                </ol>
+            </div>
+            <h4 class="page-title">Create Maid</h4>
+        </div>
+    </div>
+</div>
+
     <div class="container col-7">
-        <div class="card p-3 mt-4">
+        <div class="card p-3 ">
         <h1 class="text-center">Add Maid</h1>
         @if (Session::has('message'))
         <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>

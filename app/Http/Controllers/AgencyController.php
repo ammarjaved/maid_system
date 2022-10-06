@@ -7,6 +7,8 @@ use App\Http\Requests\AgencyRequest;
 use App\Models\agency;
 use Exception;
 use App\Models\tbl_login;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AgencyController extends Controller
 {
@@ -60,6 +62,13 @@ class AgencyController extends Controller
                 // return $e->getMessage();
                 return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
             }
+
+            user::create([
+                'name'=>$request->user_name,
+                'email'=>$request->agency_email,
+                'password' => Hash::make('abcd1234'),
+                'type' => 'agency',
+            ]);
     
             return redirect()->route('agency.index');
     }
