@@ -46,6 +46,7 @@ class AgencyController extends Controller
     public function store(AgencyRequest $request)
     {
         //
+        
         try{
             agency::create($request->all());
             }catch(Exception $e){
@@ -63,12 +64,16 @@ class AgencyController extends Controller
                 return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
             }
 
+            try{
             user::create([
                 'name'=>$request->user_name,
                 'email'=>$request->agency_email,
-                'password' => Hash::make('abcd1234'),
+                'password' => Hash::make($request->password),
                 'type' => 'agency',
             ]);
+        }catch(Exception $e){
+            return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
+        }
     
             return redirect()->route('agency.index');
     }

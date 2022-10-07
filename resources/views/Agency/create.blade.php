@@ -8,7 +8,7 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Agency</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('agency.index')}}">Agency</a></li>
                     <li class="breadcrumb-item active">Create</li>
                 </ol>
             </div>
@@ -57,7 +57,7 @@
             <div class="col-6 mb-2 px-3">
                 <label for="agency_contact_number">Agency Contact No</label>
                 <span class="text-danger">@error('agency_contact_number'){{ $message }}@enderror</span>
-                <input id="agency_contact_number" type="number" name="agency_contact_number" class="form-control" value="{{old('agency_contact_no')}}">
+                <input id="agency_contact_number" type="number" name="agency_contact_number" class="form-control" value="{{old('agency_contact_number')}}">
             </div>
     
             <div class="col-6 mb-2 px-3">
@@ -89,7 +89,39 @@
                 <span class="text-danger">@error('number_of_maids'){{ $message }}@enderror</span>
                 <input id="number_of_maids" name="number_of_maids" class="form-control" value="{{old('number_of_maids')}}">
             </div>
-    
+             
+             <div class="col-6 mb-2 px-3">
+                <label for="password">Password</label>
+                <span class="text-danger">@error('password'){{ $message }}@enderror</span>
+                <input id="password" name="password" class="form-control" value="{{old('password')}}">
+            </div>
+
+            <div class="col-6 mb-2 px-3">
+                <label for="password_confirmation">Confirm Password</label>
+                <span class="text-danger">@error('password_confirmation'){{ $message }}@enderror</span>
+                <input id="password_confirmation" name="password_confirmation" class="form-control" value="{{old('password_confirmation')}}">
+            </div>
+
+            {{-- <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password_confirmation" class="form-label">Password confirmation</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Enter your password confirmation">
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                </div> --}}
+
     
             {{-- <div>
                 <label for="created_by">created_by</label>

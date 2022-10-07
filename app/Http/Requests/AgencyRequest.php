@@ -36,6 +36,9 @@ class AgencyRequest extends FormRequest
                 'agency_aps_license_number'=>'required',
                 'number_of_maids'=>'required',
                 'created_by'=>'required',
+                'password' => 'required|string|min:8',
+                'password_confirmation' => 'required|same:password|min:8',
+                
     
             ];
        

@@ -17,10 +17,14 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->type != "superAdmin"){
-            return redirect()->route('client.index');
+        $currentURL = \Request::url();
+
+
+        if(Auth::user()->type == "superAdmin" ){
+            return $next($request);    
         }
-        return $next($request);
+        return redirect()->route('client.index');
+        
        
     }
 }

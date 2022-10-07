@@ -276,12 +276,15 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
 
+                    {{-- @if (Auth::user()->type != 'superAdmin')
+                        
+                    
                     <!-- item-->
-                    {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="{{Route('agency.show')}}" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account</span>
-                    </a> --}}
-
+                    </a> 
+                    @endif --}}
                     <!-- item-->
                     {{-- <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="fe-settings"></i>

@@ -12,7 +12,7 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Maids</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('maid.index')}}">Maids</a></li>
                     <li class="breadcrumb-item active">edit</li>
                 </ol>
             </div>
@@ -24,7 +24,7 @@
 
 
     <div class="container col-7">
-        <div class="card  ">
+        <div class="card  p-3">
             <h1 class="text-center">Edit Details</h1>
             @if (Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
