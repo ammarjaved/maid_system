@@ -82,7 +82,7 @@
                             @enderror
                         </span>
                         <input id="agency_contact_number" type="number" name="agency_contact_number" class="form-control"
-                            value="{{ old('agency_contact_no', $agency->agency_contact_no) }}">
+                            value="{{ old('agency_contact_number', $agency->agency_contact_number) }}">
                     </div>
 
                     <div class="col-6 mb-2 px-3">

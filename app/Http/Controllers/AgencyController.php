@@ -46,7 +46,7 @@ class AgencyController extends Controller
     public function store(AgencyRequest $request)
     {
         //
-        
+        // return $request;
         try{
             agency::create($request->all());
             }catch(Exception $e){
