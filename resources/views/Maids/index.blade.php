@@ -7,23 +7,20 @@
 @endsection
 
 @section('content')
-
-
-
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box">
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Maid</a></li>
-                    <li class="breadcrumb-item active">index</li>
-                </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Maid</a></li>
+                        <li class="breadcrumb-item active">index</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Maids</h4>
             </div>
-            <h4 class="page-title">Maids</h4>
         </div>
     </div>
-</div>
 
 
     <div class="row">
@@ -44,8 +41,9 @@
                                 <th>email</th>
                                 <th>Contact Number</th>
                                 <th>Gender</th>
-                                <th>Education</th>
+                                
                                 <th>Skills</th>
+                                <th>Assign to</th>
                                 <th class="text-center">Action</th>
 
                             </tr>
@@ -62,8 +60,21 @@
                                     <td>{{ $maid->email }}</td>
                                     <td>{{ $maid->contact_number }}</td>
                                     <td class="text-capitalize">{{ $maid->gender }}</td>
-                                    <td>{{ $maid->education }}</td>
+                                    
                                     <td>{{ $maid->skills }}</td>
+                                    <td class="text-capitalize"> <?php
+                                        $assign_clients=\App\Models\client::where('id',$maid->client_id)->get();
+
+                                        
+                                        ?>
+                                         @forelse ($assign_clients as $assign_client)
+                                         {{$assign_client->user_name}}
+                                         @empty
+                                             None
+                                         @endforelse
+                                         
+                                       
+                                    </td>
                                     <td class="text-center p-1">
                                         <div class="dropdown">
                                             <button class="btn" type="button" id="dropdownMenuButton1"
@@ -72,12 +83,13 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                                                <li><a href="{{route ('maid.show',$maid->id)}}" class="btn  btn-sm dropdown-item">Detail</a>
+                                                <li><a href="{{ route('maid.show', $maid->id) }}"
+                                                        class="btn  btn-sm dropdown-item">Detail</a>
                                                 </li>
 
                                                 <li><a href="{{ route('maid.edit', $maid->id) }}"
                                                         class="btn btn-sm dropdown-item">Edit</a></li>
-                                                
+
                                                 <li>
                                                     <form method="POST" action="{{ route('maid.destroy', $maid->id) }}">
                                                         @method('DELETE')
@@ -85,6 +97,11 @@
                                                         <button type="submit" class="btn  btn-sm dropdown-item"
                                                             onclick="return confirm('Are you Sure')">Delete</button>
                                                     </form>
+                                                </li>
+                                                <li>
+                                                    <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal"
+                                                        onclick="maidID({{ $maid->id }})">Assign</button>
                                                 </li>
                                             </ul>
                                         </div>
@@ -103,6 +120,56 @@
         </div><!-- end col-->
     </div>
     <!-- end row-->
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Assign to Client</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form onsubmit="return clientId()" method="POST" action="{{ route('maid.assign', $maid->id) }}" >
+                    @csrf
+                <div class="modal-body">
+                    <input type="hidden" id="maid_id" name="maid_id" class="form-control">
+                    <span id="er_client_id" class="text-danger"></span>
+                    <select name="client_id" class="form-control" id="client_id">
+                        <option value="" hidden>Select Client</option>
+                        @foreach ($clients as $client)
+                            <option value="{{ $client->id }}" class="form-control">{{ $client->user_name }}</option>
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save </button>
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function maidID(id) {
+            $('#maid_id').val(id);
+        }
+        function clientId(){
+            
+            
+            let id = $('#client_id').val();
+            if(id == ""){
+                $("#er_client_id").html("Select Client First")
+                return false;
+            }
+           
+        }
+    </script>
 @endsection
 
 @section('script')

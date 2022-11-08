@@ -42,6 +42,8 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
+        // $request['agency_id'] = Auth::user()->id;
+        // return $request;
         try{
         $data = Client::create($request->all());
         }catch(Exception $e){

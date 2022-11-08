@@ -134,4 +134,9 @@ class AgencyController extends Controller
         agency::find($id)->delete();
         return redirect()->route('agency.index');
     }
+
+    public function myAccount($name){
+        $agency = agency::where("user_name",$name)->first();
+        return $agency != "" ? view('Agency.show',['agency'=>$agency]) : abort('404');
+    }
 }

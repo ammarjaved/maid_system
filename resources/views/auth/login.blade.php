@@ -54,9 +54,11 @@
                                 @csrf
 
                                 <div class="mb-3">
-                                    <label for="emailaddress" class="form-label">Email address</label>
-                                    <input class="form-control" type="text" name="email" id="emailaddress" required="" placeholder="Enter your email">
+                                    <label for="emailaddress" class="form-label">Username</label>
+                                    <input class="form-control" type="text" name="name" id="emailaddress" required="" placeholder="Enter your username">
                                 </div>
+                                
+                                
 
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>

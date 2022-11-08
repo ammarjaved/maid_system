@@ -32,7 +32,7 @@ class MaidRequest extends FormRequest
         if ($currentURL == route('maid.store')){
         return [
             'agency_id'=>'required',
-            'user_name'=>['required', Rule::unique('tbl_user')],
+            'user_name'=>['required', Rule::unique('tbl_login')],
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',
@@ -41,7 +41,7 @@ class MaidRequest extends FormRequest
             'permanent_address'=>'required',
             'date_of_birth'=>'required',
             'country'=>'required',
-            'contact_number'=>'required',
+            'contact_number'=>'required|min:9|max:11',
             'emergency_contact'=>'required',
             'education'=>'required',
             'occupation'=>'required',
@@ -70,7 +70,7 @@ class MaidRequest extends FormRequest
         'permanent_address'=>'required',
         'date_of_birth'=>'required',
         'country'=>'required',
-        'contact_number'=>'required',
+        'contact_number'=>'required|min:9|max:11',
         'emergency_contact'=>'required',
         'education'=>'required',
         'occupation'=>'required',

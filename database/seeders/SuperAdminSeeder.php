@@ -17,7 +17,7 @@ class SuperAdminSeeder extends Seeder
     {
         //
         DB::table('users')->insert([
-            'name' => 'SuperAdmin',
+            'name' => 'superadmin',
             'email' => 'superadmin@aero.com',
             'password' => Hash::make('abcd1234'),
             'type'=>'superAdmin',

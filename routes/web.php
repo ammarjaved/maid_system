@@ -28,9 +28,11 @@ require __DIR__ . '/auth.php';
 Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('agency',AgencyController::class)->middleware(['middleware' => 'superAdmin']);
+    Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
 
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
+    Route::post('/maid-assign',[MaidController::class,"assign_maid"])->name("maid.assign");
     Route::view('/','client.create');
 
 });

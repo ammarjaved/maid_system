@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\maid;
 use Exception;
 use App\Http\Requests\MaidRequest;
+use App\Models\Client;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Country;
 use Mockery\Expectation;
@@ -23,8 +24,9 @@ class MaidController extends Controller
         //
     
         $maids = maid::where('created_by' , Auth::user()->email)->get();
+        $client = Client::where('created_by' , Auth::user()->email)->get();
         
-        return view('Maids.index',['maids'=>$maids]);
+        return view('Maids.index',['maids'=>$maids,'clients'=>$client]);
     }
 
     /**
@@ -221,5 +223,13 @@ class MaidController extends Controller
       
         $img->save();
        
+    }
+
+    public function assign_maid(Request $request){
+    
+        maid::find($request->maid_id)->update([
+            'client_id'=>$request->client_id,
+        ]);
+        return back();
     }
 }

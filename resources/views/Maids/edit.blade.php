@@ -1,25 +1,20 @@
 @extends('layouts.vertical', ['page_title' => 'Edit'])
 
 @section('content')
-
-
-
-
-
-<div class="row">
-    <div class="col-12">
-        <div class="page-title-box">
-            <div class="page-title-right">
-                <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('maid.index')}}">Maids</a></li>
-                    <li class="breadcrumb-item active">edit</li>
-                </ol>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('maid.index') }}">Maids</a></li>
+                        <li class="breadcrumb-item active">edit</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Edit Maid</h4>
             </div>
-            <h4 class="page-title">Edit Maid</h4>
         </div>
     </div>
-</div>
 
 
 
@@ -251,8 +246,8 @@
                     <label for="profile_image">Profile Image</label>
                     <div class="col-6 text-center">
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}" data-lightbox="roadtrip">
-                        <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
-                            style="height: 70px; width: 70px;">
+                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
+                                style="height: 70px; width: 70px;">
                         </a>
                     </div>
                     <div class="col-6">
@@ -261,71 +256,69 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="profile_image" type="file" name="profile_image" class="form-control"
-                           >
+                        <input id="profile_image" type="file" name="profile_image" class="form-control">
                     </div>
                 </div>
 
                 <div class="row">
                     <label for="passport_image_front">Passport Image front</label>
                     <div class="col-6 text-center">
-                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}" data-lightbox="roadtrip">
-                        <img id="temprary"
-                            src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
-                            style="height: 70px; width: 70px;">
+                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
+                            data-lightbox="roadtrip">
+                            <img id="temprary"
+                                src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
+                                style="height: 70px; width: 70px;">
                         </a>
-                        </div>
+                    </div>
                     <div class="col-6">
                         <span class="text-danger">
                             @error('passport_image_front')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="passport_image_front" name="passport_image_front" type="file" class="form-control"
-                           >
+                        <input id="passport_image_front" name="passport_image_front" type="file"
+                            class="form-control">
                     </div>
                 </div>
 
                 <div class="row">
                     <label for="passport_image_back">Passport image back</label>
                     <div class="col-6 text-center">
-                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}" data-lightbox="roadtrip">
-                        <img id="temprary"
-                            src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
-                            style="height: 70px; width: 70px;">
+                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
+                            data-lightbox="roadtrip">
+                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
+                                style="height: 70px; width: 70px;">
                         </a>
-                        </div>
+                    </div>
                     <div class="col-6">
-                    
+
                         <span class="text-danger">
                             @error('passport_image_front')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="passport_image_back" type="file" name="passport_image_back" class="form-control"
-                           >
+                        <input id="passport_image_back" type="file" name="passport_image_back" class="form-control">
                     </div>
                 </div>
 
                 <div class="row">
                     <label for="visa_image_front">Visa image front</label>
                     <div class="col-6 text-center">
-                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}" data-lightbox="roadtrip">
-                        <img id="temprary"
-                            src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
-                            style="height: 70px; width: 70px;">
+                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
+                            data-lightbox="roadtrip">
+                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
+                                style="height: 70px; width: 70px;">
                         </a>
-                        </div>
+                    </div>
 
                     <div class="col-6">
-                    
+
                         <span class="text-danger">
                             @error('visa_image_front')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="visa_image_front" name="visa_image_front" type="file" class="form-control"
-                           >
+                        <input id="visa_image_front" name="visa_image_front" type="file" class="form-control">
                     </div>
                 </div>
 
@@ -333,22 +326,21 @@
                 <div class="row">
                     <label for="visa_image_back">Visa image back</label>
                     <div class="col-6 text-center">
-                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}" data-lightbox="roadtrip">
-                        <img id="temprary"
-                            src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
-                            style="height: 70px; width: 70px;">
+                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
+                            data-lightbox="roadtrip">
+                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
+                                style="height: 70px; width: 70px;">
                         </a>
-                        </div>
-                        
+                    </div>
+
                     <div class="col-6">
-                        
+
                         <span class="text-danger">
                             @error('visa_image_back')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="visa_image_back" name="visa_image_back" type="file" class="form-control"
-                           >
+                        <input id="visa_image_back" name="visa_image_back" type="file" class="form-control">
                     </div>
                 </div>
 

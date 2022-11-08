@@ -36,5 +36,6 @@ class maid extends Model
         // 'visa_image_front',
         // 'visa_image_back',
         'created_by',
+        'client_id',
     ];
 }

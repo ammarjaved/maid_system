@@ -29,11 +29,12 @@
         <form action="{{ route ('client.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-        <div>
+        {{-- <div>
             <label for="agency_id">Agency id</label>
             <span class="text-danger">@error('agency_id'){{ $message }}@enderror</span>
             <input id="agency_id" type="number" name="agency_id" class="form-control" value="{{old('agency_id')}}">
-        </div>
+        </div> --}}
+        <input id="agency_id" type="hidden" name="agency_id" class="form-control" value="{{Auth::user()->id}}">
 
         <div>
             <label for="user_name">User Name</label>

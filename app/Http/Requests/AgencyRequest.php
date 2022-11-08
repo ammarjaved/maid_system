@@ -26,10 +26,10 @@ class AgencyRequest extends FormRequest
     {
          return [
                 'user_name'=>'required',
-                'agency_name'=>['required', Rule::unique('tbl_agency')],
+                'agency_name'=>['required', Rule::unique('tbl_login')],
                 'agency_email'=>['required','email', Rule::unique('tbl_agency')],
                 'agency_address'=>'required',
-                'agency_contact_number'=>'required',
+                'agency_contact_number'=>'required|min:9|max:11',
                 'agency_sos'=>'required',
                 'agency_ssm'=>'required',
                 'agency_pic_number'=>'required',
