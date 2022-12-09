@@ -22,4 +22,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
 Route::post("/database/GetResults",[App\Http\Controllers\ApiControllers\DBController::class,'GetResults']);
-Route::get("/check",[App\Http\Controllers\ApiControllers\DBController::class,'check']);

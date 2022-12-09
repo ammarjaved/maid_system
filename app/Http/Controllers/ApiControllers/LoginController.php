@@ -11,7 +11,6 @@ class LoginController extends Controller
     //
 
     public function login(Request $req){
-        // return "Sdf";
         $input = $req->all();
 
         if ( auth()->attempt([

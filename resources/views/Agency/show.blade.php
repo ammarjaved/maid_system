@@ -26,34 +26,19 @@
                 <div class="col-6 mb-2 px-3">
 
                     <label for="user_name">User Name</label>
-                    <span class="text-danger">
-                        @error('user_name')
-                            {{ $message }}
-                        @enderror
-                    </span>
                     <input id="user_name" disabled class="form-control" value="{{ $agency->user_name }}">
                 </div>
 
                 <div class="col-6 mb-2 px-3">
                     <label for="agency_name">Agency Name</label>
-                    <span class="text-danger">
-                        @error('agency_name')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="agency_name" disabled name="agency_name" class="form-control"
-                        value="{{ old('agency_name', $agency->agency_name) }}">
+                    <input id="agency_name" disabled class="form-control"
+                        value="{{$agency->agency_name}}">
                 </div>
 
                 <div class="col-6 mb-2 px-3 ">
                     <label for="agency_email">Agency Email</label>
-                    <span class="text-danger">
-                        @error('agency_email')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="agency_email" disabled name="agency_email" class="form-control"
-                        value="{{ old('agency_email', $agency->agency_email) }}">
+                    <input id="agency_email" disabled class="form-control"
+                        value="{{  $agency->agency_email}}">
                 </div>
 
                 <div class="col-6 mb-2 px-3">

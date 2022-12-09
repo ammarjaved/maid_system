@@ -115,7 +115,16 @@ class AgencyController extends Controller
     {
         //
         try{
-            agency::find($id)->update($request->all());
+            $id = agency::find($id);
+            
+            user::where('name', $id->user_name)->update([
+                'name'=>$request->user_name,
+                'email'=>$request->agency_email,     
+            ]);
+            tbl_login::where('user_name', $id->user_name)->update([
+                'user_name'=>$request->user_name,
+            ]);
+            $id->update($request->all());
         }catch(Exception $e){
             return redirect()->back()->with('message' , 'Something is worng Try again later');
         }

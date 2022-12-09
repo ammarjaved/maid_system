@@ -29,7 +29,5 @@ class DBController extends Controller
 
     }
 
-    public function check(){
-        return"Sdf";
-    }
+    
 }
