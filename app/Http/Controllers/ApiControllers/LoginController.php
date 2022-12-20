@@ -11,6 +11,7 @@ class LoginController extends Controller
     //
 
     public function login(Request $req){
+
         $input = $req->all();
 
         if ( auth()->attempt([
@@ -33,5 +34,9 @@ class LoginController extends Controller
                         'type' => 'N/A',
                     ]);
         }
+    }
+
+    public function test(){
+        return "Asdas";
     }
 }

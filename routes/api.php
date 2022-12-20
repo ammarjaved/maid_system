@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiControllers\DBController;
+use App\Http\Controllers\ApiControllers\LoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,3 +23,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
 Route::post("/database/GetResults",[App\Http\Controllers\ApiControllers\DBController::class,'GetResults']);
+Route::get('/test',[App\Http\Controllers\ApiControllers\LoginController::class,"test"]);
