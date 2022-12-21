@@ -24,7 +24,6 @@ use Illuminate\Support\Facades\Auth;
 // })->middleware('auth')->name('home');
 
 require __DIR__ . '/auth.php';
-Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
