@@ -56,7 +56,7 @@ class AgencyController extends Controller
             try{
                 tbl_login::create([
                     'user_name'=>$request->user_name,
-                    'password' => "abcd1234",
+                    'password' => $request->password,
                     'user_type' => 'agency'
                 ]);
             }catch(Exception $e){

@@ -5,6 +5,7 @@ use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MaidController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -23,7 +24,7 @@ use App\Http\Controllers\MaidController;
 // })->middleware('auth')->name('home');
 
 require __DIR__ . '/auth.php';
-
+Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
