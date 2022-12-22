@@ -281,6 +281,11 @@
                         <i class="fe-user"></i>
                         <span>My Account</span>
                     </a> 
+
+                    <a href="/change-password/{{Auth::user()->name}}" class="dropdown-item notify-item">
+                        <i class="fe-lock"></i>
+                        <span>Change Password</span>
+                    </a> 
                     @endif
               
                         

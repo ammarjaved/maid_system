@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\Auth\ChangePassword;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MaidController;
-use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -25,10 +25,15 @@ use Illuminate\Support\Facades\Auth;
 
 require __DIR__ . '/auth.php';
 
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
-    Route::resource('agency',AgencyController::class)->middleware(['middleware' => 'superAdmin']);
+    Route::get('/my-account/edit/{name}',[AgencyController::class,'edit']);
+    Route::resource('agency',AgencyController::class);
     
+    Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
+    Route::post('/new-password',[ChangePassword::class,'newPassword'] );
+
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
     Route::post('/maid-assign',[MaidController::class,"assign_maid"])->name("maid.assign");

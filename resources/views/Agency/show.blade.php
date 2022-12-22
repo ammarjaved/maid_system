@@ -125,8 +125,8 @@
             </div> --}}
                 {{-- <input id="created_by" type="hidden" name="created_by" class="form-control" value="{{Auth::user()->email}}"> --}}
                 <div class="text-center">
-                    @if (Auth::user()->type == 'superAdmin')
-                        {{-- <button type="submit" class="btn btn-success btn-sm mt-3">Update</div> --}}
+                    @if (Auth::user()->type != 'superAdmin')
+                    <a href="{{ route('agency.edit', $agency->id) }}"><button type="submit" class="btn btn-success btn-sm mt-3">Update Your Information</button>
                     @endif
 
                 </div>

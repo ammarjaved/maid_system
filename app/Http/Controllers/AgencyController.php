@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AgencyController extends Controller
 {
+
+    
     /**
      * Display a listing of the resource.
      *

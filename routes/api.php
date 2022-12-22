@@ -21,6 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
+Route::group(['middleware' => 'auth:sanctum'], function(){
+
+});
+
+
 Route::post("/database/GetResults",[App\Http\Controllers\ApiControllers\DBController::class,'GetResults']);
 Route::get('/test',[App\Http\Controllers\ApiControllers\LoginController::class,"test"]);
+
+
+Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
