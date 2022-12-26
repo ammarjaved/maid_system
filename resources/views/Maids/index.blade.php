@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Client'])
+@extends('layouts.vertical', ['page_title' => 'Maid'])
 
 @section('css')
     <!-- third party css -->

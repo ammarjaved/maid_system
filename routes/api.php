@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\ApiControllers\DBController;
-use App\Http\Controllers\ApiControllers\LoginController;
+
+use App\Http\Controllers\ApiControllers\UpdateUserInfo;
 use App\Http\Controllers\ApiControllers\UploadImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +30,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 Route::post("/database/GetResults",[App\Http\Controllers\ApiControllers\DBController::class,'GetResults']);
 Route::get('/test',[App\Http\Controllers\ApiControllers\LoginController::class,"test"]);
 Route::post('/upload-maid-images',[UploadImages::class,"upload"]);
+Route::post('/update-maid-info/{id}',[UpdateUserInfo::class,"updateMaid"]);
+Route::post('/update-client-info/{id}',[UpdateUserInfo::class,"updateClient"]);
 
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);

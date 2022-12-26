@@ -28,7 +28,7 @@
                 @method('PATCH')
                 @csrf
 
-                <div>
+                {{-- <div>
                     <label for="agency_id">Agency id</label>
                     <span class="text-danger">
                         @error('agency_id')
@@ -37,7 +37,7 @@
                     </span>
                     <input id="agency_id" type="number" name="agency_id" class="form-control"
                         value="{{ old('agency_id', $maid->agency_id) }}">
-                </div>
+                </div> --}}
 
                 <div>
                     <label for="user_name">User Name</label>

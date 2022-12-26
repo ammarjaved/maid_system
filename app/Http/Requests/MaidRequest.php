@@ -60,7 +60,6 @@ class MaidRequest extends FormRequest
         ];
     }
     return [
-        'agency_id'=>'required',
         'user_name'=>'required',
         'first_name'=>'required',
         'last_name'=>'required',
