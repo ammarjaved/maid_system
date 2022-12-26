@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Country;
 use Mockery\Expectation;
 use App\Models\tbl_login;
+use File;
 
 class MaidController extends Controller
 {
@@ -25,8 +26,12 @@ class MaidController extends Controller
     
         $maids = maid::where('created_by' , Auth::user()->email)->get();
         $client = Client::where('created_by' , Auth::user()->email)->get();
+
         
+       
         return view('Maids.index',['maids'=>$maids,'clients'=>$client]);
+        
+        
     }
 
     /**
@@ -165,64 +170,96 @@ class MaidController extends Controller
      */
     public function destroy($id)
     {
+        $img_exits = public_path().'/asset/images/Maid/';
         //
-         maid::find($id)->delete();
+         $maid = maid::find($id);
+         $this->removeImage($maid->profile_image);
+         $this->removeImage($maid->passport_image_front);
+         $this->removeImage($maid->passport_image_back);
+         $this->removeImage($maid->visa_image_front);
+         $this->removeImage($maid->visa_image_back);
+
+         tbl_login::where('user_name',$maid->user_name)->delete();
+
+         $maid->delete();
+
         return redirect()->route('maid.index');
     }
 
-    public function save_images($request , $id){
+    public function save_images($req , $id){
 
-        $img = maid::find($id);
+        $destinationPath = 'asset/images/Maid';
+        $img_exits = public_path().'/asset/images/Maid/';
 
-        
-        if($request->profile_image != ""){
-            $file1 = $request->file('profile_image');
-            $destinationPath = 'asset/images/Maid';
-            $img1_dbopen = $file1->getClientOriginalName();
-            $filename = strtotime(now()) . $img1_dbopen;
-            $file1->move($destinationPath, $filename);  
-            $img->profile_image = $filename;
-        }
-      
-        if($request->passport_image_front !=""){
-            $file2 = $request->file('passport_image_front');
-            $destinationPath = 'asset/images/Maid';
-            $img1_dbopen = $file2->getClientOriginalName();
-            $filename = strtotime(now()) . $img1_dbopen;
-            $file2->move($destinationPath, $filename);
-            $img->passport_image_front = $filename;
-        }
+        $maid = maid::find($id);
 
-        if($request->passport_image_back !=""){
-            $file3 = $request->file('passport_image_back');
-            $destinationPath = 'asset/images/Maid';
-            $img1_dbopen = $file3->getClientOriginalName();
-            $filename = strtotime(now()) . $img1_dbopen;
-            $file3->move($destinationPath, $filename);
-            $img->passport_image_back = $filename;
-        }
+        if($req->has('profile_image')){
 
-        if($request->visa_image_front !=""){
-            $file4 = $request->file('visa_image_front');
-            $destinationPath = 'asset/images/Maid';
-            $img1_dbopen = $file4->getClientOriginalName();
-            $filename = strtotime(now()) . $img1_dbopen;
-            $file4->move($destinationPath, $filename);
-            $img->visa_image_front = $filename;
-        } 
+            $this->removeImage($maid->profile_image);
 
-        if($request->visa_image_back !=""){
-            $file5 = $request->file('visa_image_back');
-            $destinationPath = 'asset/images/Maid';
-            $img1_dbopen = $file5->getClientOriginalName();
-            $filename = strtotime(now()) . $img1_dbopen;
+            $file5 = $req->file('profile_image');   
+
+            $exc = $file5->getClientOriginalExtension();
+            $filename =   $maid->user_name.'-profile-image-'.strtotime(now()).'.'.$exc;
             $file5->move($destinationPath, $filename);
-            $img->visa_image_back = $filename;
+            $maid->profile_image = $filename;
+
         }
 
-      
-        $img->save();
-       
+
+        if($req->has('passport_image_front')){
+
+            $this->removeImage($maid->passport_image_front);
+
+            $file5 = $req->file('passport_image_front');   
+
+            $exc = $file5->getClientOriginalExtension();
+            $filename =  $maid->user_name.'-passport-front-image-'.strtotime(now()).'.'.$exc;
+            $file5->move($destinationPath, $filename);
+            $maid->passport_image_front = $filename;
+
+        }
+
+        if($req->has('passport_image_back')){
+
+            $this->removeImage($maid->passport_image_back);
+
+            $file5 = $req->file('passport_image_back');   
+
+            $exc = $file5->getClientOriginalExtension();
+            $filename =  $maid->user_name.'-passport-front-image-'.strtotime(now()).'.'.$exc;
+            $file5->move($destinationPath, $filename);
+            $maid->passport_image_back = $filename;
+            
+        }
+
+        if($req->has('visa_image_front')){
+
+            $this->removeImage($maid->visa_image_front);
+            $file5 = $req->file('visa_image_front');   
+ 
+            $exc = $file5->getClientOriginalExtension();
+            $filename =  $maid->user_name.'-visa-image-front-'.strtotime(now()).'.'.$exc;
+            $file5->move($destinationPath, $filename);
+            $maid->visa_image_front = $filename;
+            
+        }
+
+        if($req->has('visa_image_back')){
+
+            $this->removeImage($maid->visa_image_back);
+           
+
+            $file5 = $req->file('visa_image_back');   
+
+            $exc = $file5->getClientOriginalExtension();
+            $filename =  $maid->user_name.'-visa-image-back-'.strtotime(now()).'.'.$exc;
+            $file5->move($destinationPath, $filename);
+            $maid->visa_image_back = $filename;
+            
+        }
+
+        $maid->save();
     }
 
     public function assign_maid(Request $request){
@@ -231,5 +268,15 @@ class MaidController extends Controller
             'client_id'=>$request->client_id,
         ]);
         return back();
+    }
+
+    public function removeImage($name){
+
+        $img_exits = public_path().'/asset/images/Maid/';
+        if(File::exists($img_exits.$name)){
+            File::delete($img_exits.$name);
+        }
+
+
     }
 }

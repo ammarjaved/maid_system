@@ -1,4 +1,4 @@
-@extends('layouts.vertical', ['page_title' => 'Edit'])
+@extends('layouts.vertical', ['page_title' => 'Detail'])
 
 @section('content')
     <div class="row">

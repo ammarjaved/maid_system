@@ -62,7 +62,11 @@
                                     <td class="text-capitalize">{{ $maid->gender }}</td>
                                     
                                     <td>{{ $maid->skills }}</td>
-                                    <td class="text-capitalize"> <?php
+                                    <td class="text-capitalize">
+                                        @if ($maid->client_id != "")
+                                            
+                                        
+                                        <?php
                                         $assign_clients=\App\Models\client::where('id',$maid->client_id)->get();
 
                                         
@@ -72,8 +76,10 @@
                                          @empty
                                              None
                                          @endforelse
-                                         
-                                       
+                                         @else
+
+                                         no client assign
+                                         @endif
                                     </td>
                                     <td class="text-center p-1">
                                         <div class="dropdown">
@@ -99,9 +105,19 @@
                                                     </form>
                                                 </li>
                                                 <li>
-                                                    <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
+                                                    @if ($maid->client_id == '')
+                                                        <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal"
                                                         onclick="maidID({{ $maid->id }})">Assign</button>
+                                                    @else
+                                                    <form action="{{ route('maid.unAssing')}}" method="POST">
+                                                        @csrf
+                                                        <input name="maid_id" value="{{$maid->id}}" type="hidden">
+                                                        <button class="btn btn-sm dropdown-item" type="submit" >Un-assign</button>
+                                                    </form>
+
+                                                    @endif
+                                                    
                                                 </li>
                                             </ul>
                                         </div>
@@ -131,7 +147,9 @@
                     <h5 class="modal-title" id="exampleModalLabel">Assign to Client</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form onsubmit="return clientId()" method="POST" action="{{ route('maid.assign', $maid->id) }}" >
+            
+                
+                <form onsubmit="return clientId()" method="POST" action="{{ route('maid.assign') }}" >
                     @csrf
                 <div class="modal-body">
                     <input type="hidden" id="maid_id" name="maid_id" class="form-control">
@@ -152,6 +170,7 @@
 
                 </div>
                 </form>
+
             </div>
         </div>
     </div>

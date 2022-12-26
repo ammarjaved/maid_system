@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\AssingMaid;
 use App\Http\Controllers\Auth\ChangePassword;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MaidController;
@@ -36,8 +37,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
-    Route::post('/maid-assign',[MaidController::class,"assign_maid"])->name("maid.assign");
+    Route::post('/maid-assign',[AssingMaid::class,"assign_maid"])->name("maid.assign");
     Route::view('/','client.create');
+
+    Route::post('/un-assign',[AssingMaid::class,'unAssign'])->name("maid.unAssing");
 
 });
 

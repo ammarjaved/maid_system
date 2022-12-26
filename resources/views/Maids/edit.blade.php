@@ -247,7 +247,7 @@
                     <div class="col-6 text-center">
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}" data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
-                                style="height: 70px; width: 70px;">
+                            alt="no image found" style="height: 70px; width: 70px;">
                         </a>
                     </div>
                     <div class="col-6">
@@ -266,7 +266,7 @@
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary"
-                                src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
+                            alt="no image found" src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
                                 style="height: 70px; width: 70px;">
                         </a>
                     </div>
@@ -287,7 +287,7 @@
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
-                                style="height: 70px; width: 70px;">
+                            alt="no image found" style="height: 70px; width: 70px;">
                         </a>
                     </div>
                     <div class="col-6">
@@ -307,7 +307,7 @@
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
-                                style="height: 70px; width: 70px;">
+                            alt="no image found" style="height: 70px; width: 70px;">
                         </a>
                     </div>
 
@@ -329,7 +329,7 @@
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
-                                style="height: 70px; width: 70px;">
+                                alt="no image found" style="height: 70px; width: 70px;">
                         </a>
                     </div>
 
