@@ -11,7 +11,7 @@
                         <li class="breadcrumb-item active">edit</li>
                     </ol>
                 </div>
-                <h4 class="page-title">Edit Client</h4>
+                <h4 class="page-title">Client Detail</h4>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
                     <input id="email" name="email" class="form-control" disabled
                         value="{{ old('email', $client->email) }}">
                 </div>
-
+                <input value="{{ $client->id }}" id="client_id" type="hidden">
                 <div>
                     <label for="contact_number">Contact Number</label>
                     <span class="text-danger">
@@ -235,5 +235,30 @@
 
 
             }
+
+
+            $(document).ready(function() {
+            getGeom();
+        });
+
+        getGeom = function() {
+            let id = document.querySelector('#client_id').value;
+            $.ajax({
+                type: 'GET',
+                url: `/get-geo-detail/${id}`,
+                success: function(data) {
+                    console.log(JSON.parse(data))
+              
+                    
+                    var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
+                   
+
+                   
+
+                }
+            });
+
+        }
+
         </script>
     @endsection

@@ -36,11 +36,8 @@ class ChangePassword extends Controller
        
 
         try{
-        tbl_login::where('user_name', $req->name)->update([
-            'password'=>$req->new_password,
-        ]);
-
-        User::where('name',$req->name)->update([
+    
+        User::where('name',Auth::user()->name)->update([
             'password'=>Hash::make($req->new_password),
         ]);
         return back()->with('message',"Your password is update successfully");

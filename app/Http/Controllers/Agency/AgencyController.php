@@ -10,6 +10,7 @@ use App\Models\agency;
 use Exception;
 use App\Models\tbl_login;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AgencyController extends Controller
@@ -123,12 +124,13 @@ class AgencyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+        $request['user_name'] = Auth::user()->name;
         //
         try{
             $id = agency::find($id);
             
-            user::where('name', $id->user_name)->update([
-                'name'=>$request->user_name,
+            User::where('name', $id->user_name)->update([
                 'email'=>$request->agency_email,     
             ]);
 
@@ -136,7 +138,8 @@ class AgencyController extends Controller
         }catch(Exception $e){
             return redirect()->back()->with('message' , 'Something is worng Try again later');
         }
-        return redirect()->route('agency.index');
+        return redirect()->route('agency.show', $id->id);
+       
     }
 
     /**

@@ -33,12 +33,12 @@
 
                         <label for="user_name">User Name</label>
                         <span class="text-danger">
-                            @error('user_name')
+                            @error('name')
                                 {{ $message }}
                             @enderror
                         </span>
                         <input id="user_name" name="user_name" class="form-control"
-                            value="{{ old('user_name', $agency->user_name) }}">
+                            value="{{ $agency->user_name }}" disabled style="background-color: #00000021">
                     </div>
 
                     <div class="col-6 mb-2 px-3">

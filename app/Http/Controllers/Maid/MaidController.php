@@ -15,7 +15,7 @@ use App\Models\tbl_login;
 use App\Models\User;
 use File;
 use App\Models\user_activity;
-use Illuminate\Support\Facades\DB;
+use App\Models\agency;
 
 class MaidController extends Controller
 {
@@ -28,8 +28,8 @@ class MaidController extends Controller
     {
         //
     
-        $maids = maid::where('created_by' , Auth::user()->email)->get();
-        $client = Client::where('created_by' , Auth::user()->email)->get();
+        $maids = maid::where('created_by' , Auth::user()->name)->get();
+        $client = Client::where('created_by' , Auth::user()->name)->get();
 
         
        
@@ -63,8 +63,9 @@ class MaidController extends Controller
      */
     public function store(MaidRequest $request)
     {
-        $request['agency_id'] = Auth::user()->id;
-        $request['created_by'] = Auth::user()->email;
+        $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
+        $request['agency_id'] =$agency_id[0]['id'];
+        $request['created_by'] = Auth::user()->name;
         $request['user_name'] = $request->name;
         // return $request;
         try{
@@ -147,6 +148,7 @@ class MaidController extends Controller
     public function update(MaidRequest $request, $id)
     {
         //
+        
         try{
             maid::find($id)->update($request->all());
             }catch(Exception $e){
@@ -175,7 +177,7 @@ class MaidController extends Controller
          $this->removeImage($maid->visa_image_front);
          $this->removeImage($maid->visa_image_back);
 
-         tbl_login::where('user_name',$maid->user_name)->delete();
+         User::where('name',$maid->user_name)->delete();
 
          $maid->delete();
 

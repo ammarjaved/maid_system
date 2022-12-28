@@ -41,7 +41,7 @@ class MaidRequest extends FormRequest
             'date_of_birth'=>'required',
             'country'=>'required',
             'contact_number'=>'required|min:9|max:11',
-            'emergency_contact'=>'required',
+            'emergency_contact'=>'required|min:9|max:11',
             'education'=>'required',
             'occupation'=>'required',
             'skills'=>'required',
@@ -61,7 +61,7 @@ class MaidRequest extends FormRequest
         ];
     }
     return [
-        'user_name'=>'required',
+        
         'first_name'=>'required',
         'last_name'=>'required',
         'full_name'=>'required',
@@ -71,7 +71,7 @@ class MaidRequest extends FormRequest
         'date_of_birth'=>'required',
         'country'=>'required',
         'contact_number'=>'required|min:9|max:11',
-        'emergency_contact'=>'required',
+        'emergency_contact'=>'required|min:9|max:11',
         'education'=>'required',
         'occupation'=>'required',
         'skills'=>'required',

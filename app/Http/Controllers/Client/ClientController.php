@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
+use App\Models\agency;
 use App\Models\Client;
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +23,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = Client::where('agency_id', Auth::user()->id)->get();
+        $clients = Client::where('created_by', Auth::user()->name)->get();
         return view('Client.index', ['clients' => $clients]);
     }
 
@@ -46,8 +47,10 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
 
-        $request['agency_id'] = Auth::user()->id;
-        $request['created_by'] = Auth::user()->email;
+        $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
+        $request['agency_id'] =$agency_id[0]['id'];
+        
+        $request['created_by'] = Auth::user()->name;
         $request['user_name'] = $request->name;
         try {
             $data = Client::create($request->all());
@@ -132,14 +135,13 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, $id)
     {
-        //
+        
         $client = Client::find($id);
         try {
             User::where('name',$client->user_name)
                 ->update([
-                    'name'=>$request->user_name,
                     'email'=>$request->email
                 ]);
             $client->update($request->all());

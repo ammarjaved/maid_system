@@ -46,8 +46,8 @@
                             {{ $message }}
                         @enderror
                     </span>
-                    <input id="user_name" name="user_name" class="form-control"
-                        value="{{ old('user_name', $maid->user_name) }}">
+                    <input id="user_name" class="form-control"
+                        value="{{ $maid->user_name}}" style="background-color: #00000021" disabled>
                 </div>
 
                 <div>
@@ -346,13 +346,6 @@
 
 
 
-
-                {{-- <div>
-            <label for="created_by">created_by</label>
-            <input id="created_by" name="created_by" class="form-control" value="">
-        </div> --}}
-                <input id="created_by" type="hidden" name="created_by" class="form-control"
-                    value="{{ Auth::user()->email }}">
                 <div class="text-center">
                     <button type="submit" class="btn btn-success mt-3">Update</button>
                 </div>

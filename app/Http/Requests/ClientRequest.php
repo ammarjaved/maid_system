@@ -47,8 +47,8 @@ class ClientRequest extends FormRequest
         ];
         }
         return [
-            'agency_id'=>'required',
-            'user_name'=>'required',
+           
+
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',
@@ -58,7 +58,7 @@ class ClientRequest extends FormRequest
             'client_address'=>'required',
             'house_coords'=>'required',
             'maid_working_address'=>'required',
-            'agency_id'=>'required',
+          
             // 'profile_image'=>'required',
 
         ];

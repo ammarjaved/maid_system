@@ -31,7 +31,7 @@
         <div>
             <label for="user_name">User Name</label>
             <span class="text-danger">@error('name'){{ $message }}@enderror</span>
-            <input id="user_name" name="name" class="form-control" value="{{old('name')}}">
+            <input id="user_name" name="name" class="form-control" value="{{old('name')}}" >
         </div>
 
         <div>

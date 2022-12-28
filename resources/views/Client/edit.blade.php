@@ -37,8 +37,8 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="user_name" name="user_name" class="form-control"
-                            value="{{ old('user_name', $client->user_name) }}">
+                        <input id="user_name" class="form-control"
+                            value="{{ old('user_name', $client->user_name) }}" style="background-color: #00000021" disabled>
                     </div>
 
                     <div>
