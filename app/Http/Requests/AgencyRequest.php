@@ -25,7 +25,7 @@ class AgencyRequest extends FormRequest
     public function rules()
     {
          return [
-                'user_name'=>['required',Rule::unique('tbl_login')],
+                'name'=>['required',Rule::unique('users')],
                 'agency_name'=>'required' ,
                 'agency_email'=>['required','email', Rule::unique('tbl_agency')],
                 'agency_address'=>'required',

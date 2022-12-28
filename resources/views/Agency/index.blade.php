@@ -73,7 +73,7 @@
 
                                                 <li>
                                                     <form method="POST"
-                                                        action="{{ route('agency.destroy', $agency->id) }}">
+                                                        action="{{ route('agency.destroy', $agency->user_name) }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit" class="btn  btn-sm dropdown-item"

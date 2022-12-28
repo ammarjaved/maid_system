@@ -27,20 +27,22 @@ class ClientRequest extends FormRequest
         $currentURL = \Request::url();
         if ($currentURL == route('client.store')){
         return [
-            'agency_id'=>'required',
-            'user_name'=>['required', Rule::unique('tbl_login')],
+            'name'=>['required', Rule::unique('users')],
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',
             'email'=>'required|email',
             'contact_number'=>'required|min:9|max:11',
-            'emergency_contact'=>'required',
+            'emergency_contact'=>'required|min:9|max:11',
             'client_address'=>'required',
             'house_coords'=>'required',
             'maid_working_address'=>'required',
             // 'agency_id'=>'required',
             'profile_image'=>'required',
-            'created_by'=>'required',
+            'geo'=>'required',
+            'password' => 'required|string|min:8',
+            'password_confirmation' => 'required|same:password|min:8',
+            
 
         ];
         }
@@ -52,13 +54,12 @@ class ClientRequest extends FormRequest
             'full_name'=>'required',
             'email'=>'required|email',
             'contact_number'=>'required|min:9|max:11',
-            'emergency_contact'=>'required',
+            'emergency_contact'=>'required|min:9|max:11',
             'client_address'=>'required',
             'house_coords'=>'required',
             'maid_working_address'=>'required',
             'agency_id'=>'required',
             // 'profile_image'=>'required',
-            'created_by'=>'required',
 
         ];
     }

@@ -78,7 +78,7 @@
 
                                                 <li>
                                                     <form method="POST"
-                                                        action="{{ route('client.destroy', $client->id) }}">
+                                                        action="{{ route('client.destroy', $client->user_name) }}">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit" class="btn  btn-sm dropdown-item"

@@ -5,8 +5,21 @@
     @include('layouts.shared/title-meta', ['title' => $page_title])
 
     @include('layouts.shared/head-css', ["mode" => $mode ?? '', "demo" => $demo ?? ''])
-    <script src="{{ URL::asset('dist/js/lightbox-plus-jquery.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ URL::asset('map/draw/leaflet.draw.css')}}"/>
     <link rel="stylesheet" href="{{ URL::asset('dist/css/lightbox.min.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"/>
+
+
+
+    <script src="{{ URL::asset('dist/js/lightbox-plus-jquery.min.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+
+    <script src="{{ URL::asset('map/draw/leaflet.draw-custom.js')}}"></script>
+    <script src="{{ URL::asset('map/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js')}}"></script>
+
+    
+   
 
 </head>
 
@@ -42,6 +55,8 @@
     @include('layouts.shared/right-sidebar')
 
     @include('layouts.shared/footer-script')
+
+    
 
 </body>
 

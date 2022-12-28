@@ -31,8 +31,7 @@ class MaidRequest extends FormRequest
        
         if ($currentURL == route('maid.store')){
         return [
-            'agency_id'=>'required',
-            'user_name'=>['required', Rule::unique('tbl_login')],
+            'name'=>['required', Rule::unique('users')],
             'first_name'=>'required',
             'last_name'=>'required',
             'full_name'=>'required',
@@ -55,7 +54,9 @@ class MaidRequest extends FormRequest
             'visa_expiry_date'=>'required',
             'visa_image_front'=>'required',
             'visa_image_back'=>'required',
-            'created_by'=>'required',
+
+            'password' => 'required|string|min:8',
+            'password_confirmation' => 'required|same:password|min:8',
 
         ];
     }
@@ -83,7 +84,7 @@ class MaidRequest extends FormRequest
         // 'visa_expiry_date'=>'required',
         // 'visa_image_front'=>'required',
         // 'visa_image_back'=>'required',
-        'created_by'=>'required',
+
     ];
     }
 }

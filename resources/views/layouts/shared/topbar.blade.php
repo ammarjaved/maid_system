@@ -277,7 +277,7 @@
                     </div>
 
                     @if (Auth::user()->type != "superAdmin")
-                    <a href="/my-account/{{Auth::user()->name}}" class="dropdown-item notify-item">
+                    <a href="/my-account/{{ Auth::user()->name}}" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account</span>
                     </a> 

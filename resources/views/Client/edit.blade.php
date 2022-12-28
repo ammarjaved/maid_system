@@ -26,157 +26,265 @@
             <form action="{{ route('client.update', $client->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
+                <div class="first">
 
-                <div>
-                    <label for="agency_id">Agency id</label>
-                    <span class="text-danger">
-                        @error('agency_id')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="agency_id" type="number" name="agency_id" class="form-control"
-                        value="{{ old('agency_id', $client->agency_id) }}">
-                </div>
+                    <input value="{{ $client->id }}" id="client_id" type="hidden">
 
-                <div>
-                    <label for="user_name">User Name</label>
-                    <span class="text-danger">
-                        @error('user_name')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="user_name" name="user_name" class="form-control"
-                        value="{{ old('user_name', $client->user_name) }}">
-                </div>
-
-                <div>
-                    <label for="first_name">First Name</label>
-                    <span class="text-danger">
-                        @error('first_name')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="first_name" name="first_name" class="form-control"
-                        value="{{ old('first_name', $client->first_name) }}">
-                </div>
-
-                <div>
-                    <label for="last_name">Last Name</label>
-                    <span class="text-danger">
-                        @error('last_name')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="last_name" name="last_name" class="form-control"
-                        value="{{ old('last_name', $client->last_name) }}">
-                </div>
-
-                <div>
-                    <label for="full_name">Full Name</label>
-                    <span class="text-danger">
-                        @error('full_name')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="full_name" name="full_name" class="form-control"
-                        value="{{ old('full_name', $client->full_name) }}">
-                </div>
-
-                <div>
-                    <label for="email">Email</label>
-                    <span class="text-danger">
-                        @error('email')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="email" name="email" class="form-control" value="{{ old('email', $client->email) }}">
-                </div>
-
-                <div>
-                    <label for="contact_number">Contact Number</label>
-                    <span class="text-danger">
-                        @error('contact_number')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="contact_number" type="number" name="contact_number" class="form-control"
-                        value="{{ old('contact_number', $client->contact_number) }}">
-                </div>
-                <div>
-                    <label for="emergency_contact">Emergency Contact</label>
-                    <span class="text-danger">
-                        @error('emergency_contact')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="emergency_contact" type="number" name="emergency_contact" class="form-control"
-                        value="{{ old('emergency_contact', $client->emergency_contact) }}">
-                </div>
-                <div>
-                    <label for="client_address">Client address</label>
-                    <span class="text-danger">
-                        @error('client_address')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="client_address" name="client_address" class="form-control"
-                        value="{{ old('client_address', $client->client_address) }}">
-                </div>
-                <div>
-                    <label for="house_coords">House coords</label>
-                    <span class="text-danger">
-                        @error('house_coords')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="house_coords" name="house_coords" class="form-control"
-                        value="{{ old('house_coords', $client->house_coords) }}">
-                </div>
-                <div>
-                    <label for="maid_working_address">Maid working address</label>
-                    <span class="text-danger">
-                        @error('maid_working_address')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <input id="maid_working_address" name="maid_working_address" class="form-control"
-                        value="{{ old('maid_working_address', $client->maid_working_address) }}">
-                </div>
-
-                <div class="row">
-                    <label for="profile_image">Profile Image</label>
-                    <div class="col-6 text-center">
-                        <a href="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
-                            data-lightbox="roadtrip">
-                            <img id="temprary" src="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
-                                style="height: 70px; width: 70px;">
-                        </a>
-                    </div>
-                    <div class="col-6">
-
+                    <div>
+                        <label for="user_name">User Name</label>
                         <span class="text-danger">
-                            @error('profile_image')
+                            @error('user_name')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="profile_image" type="file" name="profile_image" class="form-control">
+                        <input id="user_name" name="user_name" class="form-control"
+                            value="{{ old('user_name', $client->user_name) }}">
                     </div>
+
+                    <div>
+                        <label for="first_name">First Name</label>
+                        <span class="text-danger">
+                            @error('first_name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="first_name" name="first_name" class="form-control"
+                            value="{{ old('first_name', $client->first_name) }}">
+                    </div>
+
+                    <div>
+                        <label for="last_name">Last Name</label>
+                        <span class="text-danger">
+                            @error('last_name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="last_name" name="last_name" class="form-control"
+                            value="{{ old('last_name', $client->last_name) }}">
+                    </div>
+
+                    <div>
+                        <label for="full_name">Full Name</label>
+                        <span class="text-danger">
+                            @error('full_name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="full_name" name="full_name" class="form-control"
+                            value="{{ old('full_name', $client->full_name) }}">
+                    </div>
+
+                    <div>
+                        <label for="email">Email</label>
+                        <span class="text-danger">
+                            @error('email')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="email" name="email" class="form-control"
+                            value="{{ old('email', $client->email) }}">
+                    </div>
+
+                    <div>
+                        <label for="contact_number">Contact Number</label>
+                        <span class="text-danger">
+                            @error('contact_number')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="contact_number" type="number" name="contact_number" class="form-control"
+                            value="{{ old('contact_number', $client->contact_number) }}">
+                    </div>
+                    <div>
+                        <label for="emergency_contact">Emergency Contact</label>
+                        <span class="text-danger">
+                            @error('emergency_contact')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="emergency_contact" type="number" name="emergency_contact" class="form-control"
+                            value="{{ old('emergency_contact', $client->emergency_contact) }}">
+                    </div>
+                    <div>
+                        <label for="client_address">Client address</label>
+                        <span class="text-danger">
+                            @error('client_address')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="client_address" name="client_address" class="form-control"
+                            value="{{ old('client_address', $client->client_address) }}">
+                    </div>
+                    <div>
+                        <label for="house_coords">House coords</label>
+                        <span class="text-danger">
+                            @error('house_coords')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="house_coords" name="house_coords" class="form-control"
+                            value="{{ old('house_coords', $client->house_coords) }}">
+                    </div>
+                    <div>
+                        <label for="maid_working_address">Maid working address</label>
+                        <span class="text-danger">
+                            @error('maid_working_address')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="maid_working_address" name="maid_working_address" class="form-control"
+                            value="{{ old('maid_working_address', $client->maid_working_address) }}">
+                    </div>
+
+                    <div class="row">
+                        <label for="profile_image">Profile Image</label>
+                        <div class="col-6 text-center">
+                            <a href="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
+                                data-lightbox="roadtrip">
+                                <img id="temprary" src="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
+                                    style="height: 70px; width: 70px;">
+                            </a>
+                        </div>
+                        <div class="col-6">
+
+                            <span class="text-danger">
+                                @error('profile_image')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <input id="profile_image" type="file" name="profile_image" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="next my-4">
+
+                    <input name="geo" id="geo" type="hidden">
+                    <div id="map" class="map" style="height: 400px; marign :40px; "></div>
                 </div>
 
 
+            
 
-
-                {{-- <div>
-            <label for="created_by">created_by</label>
-            <input id="created_by" name="created_by" class="form-control" value="">
-        </div> --}}
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success mt-3">Update</button>
+                <div class="text-center p-3">
+                    <button type="submit" class="btn btn-success" id="submit">submit</button>
                 </div>
 
         </div>
         </form>
 
     </div>
+@endsection
+
+
+@section('script')
+    <script>
+        map = L.map('map').setView([3.016603, 101.858382], 11);
+        document.getElementById('map').style.cursor = 'pointer'
+
+        var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+        //.addTo(map);
+        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);
+
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+        var drawControl = new L.Control.Draw({
+            draw: {
+                circle: true,
+                marker: false,
+                polygon: true,
+                polyline: false,
+                rectangle: true
+            },
+            edit: {
+                featureGroup: drawnItems
+            }
+        });
+        // add draw tools
+
+        map.addControl(drawControl);
+        $(".leaflet-draw-draw-circlemarker").hide();
+
+
+        map.on('draw:created', function(e) {
+
+            var type = e.layerType;
+
+            layer = e.layer;
+
+            drawnItems.addLayer(layer);
+            console.log(type);
+            var data = layer.toGeoJSON();
+            console.log(JSON.stringify(data));
+
+            $('#geo').val(JSON.stringify(data.geometry));
+            // submitDetailsForm(data)
+
+        })
+
+        $(document).ready(function() {
+            getGeom();
+        });
+
+        getGeom = function() {
+            let id = document.querySelector('#client_id').value;
+            $.ajax({
+                type: 'GET',
+                url: `/get-geo-detail/${id}`,
+                success: function(data) {
+                    console.log(JSON.parse(data))
+// var check = {
+//   "type": "FeatureCollection",
+//   "features": [
+//     {
+//       "type": "Feature",
+//       "properties": {},
+//       "geometry": {
+//         "coordinates": [
+//           [
+//             [
+//               72.23437313206335,
+//               31.99412185994899
+//             ],
+//             [
+//               71.48831826609003,
+//               32.52683170727849
+//             ],
+//             [
+//               70.58093714717259,
+//               32.15450967834008
+//             ],
+//             [
+//               70.59912462404648,
+//               31.674286885779765
+//             ],
+//             [
+//               71.2274842803051,
+//               31.30859257823778
+//             ],
+//             [
+//               72.23437313206335,
+//               31.99412185994899
+//             ]
+//           ]
+//         ],
+//         "type": "Polygon"
+//       }
+//     }
+//   ]
+// };
+                 
+                    
+                    var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
+                   
+
+                   
+
+                }
+            });
+
+        }
+    </script>
 @endsection

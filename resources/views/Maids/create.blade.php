@@ -27,17 +27,11 @@
         <form action="{{ route ('maid.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-        {{-- <div>
-            <label for="agency_id">Agency id</label>
-            <span class="text-danger">@error('agency_id'){{ $message }}@enderror</span>
-            <input id="agency_id" type="number" name="agency_id" class="form-control" value="{{old('agency_id')}}">
-        </div> --}}
-        <input id="agency_id" type="hidden" name="agency_id" class="form-control" value="{{Auth::user()->id}}">
 
         <div>
             <label for="user_name">User Name</label>
-            <span class="text-danger">@error('user_name'){{ $message }}@enderror</span>
-            <input id="user_name" name="user_name" class="form-control" value="{{old('user_name')}}">
+            <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+            <input id="user_name" name="name" class="form-control" value="{{old('name')}}">
         </div>
 
         <div>
@@ -178,14 +172,28 @@
             <input id="visa_image_back" name="visa_image_back" type="file" class="form-control" value="{{old('visa_image_back')}}">
         </div>
 
+        <div class="">
+            <label for="password">Password</label>
+            <span class="text-danger">
+                @error('password')
+                    {{ $message }}
+                @enderror
+            </span>
+            <input id="password" name="password" class="form-control" value="{{ old('password') }}">
+        </div>
+       
+ <div class="">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <span class="text-danger">
+                            @error('password_confirmation')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="password_confirmation" name="password_confirmation" class="form-control"
+                            value="{{ old('password_confirmation') }}">
+                    </div>
 
 
-
-        {{-- <div>
-            <label for="created_by">created_by</label>
-            <input id="created_by" name="created_by" class="form-control" value="">
-        </div> --}}
-        <input id="created_by" type="hidden" name="created_by" class="form-control" value="{{Auth::user()->email}}">
         <div class="text-center">
         <button type="submit" class="btn btn-success mt-3">submit</button>
         </div>

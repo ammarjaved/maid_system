@@ -32,11 +32,11 @@
 
                         <label for="user_name">User Name</label>
                         <span class="text-danger">
-                            @error('user_name')
+                            @error('name')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="user_name" name="user_name" class="form-control" value="{{ old('user_name') }}">
+                        <input id="user_name" name="name" class="form-control" value="{{ old('name') }}">
                     </div>
 
                     <div class="col-6 mb-2 px-3">
@@ -155,31 +155,6 @@
                             value="{{ old('password_confirmation') }}">
                     </div>
 
-                    {{-- <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password">
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="password_confirmation" class="form-label">Password confirmation</label>
-                                    <div class="input-group input-group-merge">
-                                        <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Enter your password confirmation">
-                                        <div class="input-group-text" data-password="false">
-                                            <span class="password-eye"></span>
-                                        </div>
-                                    </div>
-                                </div> --}}
-
-
-                    {{-- <div>
-                <label for="created_by">created_by</label>
-                <input id="created_by" name="created_by" hidden class="form-control" value="">
-            </div> --}}
                     <input id="created_by" type="hidden" name="created_by" class="form-control"
                         value="{{ Auth::user()->email }}">
                     <div class="text-center">

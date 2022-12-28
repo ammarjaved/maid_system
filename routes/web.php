@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoutingController;
-use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AssingMaid;
+use App\Http\Controllers\Agency\AgencyController;
 use App\Http\Controllers\Auth\ChangePassword;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\MaidController;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Maid\MaidController;
 
 
 /*
@@ -30,17 +30,25 @@ require __DIR__ . '/auth.php';
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
     Route::get('/my-account/edit/{name}',[AgencyController::class,'edit']);
-    Route::resource('agency',AgencyController::class);
+    
     
     Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
     Route::post('/new-password',[ChangePassword::class,'newPassword'] );
 
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
+    Route::get('/get-geo-detail/{id}',[ClientController::class,'getGeo']);
+
+
+    Route::resource('agency',AgencyController::class);
+
     Route::post('/maid-assign',[AssingMaid::class,"assign_maid"])->name("maid.assign");
     Route::view('/','client.create');
 
     Route::post('/un-assign',[AssingMaid::class,'unAssign'])->name("maid.unAssing");
+
+
+    Route::view('/get-test','Client.test' );
 
 });
 

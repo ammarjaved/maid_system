@@ -21,25 +21,24 @@
 </div>
 
     <div class="container col-7">
+
         <div class="card p-3 ">
+
+    <span id="validation-errors"></span>       
         <h1 class="text-center">Add Client</h1>
         @if (Session::has('message'))
         <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
     @endif
-        <form action="{{ route ('client.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route ('client.store') }}" id="myForm" method="POST" enctype="multipart/form-data">
             @csrf
 
-        {{-- <div>
-            <label for="agency_id">Agency id</label>
-            <span class="text-danger">@error('agency_id'){{ $message }}@enderror</span>
-            <input id="agency_id" type="number" name="agency_id" class="form-control" value="{{old('agency_id')}}">
-        </div> --}}
-        <input id="agency_id" type="hidden" name="agency_id" class="form-control" value="{{Auth::user()->id}}">
+       <div class="first">
+        
 
         <div>
             <label for="user_name">User Name</label>
-            <span class="text-danger">@error('user_name'){{ $message }}@enderror</span>
-            <input id="user_name" name="user_name" class="form-control" value="{{old('user_name')}}">
+            <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+            <input id="user_name" name="name" class="form-control" value="{{old('name')}}">
         </div>
 
         <div>
@@ -97,19 +96,46 @@
             <span class="text-danger">@error('profile_image'){{ $message }}@enderror</span>
             <input id="profile_image" type="file" name="profile_image" class="form-control" value="{{old('profile_image')}}">
         </div>
-       
 
-
-
-        {{-- <div>
-            <label for="created_by">created_by</label>
-            <input id="created_by" name="created_by" class="form-control" value="">
-        </div> --}}
-        <input id="created_by" type="hidden" name="created_by" class="form-control" value="{{Auth::user()->email}}">
-        <div class="text-center">
-        <button type="submit" class="btn btn-success mt-3">submit</button>
+        <div class="">
+            <label for="password">Password</label>
+            <span class="text-danger">
+                @error('password')
+                    {{ $message }}
+                @enderror
+            </span>
+            <input id="password" name="password" class="form-control" value="{{ old('password') }}">
         </div>
+       
+ <div class="">
+                        <label for="password_confirmation">Confirm Password</label>
+                        <span class="text-danger">
+                            @error('password_confirmation')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="password_confirmation" name="password_confirmation" class="form-control"
+                            value="{{ old('password_confirmation') }}">
+                    </div>
 
+
+      
+    </div>
+        <div class="next" >
+        
+        
+            
+
+
+            <input name="geo" id="geo"  type="hidden">
+            <span class="text-danger">@error('geo')Please select boundry @enderror</span>
+        <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
+        </div>
+        <div class="d-flex justify-content-between p-3">
+            <button class="btn btn-secondary" id="pre" type="button" onclick="nextPage(1)"> Pervious </button>
+            <button type="submit" class="btn btn-success" id="submit"  >submit</button>
+            <button class=" btn btn-primary" id="next" type="button" onclick="nextPage(0)">Next</button>
+        </div>
     </div>
         </form>
 
@@ -118,4 +144,116 @@
 
 
 
+@endsection
+
+
+
+@section('script')
+
+
+<script type="text/javascript" >
+
+
+    map = L.map('map').setView([3.016603, 101.858382], 11);
+    document.getElementById('map').style.cursor = 'pointer'
+
+    var st=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+    //.addTo(map);
+    var st1=L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+    }).addTo(map);
+
+    var drawnItems = new L.FeatureGroup();
+         map.addLayer(drawnItems);
+    var drawControl = new L.Control.Draw({
+        draw :{
+        circle:true,
+        marker: false,
+        polygon:true,
+        polyline:false,
+        rectangle:true
+        },
+    edit: {
+    featureGroup: drawnItems
+    }
+    });
+// add draw tools
+
+    map.addControl(drawControl);
+    $(".leaflet-draw-draw-circlemarker").hide();
+
+
+    map.on('draw:created', function (e) {
+
+    var type = e.layerType;
+
+    layer = e.layer;
+
+    drawnItems.addLayer(layer);
+    console.log(type);
+    var data = layer.toGeoJSON();
+    console.log(JSON.stringify(data));
+
+    $('#geo').val(JSON.stringify(data.geometry));
+    // submitDetailsForm(data)
+
+    })
+
+
+
+    $('.next').hide();
+    $("#pre").attr("disabled", true);
+    // $("#submit").attr("disabled",true);
+
+function nextPage(condition){
+    if(condition === 0){
+        $('.first').hide();
+        $('.next').show();
+        $("#next").attr("disabled", true);
+        $("#pre").attr("disabled", false);
+    }
+    else{
+        $('.first').show();
+        $('.next').hide();
+        $("#next").attr("disabled", false);
+        $("#pre").attr("disabled", true);
+    }
+
+
+
+}
+
+function submitDetailsForm() {
+ 
+    // formData = new FormData($('form#myForm').serialize());
+
+    $.ajaxSetup({
+headers: {
+'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+}
+});
+    $.ajax({
+        url: '/client',
+        type: 'POST',
+        dataType: 'json',
+        mimeType: "multipart/form-data",
+        data: $('form#myForm').serialize(),
+        success: function(data) {
+                  alert('save sucessfuly');
+                 },
+                
+                 error: function (xhr) {
+                   
+   $.each(xhr.responseJSON.errors, function(key,value) {
+    $('#er_'+key).html('');
+    $('#er_'+key).html(value);
+     console.log(value);
+ }); 
+                    }
+                }
+    );
+}
+
+</script>
 @endsection

@@ -16,7 +16,7 @@ class LoginController extends Controller
 
         $input = $req->all();
 
-        $find = tbl_login::where('user_name',$input['username'])->where('password' , $input['password'])->first();
+        $find = User::where('name',$input['username'])->where('password' , $input['password'])->first();
         
         if ( $find) {
             // $token = $find->createToken('MyApp')->plainTextToken;
