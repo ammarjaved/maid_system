@@ -251,7 +251,7 @@
               
                     
                     var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
-                   
+                    map.fitBounds(myLayer.getBounds());
 
                    
 

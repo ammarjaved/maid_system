@@ -37,8 +37,8 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="user_name" class="form-control"
-                            value="{{ old('user_name', $client->user_name) }}" style="background-color: #00000021" disabled>
+                        <input id="user_name" class="form-control" value="{{ old('user_name', $client->user_name) }}"
+                            style="background-color: #00000021" disabled>
                     </div>
 
                     <div>
@@ -163,7 +163,7 @@
                 </div>
 
 
-            
+
 
                 <div class="text-center p-3">
                     <button type="submit" class="btn btn-success" id="submit">submit</button>
@@ -202,26 +202,19 @@
                 featureGroup: drawnItems
             }
         });
-        // add draw tools
 
+        // add draw tools
         map.addControl(drawControl);
         $(".leaflet-draw-draw-circlemarker").hide();
 
-
         map.on('draw:created', function(e) {
-
             var type = e.layerType;
-
             layer = e.layer;
-
             drawnItems.addLayer(layer);
-            console.log(type);
+            // console.log(type);
             var data = layer.toGeoJSON();
-            console.log(JSON.stringify(data));
-
+            // console.log(JSON.stringify(data));
             $('#geo').val(JSON.stringify(data.geometry));
-            // submitDetailsForm(data)
-
         })
 
         $(document).ready(function() {
@@ -234,57 +227,37 @@
                 type: 'GET',
                 url: `/get-geo-detail/${id}`,
                 success: function(data) {
-                    console.log(JSON.parse(data))
-// var check = {
-//   "type": "FeatureCollection",
-//   "features": [
-//     {
-//       "type": "Feature",
-//       "properties": {},
-//       "geometry": {
-//         "coordinates": [
-//           [
-//             [
-//               72.23437313206335,
-//               31.99412185994899
-//             ],
-//             [
-//               71.48831826609003,
-//               32.52683170727849
-//             ],
-//             [
-//               70.58093714717259,
-//               32.15450967834008
-//             ],
-//             [
-//               70.59912462404648,
-//               31.674286885779765
-//             ],
-//             [
-//               71.2274842803051,
-//               31.30859257823778
-//             ],
-//             [
-//               72.23437313206335,
-//               31.99412185994899
-//             ]
-//           ]
-//         ],
-//         "type": "Polygon"
-//       }
-//     }
-//   ]
-// };
-                 
-                    
-                    var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
-                   
+                    // console.log(JSON.parse(data))
 
-                   
+                    var myLayer = L.geoJSON(JSON.parse(data));
+                    addNonGroupLayers(myLayer, drawnItems);
+                    // drawnItems.addLayer(myLayer);
+                    map.fitBounds(myLayer.getBounds());
 
                 }
             });
 
         }
+
+        map.on('draw:edited', function(e) {
+            var type = e.layerType;
+            layer = e.layer;
+            drawnItems.addLayer(layer);
+            // console.log(type);
+            var data = layer.toGeoJSON();
+            // console.log(JSON.stringify(data));
+            $('#geo').val(JSON.stringify(data.geometry));
+        })
+
+        function addNonGroupLayers(sourceLayer, targetGroup) {
+  if (sourceLayer instanceof L.LayerGroup) {
+    sourceLayer.eachLayer(function (layer) {
+      addNonGroupLayers(layer, targetGroup);
+    });
+  } else {
+    targetGroup.addLayer(sourceLayer);
+  }
+}
+
     </script>
 @endsection

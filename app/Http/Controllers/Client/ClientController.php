@@ -144,6 +144,8 @@ class ClientController extends Controller
                 ->update([
                     'email'=>$request->email
                 ]);
+                DB::select("UPDATE tbl_client SET geom = st_geomfromgeojson('$request->geo') WHERE id = '$client->id'");
+
             $client->update($request->all());
             
 
