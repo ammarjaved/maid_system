@@ -39,7 +39,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
     Route::get('/get-geo-detail/{id}',[ClientController::class,'getGeo']);
+
     Route::post('/update-boundry',[MapBoundry::class,'update']);
+    Route::get('/remove-boundry/{id}',[MapBoundry::class,'destroy']);
 
 
     Route::resource('agency',AgencyController::class);

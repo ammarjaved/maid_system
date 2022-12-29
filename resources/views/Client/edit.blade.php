@@ -173,9 +173,10 @@
         </div>
         </form>
 
-        <form id="formaa" method="POST">
+        <form id="boundaryFoam" method="POST" style="display: none">
             @csrf
-            <input name="test" value="dfdfs">
+            <input name="layer" id="layer">
+            <input name="id" value="{{$client->id}}">
         </form>
     </div>
 @endsection
@@ -219,7 +220,9 @@
             // console.log(type);
             var data = layer.toGeoJSON();
             // console.log(JSON.stringify(data));
-            $('#geo').val(JSON.stringify(data.geometry));
+            // $('#geo').val(JSON.stringify(data.geometry));
+            $('#layer').val(JSON.stringify(data.geometry));
+                submitFoam();
         })
 
         $(document).ready(function() {
@@ -251,19 +254,26 @@
                 let layer = JSON.stringify(layer_d.geometry);
                 console.log(layer);
 
-                $.ajax({
-                    type: "POST",
-                    url: `/update-boundry`,
+                $('#layer').val(layer);
+                submitFoam();
+            });
+        });
 
-                    dataType: 'json',
-                    data: $('#formaa').serialize(),
+
+        map.on('draw:deleted', function (e) {
+         var layers = e.layers;
+         layers.eachLayer(function (layer) {
+            let id = document.querySelector('#client_id').value;
+            $.ajax({
+                    type: "GET",
+                    url: `/remove-boundry/${id}`,
                     success: function(data) {
                         alert('save sucessfuly');
                     },
                 });
-
-            });
-        });
+             alert('asdasd');
+         });
+     });
 
 
         function addNonGroupLayers(sourceLayer, targetGroup) {
@@ -274,6 +284,19 @@
             } else {
                 targetGroup.addLayer(sourceLayer);
             }
+        }
+
+        function submitFoam(){
+            $.ajax({
+                    type: "POST",
+                    url: `/update-boundry`,
+
+                    dataType: 'json',
+                    data: $('#boundaryFoam').serialize(),
+                    success: function(data) {
+                        alert('save sucessfuly');
+                    },
+                });
         }
 
 

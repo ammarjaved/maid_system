@@ -22,7 +22,7 @@
             <h2 class="text-center">Client Detail</h2>
 
             <div class="first">
-                
+
 
                 <div>
                     <label for="user_name">User Name</label>
@@ -130,7 +130,7 @@
                         value="{{ old('maid_working_address', $client->maid_working_address) }}">
                 </div>
 
-                <div >
+                <div>
                     <label for="profile_image">Profile Image</label>
                     <div class="col-12 text-center">
                         <a href="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
@@ -141,23 +141,23 @@
                     </div>
                 </div>
             </div>
-                <div class="next">
+            <div class="next">
 
-                    <input name="geo" id="geo" type="hidden">
-                    <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
-                </div>
-                <div class="d-flex justify-content-between p-3">
-                    <button class="btn btn-secondary" id="pre" type="button" onclick="nextPage(1)"> Pervious
-                    </button>
-                    <a href="{{ route('client.edit', $client->id) }}" ><button
-                            class="btn btn-success" id="submit">Edit</button></a>
-                    <button class=" btn btn-primary" id="next" type="button" onclick="nextPage(0)">Next</button>
-                </div>
-
-
+                <input name="geo" id="geo" type="hidden">
+                <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
+            </div>
+            <div class="text-center p-3">
+                {{-- <button class="btn btn-secondary" id="pre" type="button" onclick="nextPage(1)"> Pervious --}}
+                </button>
+                <a href="{{ route('client.edit', $client->id) }}"><button class="btn btn-success"
+                        id="submit">Edit</button></a>
+                {{-- <button class=" btn btn-primary" id="next" type="button" onclick="nextPage(0)">Next</button> --}}
+            </div>
 
 
-            
+
+
+
 
 
         </div>
@@ -177,88 +177,24 @@
                 subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
             }).addTo(map);
 
-            var drawnItems = new L.FeatureGroup();
-            map.addLayer(drawnItems);
-            var drawControl = new L.Control.Draw({
-                draw: {
-                    circle: true,
-                    marker: false,
-                    polygon: true,
-                    polyline: false,
-                    rectangle: true
-                },
-                edit: {
-                    featureGroup: drawnItems
-                }
+            $(document).ready(function() {
+                getGeom();
             });
-            // add draw tools
 
-            map.addControl(drawControl);
-            $(".leaflet-draw-draw-circlemarker").hide();
+            getGeom = function() {
+                let id = document.querySelector('#client_id').value;
+                $.ajax({
+                    type: 'GET',
+                    url: `/get-geo-detail/${id}`,
+                    success: function(data) {
+                        // console.log(JSON.parse(data))
 
+                        var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
+                        map.fitBounds(myLayer.getBounds());
 
-            map.on('draw:created', function(e) {
-
-                var type = e.layerType;
-
-                layer = e.layer;
-
-                drawnItems.addLayer(layer);
-                console.log(type);
-                var data = layer.toGeoJSON();
-                console.log(JSON.stringify(data));
-
-                $('#geo').val(JSON.stringify(data.geometry));
-                // submitDetailsForm(data)
-
-            })
-
-
-
-            $('.next').hide();
-            $("#pre").attr("disabled", true);
-            // $("#submit").attr("disabled",true);
-
-            function nextPage(condition) {
-                if (condition === 0) {
-                    $('.first').hide();
-                    $('.next').show();
-                    $("#next").attr("disabled", true);
-                    $("#pre").attr("disabled", false);
-                } else {
-                    $('.first').show();
-                    $('.next').hide();
-                    $("#next").attr("disabled", false);
-                    $("#pre").attr("disabled", true);
-                }
-
-
+                    }
+                });
 
             }
-
-
-            $(document).ready(function() {
-            getGeom();
-        });
-
-        getGeom = function() {
-            let id = document.querySelector('#client_id').value;
-            $.ajax({
-                type: 'GET',
-                url: `/get-geo-detail/${id}`,
-                success: function(data) {
-                    console.log(JSON.parse(data))
-              
-                    
-                    var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
-                    map.fitBounds(myLayer.getBounds());
-
-                   
-
-                }
-            });
-
-        }
-
         </script>
     @endsection
