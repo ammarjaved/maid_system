@@ -150,12 +150,12 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                       
+
                         <div class="input-group input-group-merge">
-                            <input  name="password" type="password" id="password" class="form-control" placeholder="Enter your password">
-                            <div class="input-group-text" >
-                                <i class="fas fa-eye" onclick="password(0)" id="tex"></i>
-                                <i class="fas fas fa-eye-slash" onclick="password(1)" id="pass"></i>
+                            <input type="password" name="password" value="{{ old('password') }}" id="password_confirmation"
+                                class="form-control" placeholder="Enter your password">
+                            <div class="input-group-text" data-password="false">
+                                <span class="password-eye"></span>
                             </div>
                         </div>
                     </div>
@@ -168,37 +168,26 @@
                             @enderror
                         </span>
                         <div class="input-group input-group-merge">
-                            <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirmation" class="form-control" placeholder="Enter your password">
+                            <input type="password" name="password_confirmation"
+                                value="{{ old('password_confirmation') }}" id="password_confirmation"
+                                class="form-control" placeholder="Enter your password">
                             <div class="input-group-text" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
                         </div>
-                        {{-- <input id="password_confirmation"  name="password_confirmation" class="form-control"
-                            value="{{ old('password_confirmation') }}"> --}}
+
                     </div>
 
 
 
                 </div>
-                <div class="next my-4">
 
 
 
 
-
-                    <input name="geo" id="geo" type="hidden" >
-                    <span class="text-danger">
-                        @error('geo')
-                            Please select boundry
-                        @enderror
-                    </span>
-                    <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
-                </div>
                 <div class="text-center p-3 ">
-                    {{-- <button class="btn btn-secondary" id="pre" type="button" onclick="nextPage(1)"> Pervious
-                    </button> --}}
+
                     <button type="submit" class="btn btn-success" id="submit">submit</button>
-                    {{-- <button class=" btn btn-primary" id="next" type="button" onclick="nextPage(0)">Next</button> --}}
                 </div>
         </div>
         </form>
@@ -254,78 +243,6 @@
             $('#geo').val(JSON.stringify(data.geometry));
             // submitDetailsForm(data)
 
-        })
-
-
-       
-
-        // $('.next').hide();
-        // $("#pre").attr("disabled", true);
-        // // $("#submit").attr("disabled",true);
-
-        // function nextPage(condition) {
-        //     if (condition === 0) {
-        //         $('.first').hide();
-        //         $('.next').show();
-        //         $("#next").attr("disabled", true);
-        //         $("#pre").attr("disabled", false);
-        //     } else {
-        //         $('.first').show();
-        //         $('.next').hide();
-        //         $("#next").attr("disabled", false);
-        //         $("#pre").attr("disabled", true);
-        //     }
-
-
-
-        // }
-
-        function submitDetailsForm() {
-
-            // formData = new FormData($('form#myForm').serialize());
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: '/client',
-                type: 'POST',
-                dataType: 'json',
-                mimeType: "multipart/form-data",
-                data: $('form#myForm').serialize(),
-                success: function(data) {
-                    alert('save sucessfuly');
-                },
-
-                error: function(xhr) {
-
-                    $.each(xhr.responseJSON.errors, function(key, value) {
-                        $('#er_' + key).html('');
-                        $('#er_' + key).html(value);
-                        console.log(value);
-                    });
-                }
-            });
-        }
-
-
-
-        $('#pass').hide();
-        function password(st){
-           
-            if(st === 1){
-                 document.getElementById('password').type = 'password';
-                $('#pass').hide();
-                $('#tex').show();
-               
-            }else{
-                document.getElementById('password').type = 'text';
-                $('#tex').hide();
-                $('#pass').show();
-              
-            }
-        }
+        });
     </script>
 @endsection

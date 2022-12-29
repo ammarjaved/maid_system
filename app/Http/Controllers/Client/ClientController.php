@@ -23,7 +23,7 @@ class ClientController extends Controller
     public function index()
     {
         //
-        $clients = Client::where('created_by', Auth::user()->name)->get();
+        $clients = Client::where('created_by', Auth::user()->name)->orderBy('id', 'DESC')->get();
         return view('Client.index', ['clients' => $clients]);
     }
 
@@ -61,7 +61,7 @@ class ClientController extends Controller
                 'password'=>Hash::make($request->password),
                 'type'=>'client',
             ]);
-            DB::select("UPDATE tbl_client SET geom = st_geomfromgeojson('$request->geo') WHERE id = '$data->id'");
+            // DB::select("UPDATE tbl_client SET geom = st_geomfromgeojson('$request->geo') WHERE id = '$data->id'");
         } 
         catch (Exception $e) {
             return $e->getMessage();
@@ -182,23 +182,16 @@ class ClientController extends Controller
         return redirect()->route('client.index');
     }
 
-    public function getGeo($id)
+    public function getGeo($username)
     {
         $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
         'properties', json_build_object(
-        'id', $id,
-        'first_name', first_name,
-        'pe_name',last_name ,
-        'full_name',full_name,
-        'email', email,
-        'contact_number', contact_number,
-        'emergency_contact', emergency_contact,
-        'client_address', client_address,
-        'maid_working_address',maid_working_address,
-        'profile_image', profile_image
+        'user_name', user_name,
+        'address',address
+    
         )))) as geojson
-        FROM (SELECT id, first_name, last_name, full_name, email, contact_number, emergency_contact, client_address, maid_working_address, profile_image, geom
-            FROM public.tbl_client where id=$id) as tbl1;");
+        FROM (SELECT id,address, geom
+            FROM public.client_geoms where user_name=$username) as tbl1;");
         return $data[0]->geojson;
     }
 }

@@ -39,9 +39,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
     Route::get('/get-geo-detail/{id}',[ClientController::class,'getGeo']);
+    Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
+    Route::post('/add-client-boundary',[MapBoundry::class,'store']);
+    Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
+    Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
+    Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
+    Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
+    Route::get('/show-all-boundry/{name}',[MapBoundry::class,'getAllBoundry']);
 
-    Route::post('/update-boundry',[MapBoundry::class,'update']);
-    Route::get('/remove-boundry/{id}',[MapBoundry::class,'destroy']);
+    // Route::post('/update-boundry',[MapBoundry::class,'update']);
+    // Route::get('/remove-boundry/{id}',[MapBoundry::class,'destroy']);
 
 
     Route::resource('agency',AgencyController::class);
@@ -53,6 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::view('/get-test','Client.test' );
+
+    Route::view('/dashboard','Dashboards.Agency-dashboard');
 
 });
 

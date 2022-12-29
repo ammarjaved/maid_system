@@ -39,7 +39,7 @@ class ClientRequest extends FormRequest
             'maid_working_address'=>'required',
             // 'agency_id'=>'required',
             'profile_image'=>'required',
-            'geo'=>'required',
+            // 'geo'=>'required',
             'password' => 'required|string|min:8',
             'password_confirmation' => 'required|same:password|min:8',
             

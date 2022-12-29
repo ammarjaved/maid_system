@@ -141,17 +141,11 @@
                     </div>
                 </div>
             </div>
-            <div class="next">
-
-                <input name="geo" id="geo" type="hidden">
-                <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
-            </div>
+        
             <div class="text-center p-3">
-                {{-- <button class="btn btn-secondary" id="pre" type="button" onclick="nextPage(1)"> Pervious --}}
                 </button>
                 <a href="{{ route('client.edit', $client->id) }}"><button class="btn btn-success"
                         id="submit">Edit</button></a>
-                {{-- <button class=" btn btn-primary" id="next" type="button" onclick="nextPage(0)">Next</button> --}}
             </div>
 
 
@@ -164,37 +158,3 @@
     @endsection
 
 
-
-    @section('script')
-        <script>
-            map = L.map('map').setView([3.016603, 101.858382], 11);
-            document.getElementById('map').style.cursor = 'pointer'
-
-            var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-            //.addTo(map);
-            var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-                maxZoom: 20,
-                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-            }).addTo(map);
-
-            $(document).ready(function() {
-                getGeom();
-            });
-
-            getGeom = function() {
-                let id = document.querySelector('#client_id').value;
-                $.ajax({
-                    type: 'GET',
-                    url: `/get-geo-detail/${id}`,
-                    success: function(data) {
-                        // console.log(JSON.parse(data))
-
-                        var myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
-                        map.fitBounds(myLayer.getBounds());
-
-                    }
-                });
-
-            }
-        </script>
-    @endsection

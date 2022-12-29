@@ -43,6 +43,7 @@
                                 <th>House Coords</th>
                                 <th>Created By</th>
                                 <th>Client Address</th>
+                                <th>Boundary</th>
                                 <th>Action</th>
 
                             </tr>
@@ -61,6 +62,31 @@
                                     <td>{{ $client->house_coords }}</td>
                                     <td>{{ $client->created_by }}</td>
                                     <td>{{ $client->client_address }}</td>
+
+                                    <td class="text-center p-1">
+                                        <div class="dropdown">
+                                            <button class="btn" type="button" id="dropdownMenuButton1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <img src="{{ URL::asset('images/three-dots-vertical.svg') }}">
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                                <li><a href="/add-boundry/{{ $client->user_name }}"
+                                                        class="btn btn-sm dropdown-item">Add</a></li>
+                                                <li><a href="/edit-boundry/{{ $client->user_name }}"
+                                                        class="btn  btn-sm dropdown-item">Edit</a>
+                                                </li>
+                                                <li><a href="/show-boundary/{{ $client->user_name }}"
+                                                        class="btn  btn-sm dropdown-item">Show</a>
+                                                </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </td>
+
+
+
                                     <td class="text-center p-1">
                                         <div class="dropdown">
                                             <button class="btn" type="button" id="dropdownMenuButton1"
@@ -85,6 +111,8 @@
                                                             onclick="return confirm('Are you Sure')">Delete</button>
                                                     </form>
                                                 </li>
+
+
                                             </ul>
                                         </div>
                                     </td>
