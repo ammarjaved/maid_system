@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\ApiControllers\UpdateUserInfo;
 use App\Http\Controllers\ApiControllers\UploadImages;
+use App\Http\Controllers\ApiControllers\SalaryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,5 +33,6 @@ Route::get('/test',[App\Http\Controllers\ApiControllers\LoginController::class,"
 Route::post('/upload-maid-images',[UploadImages::class,"upload"]);
 Route::post('/update-maid-info/{id}',[UpdateUserInfo::class,"updateMaid"]);
 Route::post('/update-client-info/{id}',[UpdateUserInfo::class,"updateClient"]);
+Route::post('/addsalary-maid',[SalaryController::class,"addSalaryInfo"]);
 
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
