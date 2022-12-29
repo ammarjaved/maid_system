@@ -179,6 +179,40 @@
                     {{ $message }}
                 @enderror
             </span>
+           
+            <div class="input-group input-group-merge">
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+                <div class="input-group-text" data-password="false">
+                    <span class="password-eye"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <label for="password_confirmation">Confirm Password</label>
+            <span class="text-danger">
+                @error('password_confirmation')
+                    {{ $message }}
+                @enderror
+            </span>
+            <div class="input-group input-group-merge">
+                <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirmation" class="form-control" placeholder="Enter your password">
+                <div class="input-group-text" data-password="false">
+                    <span class="password-eye"></span>
+                </div>
+            </div>
+            {{-- <input id="password_confirmation"  name="password_confirmation" class="form-control"
+                value="{{ old('password_confirmation') }}"> --}}
+        </div>
+
+
+        {{-- <div class="">
+            <label for="password">Password</label>
+            <span class="text-danger">
+                @error('password')
+                    {{ $message }}
+                @enderror
+            </span>
             <input id="password" name="password" class="form-control" value="{{ old('password') }}">
         </div>
        
@@ -191,7 +225,7 @@
                         </span>
                         <input id="password_confirmation" name="password_confirmation" class="form-control"
                             value="{{ old('password_confirmation') }}">
-                    </div>
+                    </div> --}}
 
 
         <div class="text-center">
