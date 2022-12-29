@@ -135,7 +135,7 @@
                     </div>
 
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="password">Password</label>
                         <span class="text-danger">
                             @error('password')
@@ -151,7 +151,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="password_confirmation">Confirm Password</label>
                         <span class="text-danger">
                             @error('password_confirmation')
