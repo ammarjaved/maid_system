@@ -23,7 +23,8 @@
             @if (Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
             @endif
-            <form action="{{ route('client.update', $client->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('client.update', $client->id) }}" id="forms" method="POST"
+                enctype="multipart/form-data">
                 @method('PATCH')
                 @csrf
                 <div class="first">
@@ -172,12 +173,16 @@
         </div>
         </form>
 
+        <form id="formaa" method="POST">
+            @csrf
+            <input name="test" value="dfdfs">
+        </form>
     </div>
 @endsection
 
 
 @section('script')
-    <script>
+    <script type="text/javascript">
         map = L.map('map').setView([3.016603, 101.858382], 11);
         document.getElementById('map').style.cursor = 'pointer'
 
@@ -240,24 +245,37 @@
         }
 
         map.on('draw:edited', function(e) {
-            var type = e.layerType;
-            layer = e.layer;
-            drawnItems.addLayer(layer);
-            // console.log(type);
-            var data = layer.toGeoJSON();
-            // console.log(JSON.stringify(data));
-            $('#geo').val(JSON.stringify(data.geometry));
-        })
+            var layers = e.layers;
+            layers.eachLayer(function(data) {
+                let layer_d = data.toGeoJSON();
+                let layer = JSON.stringify(layer_d.geometry);
+                console.log(layer);
+
+                $.ajax({
+                    type: "POST",
+                    url: `/update-boundry`,
+
+                    dataType: 'json',
+                    data: $('#formaa').serialize(),
+                    success: function(data) {
+                        alert('save sucessfuly');
+                    },
+                });
+
+            });
+        });
+
 
         function addNonGroupLayers(sourceLayer, targetGroup) {
-  if (sourceLayer instanceof L.LayerGroup) {
-    sourceLayer.eachLayer(function (layer) {
-      addNonGroupLayers(layer, targetGroup);
-    });
-  } else {
-    targetGroup.addLayer(sourceLayer);
-  }
-}
+            if (sourceLayer instanceof L.LayerGroup) {
+                sourceLayer.eachLayer(function(layer) {
+                    addNonGroupLayers(layer, targetGroup);
+                });
+            } else {
+                targetGroup.addLayer(sourceLayer);
+            }
+        }
+
 
     </script>
 @endsection

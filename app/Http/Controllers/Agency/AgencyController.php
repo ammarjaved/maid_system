@@ -50,9 +50,7 @@ class AgencyController extends Controller
      */
     public function store(AgencyRequest $request)
     {
-        //
-        // return $request;
-
+      
         $request['user_name']= $request->name;
         try{
             agency::create($request->all());

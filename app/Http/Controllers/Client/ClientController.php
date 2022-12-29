@@ -46,6 +46,7 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
+        
 
         $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
         $request['agency_id'] =$agency_id[0]['id'];
@@ -144,7 +145,7 @@ class ClientController extends Controller
                 ->update([
                     'email'=>$request->email
                 ]);
-                DB::select("UPDATE tbl_client SET geom = st_geomfromgeojson('$request->geo') WHERE id = '$client->id'");
+                
 
             $client->update($request->all());
             

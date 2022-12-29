@@ -16,6 +16,7 @@ use App\Models\User;
 use File;
 use App\Models\user_activity;
 use App\Models\agency;
+use Illuminate\Support\Facades\Hash;
 
 class MaidController extends Controller
 {
@@ -75,7 +76,7 @@ class MaidController extends Controller
             User::create([
                 'name'=>$request->user_name,
                 'email'=>$request->email,
-                'password' => $request->password,
+                'password' => Hash::make($request->password),
                 'type' => 'maid'
             ]);
 

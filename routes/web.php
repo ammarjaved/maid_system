@@ -7,6 +7,7 @@ use App\Http\Controllers\Agency\AgencyController;
 use App\Http\Controllers\Auth\ChangePassword;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Maid\MaidController;
+use App\Http\Controllers\Client\MapBoundry;
 
 
 /*
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
     Route::get('/get-geo-detail/{id}',[ClientController::class,'getGeo']);
+    Route::post('/update-boundry',[MapBoundry::class,'update']);
 
 
     Route::resource('agency',AgencyController::class);
