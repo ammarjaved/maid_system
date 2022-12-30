@@ -142,11 +142,43 @@
                 </div>
             </div>
         
-            <div class="text-center p-3">
+            <h4 class="">Maid details</h4>
+            <table class="table table-border">
+                <thead>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone no</th>
+                    <th>Detail</th>
+                    <th>Remove</th>
+                    
+                    
+                </thead>
+                <tbody>
+                    @forelse ($maids as $maid)
+                    <tr>
+                        <td>{{$maid->user_name}}</td>
+                        <td>{{$maid->email}}</td>
+                        <td>{{$maid->contact_number}}</td>
+                        
+                        <th><a href="{{route('maid.show', $maid->id)}}">view</a></th>
+                        <td> <form action="{{ route('maid.unAssing')}}" method="POST">
+                            @csrf
+                            <input name="maid_id" value="{{$maid->id}}" type="hidden">
+                            <button class="btn btn-sm dropdown-item m-0 p-0" type="submit" >Un-assign</button>
+                        </form>
+                        </td>
+                        <tr>
+                        @empty
+                        <td colspan="5" class="text-center">No Maid assign</td>
+                    @endforelse
+                    
+                </tbody>
+            </table>
+            {{-- <div class="text-center p-3">
                 </button>
                 <a href="{{ route('client.edit', $client->id) }}"><button class="btn btn-success"
                         id="submit">Edit</button></a>
-            </div>
+            </div> --}}
 
 
 

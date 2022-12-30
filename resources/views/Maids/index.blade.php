@@ -43,7 +43,7 @@
                                 <th>Gender</th>
                                 
                                 <th>Skills</th>
-                                <th>Assign to</th>
+                                <th>Status</th>
                                 <th class="text-center">Action</th>
 
                             </tr>
@@ -72,13 +72,18 @@
                                         
                                         ?>
                                          @forelse ($assign_clients as $assign_client)
-                                         {{$assign_client->user_name}}
+                                         {{-- <span class="badge badge-soft-success">{{$assign_client->user_name}}</span> --}}
+                                         
+                                         <span class="badge badge-soft-success" title="Assign to : {{$assign_client->user_name}}">assigned</span>
+
+
                                          @empty
                                              None
                                          @endforelse
                                          @else
 
-                                         no client assign
+                                         <span class="badge badge-soft-danger">no client assign</span>
+                                         
                                          @endif
                                     </td>
                                     <td class="text-center p-1">

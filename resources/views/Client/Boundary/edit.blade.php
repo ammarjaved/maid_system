@@ -145,7 +145,7 @@
 
         function changeLayer(element) {
 
-            let id = document.querySelector('#address').value;
+                       let id = document.querySelector('#address').value;
             var text = element.options[element.selectedIndex].text;
             $('#er_id').html('');
             $('#address_new').val(text);

@@ -120,7 +120,14 @@ class MaidController extends Controller
     {
         //
         $maid = maid::find($id);
-        return $maid != "" ? view('Maids.show',['maid'=> $maid]): abort('404');
+        //  $maid;
+        $client = '';
+        if($maid->client_id != ''){
+        $client = Client::where('id',$maid->client_id)->get();
+        }
+       
+
+        return $maid != "" ? view('Maids.show',['maid'=> $maid,'client'=>$client]): abort('404');
     }
 
     /**
@@ -150,8 +157,10 @@ class MaidController extends Controller
     {
         //
         
+
         try{
             maid::find($id)->update($request->all());
+            
             }catch(Exception $e){
                 return redirect()->route('maid.edit',$id)->with('message' , 'something is  worng try again later');
             }

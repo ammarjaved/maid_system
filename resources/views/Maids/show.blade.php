@@ -238,6 +238,8 @@
                         value="{{ old('visa_expiry_date', $maid->visa_expiry_date) }}">
                 </div>
 
+                
+
                 <div class="row">
                     <div class="col-6 text-center p-3">
                         <label for="profile_image" class="col-12 text-start">Profile Image</label>
@@ -286,6 +288,43 @@
                 </div>
 
 
+                @if ($maid->client_id != "")
+                    
+                
+                <h4 class=" mt-3">Client details</h4>
+            <table class="table table-border">
+                <thead>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone no</th>
+                    <th>Detail</th>
+                    <th>Remove</th>
+                    
+                    
+                </thead>
+                <tbody>
+                    @forelse ($client as $cli)
+                    <tr>
+                        <td>{{$cli->user_name}}</td>
+                        <td>{{$cli->email}}</td>
+                        <td>{{$cli->contact_number}}</td>
+                        
+                        <th><a href="{{route('client.show', $cli->id)}}">view</a></th>
+                        <td> <form action="{{ route('maid.unAssing')}}" method="POST">
+                            @csrf
+                            <input name="maid_id" value="{{$maid->id}}" type="hidden">
+                            <button class="btn btn-sm dropdown-item m-0 p-0" type="submit" >Un-assign</button>
+                        </form>
+                        </td>
+                        <tr>
+                        @empty
+                        <td colspan="5" class="text-center">No Maid assign</td>
+                    @endforelse      
+                    
+                </tbody>
+            </table>
+
+            @endif
 
 
                 {{-- <div>
@@ -293,10 +332,10 @@
             <input id="created_by" name="created_by" class="form-control" value="">
         </div> --}}
 
-                <div class="text-center">
+                {{-- <div class="text-center">
                     <a href="{{ route('maid.edit', $maid->id) }}" class="btn mt-3 btn-primary">Edit</a>
 
-                </div>
+                </div> --}}
 
 
         </div>

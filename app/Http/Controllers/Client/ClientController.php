@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
 use App\Models\agency;
 use App\Models\Client;
+use App\Models\maid;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -113,7 +114,8 @@ class ClientController extends Controller
     {
         //
         $client = Client::find($id);
-        return $client != '' ? view('Client.show', ['client' => $client]) : abort('404');
+        $maids = maid::where('client_id',$id)->get();
+        return $client != '' ? view('Client.show', ['client' => $client,'maids'=>$maids]) : abort('404');
     }
 
     /**
