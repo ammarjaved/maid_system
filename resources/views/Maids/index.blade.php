@@ -41,7 +41,7 @@
                                 <th>email</th>
                                 <th>Contact Number</th>
                                 <th>Gender</th>
-                                
+
                                 <th>Skills</th>
                                 <th>Status</th>
                                 <th class="text-center">Action</th>
@@ -60,31 +60,27 @@
                                     <td>{{ $maid->email }}</td>
                                     <td>{{ $maid->contact_number }}</td>
                                     <td class="text-capitalize">{{ $maid->gender }}</td>
-                                    
+
                                     <td>{{ $maid->skills }}</td>
                                     <td class="text-capitalize">
-                                        @if ($maid->client_id != "")
+                                        @if ($maid->client_id != '')
+                                            <?php
+                                            $assign_clients = \App\Models\client::where('id', $maid->client_id)->get();
                                             
-                                        
-                                        <?php
-                                        $assign_clients=\App\Models\client::where('id',$maid->client_id)->get();
+                                            ?>
+                                            @forelse ($assign_clients as $assign_client)
+                                                {{-- <span class="badge badge-soft-success">{{$assign_client->user_name}}</span> --}}
 
-                                        
-                                        ?>
-                                         @forelse ($assign_clients as $assign_client)
-                                         {{-- <span class="badge badge-soft-success">{{$assign_client->user_name}}</span> --}}
-                                         
-                                         <span class="badge badge-soft-success" title="Assign to : {{$assign_client->user_name}}">assigned</span>
+                                                <span class="badge badge-soft-success"
+                                                    title="Assign to : {{ $assign_client->user_name }}">assigned</span>
 
 
-                                         @empty
-                                             None
-                                         @endforelse
-                                         @else
-
-                                         <span class="badge badge-soft-danger">no client assign</span>
-                                         
-                                         @endif
+                                            @empty
+                                                None
+                                            @endforelse
+                                        @else
+                                            <span class="badge badge-soft-danger">no client assign</span>
+                                        @endif
                                     </td>
                                     <td class="text-center p-1">
                                         <div class="dropdown">
@@ -112,17 +108,18 @@
                                                 <li>
                                                     @if ($maid->client_id == '')
                                                         <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal"
-                                                        onclick="maidID({{ $maid->id }})">Assign</button>
+                                                            data-bs-target="#exampleModal"
+                                                            onclick="maidID({{ $maid->id }})">Assign</button>
                                                     @else
-                                                    <form action="{{ route('maid.unAssing')}}" method="POST">
-                                                        @csrf
-                                                        <input name="maid_id" value="{{$maid->id}}" type="hidden">
-                                                        <button class="btn btn-sm dropdown-item" type="submit" >Un-assign</button>
-                                                    </form>
-
+                                                        <form action="{{ route('maid.unAssing') }}" method="POST">
+                                                            @csrf
+                                                            <input name="maid_id" value="{{ $maid->id }}"
+                                                                type="hidden">
+                                                            <button class="btn btn-sm dropdown-item"
+                                                                type="submit">Un-assign</button>
+                                                        </form>
                                                     @endif
-                                                    
+
                                                 </li>
                                             </ul>
                                         </div>
@@ -152,28 +149,41 @@
                     <h5 class="modal-title" id="exampleModalLabel">Assign to Client</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            
-                
-                <form onsubmit="return clientId()" method="POST" action="{{ route('maid.assign') }}" >
+
+
+                <form onsubmit="return clientId()" method="POST" action="{{ route('maid.assign') }}">
                     @csrf
-                <div class="modal-body">
-                    <input type="hidden" id="maid_id" name="maid_id" class="form-control">
-                    <span id="er_client_id" class="text-danger"></span>
-                    <select name="client_id" class="form-control" id="client_id">
-                        <option value="" hidden>Select Client</option>
-                        @foreach ($clients as $client)
-                            <option value="{{ $client->id }}" class="form-control">{{ $client->user_name }}</option>
-                        @endforeach
+                    <div class="modal-body">
+                        <input type="hidden" id="maid_id" name="maid_id" class="form-control">
+                        <div class="my-3">
+                        <span id="er_client_id" class="text-danger"></span>
 
-                    </select>
+                        <select name="client_id" class="form-control" id="client_id" onchange="getAddress(this)">
+                            <option value="" hidden>Select Client</option>
+                            @foreach ($clients as $client)
+                                <option value="{{ $client->id }}" class="form-control">{{ $client->user_name }}</option>
+                            @endforeach
 
-                </div>
+                        </select>
+                        </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save </button>
+                        <div class="my-3">
+                        <span id="er_client_boundary" class="text-danger"></span>
+                        <select name="client_boundary_address" class="form-control" id="client_boundary">
+                            <option value="" hidden>Select Address</option>
 
-                </div>
+
+                        </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save </button>
+
+                    </div>
                 </form>
 
             </div>
@@ -183,15 +193,24 @@
         function maidID(id) {
             $('#maid_id').val(id);
         }
-        function clientId(){
-            
-            
+
+        function clientId() {
+
+
             let id = $('#client_id').val();
-            if(id == ""){
+            if (id == "") {
                 $("#er_client_id").html("Select Client First")
                 return false;
+            }else{$("#er_client_id").html("")}
+
+            if ($('#client_boundary').val() == "") {
+                $('#er_client_boundary').html('Select client')
+                return false;
+            } else {
+               $('er_client_boundary').html('');
+
             }
-           
+
         }
     </script>
 @endsection
@@ -205,4 +224,50 @@
     <!-- demo app -->
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
     <!-- end demo js-->
+
+    <script type="text/javascript">
+        function getAddress(element) {
+
+
+            // let id = document.querySelector('#client_id').value;
+            var text = element.options[element.selectedIndex].text;
+            //    console.log(text);
+
+            $.ajax({
+                type: "GET",
+                url: `/get-address/${text}`,
+                success: function(data) {
+                    // console.log(data);
+                    var selOpts = "";
+                    $('#client_boundary').find('option').remove().end();
+
+                    $('#client_boundary').append("<option value=''>Select Option</option>");
+                    for (i = 0; i < data.length; i++) {
+                        var id = data[i]['id'];
+                        var val = data[i]['address'];
+
+                        selOpts = "<option value='" + id + "'>" + val + "</option>";
+                        $('#client_boundary').append(selOpts);
+
+                    }
+                },
+            });
+
+        }
+
+        function submitFoam() {
+            if (('#client_boundary').val() === '') {
+                ('#er_client_boundary').html('Select address')
+            } else {
+                ('#er_client_boundary').html('');
+            }
+            if (('#client_id').val() === '') {
+                ('#client_id').val() === null
+            } else {
+                ('er_client_id').html('Select client')
+            }
+
+            return false;
+        }
+    </script>
 @endsection

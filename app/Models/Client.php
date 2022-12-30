@@ -24,5 +24,6 @@ class Client extends Model
         'agency_id',
         // 'profile_image',
         'created_by',
+        'client_boundary_id',
     ];
 }

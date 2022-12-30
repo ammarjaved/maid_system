@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\maid;
+use Illuminate\Support\Facades\DB;
 
 class AssingMaid extends Controller
 {
@@ -11,9 +12,13 @@ class AssingMaid extends Controller
 
     public function assign_maid(Request $request){
     
-        maid::find($request->maid_id)->update([
-            'client_id'=>$request->client_id,
-        ]);
+        // return $request;
+        // maid::find($request->maid_id)->update([
+        //     'client_id'=>$request->client_id,
+        //     'client_boundary_id' =>'14',
+        // ]);
+
+        DB::select("UPDATE tbl_user set client_id = '$request->client_id' ,client_boundary_id = '$request->client_boundary_address' where id = $request->maid_id ");
         return back();
     }
 
@@ -24,6 +29,7 @@ class AssingMaid extends Controller
         
         maid::find($request->maid_id)->update([
             'client_id'=>"",
+            'client_boundary_id' =>"",
         ]);
         return back();
     }

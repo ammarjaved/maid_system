@@ -47,6 +47,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
     Route::get('/show-all-boundry/{name}',[MapBoundry::class,'getAllBoundry']);
 
+
+
+    Route::get('/get-address/{name}',[MapBoundry::class,'getAddress']);
+
     // Route::post('/update-boundry',[MapBoundry::class,'update']);
     // Route::get('/remove-boundry/{id}',[MapBoundry::class,'destroy']);
 

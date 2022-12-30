@@ -88,4 +88,11 @@ class MapBoundry extends Controller
             FROM public.client_geoms where user_name='$username') as tbl1;");
              return $data[0]->geojson;
     }
+
+
+    public function getAddress($username)
+    {
+        $address = geom::where('user_name',$username)->get();
+        return $address;
+    }
 }

@@ -95,7 +95,7 @@
         map.addLayer(drawnItems);
         var drawControl = new L.Control.Draw({
             draw: {
-                circle: true,
+                circle: false,
                 marker: false,
                 polygon: true,
                 polyline: false,
@@ -108,7 +108,7 @@
 
         // add draw tools
         map.addControl(drawControl);
-        $(".leaflet-draw-draw-circlemarker").hide();
+        // $(".leaflet-draw-draw-circlemarker").hide();
 
         map.on('draw:created', function(e) {
             var type = e.layerType;
