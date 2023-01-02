@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\newUserRegister;
 
 class ClientController extends Controller
 {
@@ -48,12 +50,32 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
         
+        // return $request;
 
         $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
         $request['agency_id'] =$agency_id[0]['id'];
         
         $request['created_by'] = Auth::user()->name;
         $request['user_name'] = $request->name;
+
+        try{
+            $token = rand();
+
+            $details = [
+                // 'title'=>'Mail from me',
+                'subject' => 'Successfully registered in AeroSunergy',
+                'name'=>$request->user_name,
+                'password'=>$request->password,
+                'url'=> asset('/change-my-password').'/'.$request->user_name.'/'. base64_encode($token),
+            ];
+
+
+            Mail::to($request->agency_email)->send(new newUserRegister($details));
+        }catch(Exception $e){
+            return $e->getMessage();
+            return redirect()->route('agency.create')->with('message' , 'Mail sending failed');
+        }
+
         try {
             $data = Client::create($request->all());
             User::create([
@@ -62,7 +84,6 @@ class ClientController extends Controller
                 'password'=>Hash::make($request->password),
                 'type'=>'client',
             ]);
-            // DB::select("UPDATE tbl_client SET geom = st_geomfromgeojson('$request->geo') WHERE id = '$data->id'");
         } 
         catch (Exception $e) {
             return $e->getMessage();
@@ -80,6 +101,13 @@ class ClientController extends Controller
         $filename = strtotime(now()) . $img1_dbopen;
         $file->move($destinationPath, $filename);
         $img->profile_image = $filename;
+
+
+        $file = $request->file('client_identity_img');
+        $img1_dbopen = $file->getClientOriginalName();
+        $filename = strtotime(now()) . $img1_dbopen;
+        $file->move($destinationPath, $filename);
+        $img->client_identity_img = $filename;
 
         try {
             $img->save();
@@ -165,8 +193,18 @@ class ClientController extends Controller
             $filename = strtotime(now()) . $img1_dbopen;
             $file->move($destinationPath, $filename);
             $client->profile_image = $filename;
-            $client->update();
+            
         }
+
+        if ($request->client_identity_img != '') {
+        $file = $request->file('client_identity_img');
+        $destinationPath = 'asset/images/Client';
+        $img1_dbopen = $file->getClientOriginalName();
+        $filename = strtotime(now()) . $img1_dbopen;
+        $file->move($destinationPath, $filename);
+        $client->client_identity_img = $filename;
+        }
+        $client->update();
 
         return redirect()->route('client.index');
     }

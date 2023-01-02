@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\ChangePassword;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Maid\MaidController;
 use App\Http\Controllers\Client\MapBoundry;
-
+use App\Http\Controllers\mailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +39,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
     Route::get('/get-geo-detail/{id}',[ClientController::class,'getGeo']);
+
+    Route::get('/check-that-email-will-send-or-not',[mailController::class,'test']);
+
+
+
+    //map routes
     Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
     Route::post('/add-client-boundary',[MapBoundry::class,'store']);
     Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
@@ -48,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/show-all-boundry/{name}',[MapBoundry::class,'getAllBoundry']);
 
 
-
+    
     Route::get('/get-address/{name}',[MapBoundry::class,'getAddress']);
 
     // Route::post('/update-boundry',[MapBoundry::class,'update']);
@@ -67,7 +73,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::view('/dashboard','Dashboards.Agency-dashboard');
 
+    Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
+
 });
+
+Route::post('/change-your-password/{token}',[ChangePassword::class,'changePasswordMail']);
+Route::get('/change-my-password/{username}/{token}',[ChangePassword::class,'mailPasswordView']);
+
+
 
 
 

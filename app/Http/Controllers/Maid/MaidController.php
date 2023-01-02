@@ -16,6 +16,7 @@ use App\Models\User;
 use File;
 use App\Models\user_activity;
 use App\Models\agency;
+use App\Models\health;
 use Illuminate\Support\Facades\Hash;
 
 class MaidController extends Controller
@@ -64,22 +65,29 @@ class MaidController extends Controller
      */
     public function store(MaidRequest $request)
     {
+
+        
+      
         $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
         $request['agency_id'] =$agency_id[0]['id'];
         $request['created_by'] = Auth::user()->name;
         $request['user_name'] = $request->name;
+        $request['full_name'] = $request->first_name .' '.$request->last_name;
+
         // return $request;
         try{
+            health::create($request->all());
             $data = maid::create($request->all());
+            // $request->addUser();
 
-            // return $data->id;
             User::create([
-                'name'=>$request->user_name,
-                'email'=>$request->email,
+                'name' => $request->user_name,
+                'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'type' => 'maid'
+                'type' => 'maid',
             ]);
-
+            
+           
            
             user_activity::create([
                 'user_id'=>$data->id,
@@ -136,10 +144,13 @@ class MaidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($username)
     {
         //
-        $maid = maid::find($id);
+        $maid = maid::where('user_name' , $username)->first();
+        // $maid = maid::where('user_name' , $username)
+        // ->join('tbl_health', 'tbl_user.user_name', 'tbl_health.user_name')
+        // ->first();
         return $maid != "" ? view('Maids.edit',['maid'=> $maid,'countries'=> Country::all()]) : abort('404');
         
       
@@ -157,12 +168,28 @@ class MaidController extends Controller
     {
         //
         
-
+        $maid = maid::find($id);
         try{
-            maid::find($id)->update($request->all());
+            
+            
+            $maid->update($request->all());
+            
+                $request['user_name'] = $maid->user_name;
+                
+            
             
             }catch(Exception $e){
-                return redirect()->route('maid.edit',$id)->with('message' , 'something is  worng try again later');
+                // return $e->getMessage();
+                return redirect()->route('maid.edit',$maid->user_name)->with('message' , 'something is  worng try again later');
+            }
+
+            try{
+                health::where('user_name',$request->user_name)->update([
+                    'health_card_expiry'=>$request->health_card_expiry,
+                    'health_certificate_status'=>$request->health_certificate_status,
+                ]);
+            }catch(Exception $e){
+                
             }
 
             $this->save_images($request , $id);
@@ -268,6 +295,23 @@ class MaidController extends Controller
         }
 
         $maid->save();
+
+        if($req->has('health_certificate')){
+
+            $health = health::where('user_name', $req->user_name)->first();
+            $this->removeImage($health->health_certificate);
+           
+
+            $file5 = $req->file('health_certificate');   
+
+            $exc = $file5->getClientOriginalExtension();
+            $filename =  $health->user_name.'-health-card-expiry-'.strtotime(now()).'.'.$exc;
+            $file5->move($destinationPath, $filename);
+            $health->health_certificate = $filename;
+
+            $health->save();
+            
+        }
     }
 
     public function assign_maid(Request $request){

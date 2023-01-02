@@ -25,5 +25,7 @@ class Client extends Model
         // 'profile_image',
         'created_by',
         'client_boundary_id',
+        'client_identity',
+        'client_identity_img',
     ];
 }

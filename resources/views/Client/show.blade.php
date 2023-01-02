@@ -130,18 +130,32 @@
                         value="{{ old('maid_working_address', $client->maid_working_address) }}">
                 </div>
 
-                <div>
-                    <label for="profile_image">Profile Image</label>
-                    <div class="col-12 text-center">
+                <div class="row">
+
+                    <div class="col-6 text-center">
+                        <div>
+                            <label for="profile_image">Profile Image</label>
+                        </div>
                         <a href="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
                                 style="height: 100px; width: 100px;">
                         </a>
                     </div>
+                    <div class="col-6 text-center">
+                        <div>
+                            <label for="client_identity">Client Identity card / Passport no</label>
+                        </div>
+                        <a href="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
+                            data-lightbox="roadtrip">
+                            <img id="temprary"
+                                src="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
+                                style="height: 70px; width: 70px;">
+                        </a>
+                    </div>
                 </div>
             </div>
-        
+
             <h4 class="">Maid details</h4>
             <table class="table table-border">
                 <thead>
@@ -150,28 +164,29 @@
                     <th>Phone no</th>
                     <th>Detail</th>
                     <th>Remove</th>
-                    
-                    
+
+
                 </thead>
                 <tbody>
                     @forelse ($maids as $maid)
-                    <tr>
-                        <td>{{$maid->user_name}}</td>
-                        <td>{{$maid->email}}</td>
-                        <td>{{$maid->contact_number}}</td>
-                        
-                        <th><a href="{{route('maid.show', $maid->id)}}">view</a></th>
-                        <td> <form action="{{ route('maid.unAssing')}}" method="POST">
-                            @csrf
-                            <input name="maid_id" value="{{$maid->id}}" type="hidden">
-                            <button class="btn btn-sm dropdown-item m-0 p-0" type="submit" >Un-assign</button>
-                        </form>
-                        </td>
+                        <tr>
+                            <td>{{ $maid->user_name }}</td>
+                            <td>{{ $maid->email }}</td>
+                            <td>{{ $maid->contact_number }}</td>
+
+                            <th><a href="{{ route('maid.show', $maid->id) }}">view</a></th>
+                            <td>
+                                <form action="{{ route('maid.unAssing') }}" method="POST">
+                                    @csrf
+                                    <input name="maid_id" value="{{ $maid->id }}" type="hidden">
+                                    <button class="btn btn-sm dropdown-item m-0 p-0" type="submit">Un-assign</button>
+                                </form>
+                            </td>
                         <tr>
                         @empty
-                        <td colspan="5" class="text-center">No Maid assign</td>
+                            <td colspan="5" class="text-center">No Maid assign</td>
                     @endforelse
-                    
+
                 </tbody>
             </table>
             {{-- <div class="text-center p-3">
@@ -188,5 +203,3 @@
 
         </div>
     @endsection
-
-

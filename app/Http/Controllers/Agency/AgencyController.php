@@ -7,11 +7,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AgencyRequest;
 use App\Models\agency;
+use App\Models\changePassword;
 use Exception;
 use App\Models\tbl_login;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Mail\newUserRegister;
+use Illuminate\Support\Facades\Mail;
 
 class AgencyController extends Controller
 {
@@ -50,8 +53,27 @@ class AgencyController extends Controller
      */
     public function store(AgencyRequest $request)
     {
+        $token = rand();
       
         $request['user_name']= $request->name;
+
+        try{
+
+            $details = [
+                // 'title'=>'Mail from me',
+                'subject' => 'Successfully registered in AeroSunergy',
+                'name'=>$request->user_name,
+                'password'=>$request->password,
+                'url'=> asset('/change-my-password').'/'.$request->user_name.'/'. base64_encode($token),
+            ];
+
+
+            Mail::to($request->agency_email)->send(new newUserRegister($details));
+        }catch(Exception $e){
+            return $e->getMessage();
+            return redirect()->route('agency.create')->with('message' , 'Mail sending failed');
+        }
+
         try{
             agency::create($request->all());
             }catch(Exception $e){
@@ -66,24 +88,21 @@ class AgencyController extends Controller
                 'password' => Hash::make($request->password),
                 'type' => 'agency',
             ]);
+
+
+            changePassword::create([
+                'user_name'=>$request->user_name,
+                'token'=>$token,
+                
+            ]);
         }catch(Exception $e){
+            return $e->getMessage();
             return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
         }
+
+        
     
             return redirect()->route('agency.index');
-
-
-
-             // try{
-            //     tbl_login::create([
-            //         'user_name'=>$request->user_name,
-            //         'password' => $request->password,
-            //         'user_type' => 'agency'
-            //     ]);
-            // }catch(Exception $e){
-            //     // return $e->getMessage();
-            //     return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
-            // }
 
     }
 

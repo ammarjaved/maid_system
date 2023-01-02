@@ -41,7 +41,7 @@
                                 <th>email</th>
                                 <th>Contact Number</th>
                                 <th>House Coords</th>
-                                <th>Created By</th>
+                                {{-- <th>Created By</th> --}}
                                 <th>Client Address</th>
                                 <th>Boundary</th>
                                 <th>Action</th>
@@ -60,7 +60,7 @@
                                     <td>{{ $client->email }}</td>
                                     <td>{{ $client->contact_number }}</td>
                                     <td>{{ $client->house_coords }}</td>
-                                    <td>{{ $client->created_by }}</td>
+                                    {{-- <td>{{ $client->created_by }}</td> --}}
                                     <td>{{ $client->client_address }}</td>
 
                                     <td class="text-center p-1">

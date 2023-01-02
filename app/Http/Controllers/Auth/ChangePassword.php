@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\changePassword as ModelsChangePassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User;
@@ -46,5 +47,39 @@ class ChangePassword extends Controller
         }
         
 
+    }
+
+
+    public function changePasswordMail(Request $req , $token){
+        $req->validate([
+            'new_password' => 'required|string|min:8',
+            'new_password_confirm' => 'required|same:new_password|min:8',
+        ]);
+        
+        if(ModelsChangePassword::where('user_name',$req->username)
+        ->where('token',base64_decode($token))->first()){
+           
+            $user = User::where('name', $req->username)->first();
+            $user->password = Hash::make($req->password);
+            $user->save();
+            ModelsChangePassword::where('user_name',$req->username)
+            ->where('token',base64_decode($token))->delete();
+
+        }else{
+
+            return view('ChangePassword.not-valid',['message'=>"Your Information is not valid or expired.. "]);
+        }
+        return view('ChangePassword.not-valid',['message'=>"Your Information update successfully "]);
+        
+    }
+
+    public function mailPasswordView($username, $token){
+        if(ModelsChangePassword::where('user_name',$username)
+        ->where('token',base64_decode($token))->first()){
+
+            return view('ChangePassword.changePassword-view',['username'=>$username,'token'=>$token]);
+        }else{
+            return view('ChangePassword.not-valid',['message'=>"Your Information is not valid or expired.. "]);
+        }
     }
 }

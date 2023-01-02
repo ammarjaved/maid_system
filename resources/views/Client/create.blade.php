@@ -25,7 +25,7 @@
             @if (Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
             @endif
-            <form action="{{ route('client.store') }}" id="myForm" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('client.store') }}" id="idForm" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="first">
@@ -101,6 +101,20 @@
                         <input id="emergency_contact" type="number" name="emergency_contact" class="form-control"
                             value="{{ old('emergency_contact') }}">
                     </div>
+
+
+                    <div>
+                        <label for="client_identity">Client Identity card / Passport no</label>
+                        <span class="text-danger">
+                            @error('client_identity')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="client_identity" type="number" name="client_identity" class="form-control"
+                            value="{{ old('client_identity') }}">
+                    </div>
+
+
                     <div>
                         <label for="client_address">Client address</label>
                         <span class="text-danger">
@@ -132,6 +146,20 @@
                             value="{{ old('maid_working_address') }}">
                     </div>
 
+
+                    <div>
+                        <label for="client_identity_img">Client Identity card / Passport Image</label>
+                        <span class="text-danger">
+                            @error('client_identity_img')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="client_identity_img" type="file" name="client_identity_img" class="form-control"
+                            value="{{ old('client_identity_img') }}">
+                    </div>
+
+
+
                     <div>
                         <label for="profile_image">Profile Image</label>
                         <span class="text-danger">
@@ -152,8 +180,8 @@
                         </span>
 
                         <div class="input-group input-group-merge">
-                            <input type="password" name="password" value="{{ old('password') }}" id="password_confirmation"
-                                class="form-control" placeholder="Enter your password">
+                            <input type="password" name="password" value="{{ old('password') }}"
+                                id="password" class="form-control" placeholder="Enter your password">
                             <div class="input-group-text" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
@@ -198,51 +226,29 @@
 
 
 @section('script')
+    {{-- <script type="application/javascript" src="https://malsup.github.io/jquery.form.js"></script> --}}
+
     <script type="text/javascript">
-        map = L.map('map').setView([3.016603, 101.858382], 11);
-        document.getElementById('map').style.cursor = 'pointer'
+        // $("#idForm").submit(function(e) {
+        //     e.preventDefault();
+        //     alert('asd');
+        //     var form = $(this);
+        //     var actionUrl = form.attr('action');
 
-        var st = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-        //.addTo(map);
-        var st1 = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-            maxZoom: 20,
-            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }).addTo(map);
-
-        var drawnItems = new L.FeatureGroup();
-        map.addLayer(drawnItems);
-        var drawControl = new L.Control.Draw({
-            draw: {
-                circle: true,
-                marker: false,
-                polygon: true,
-                polyline: false,
-                rectangle: true
-            },
-            edit: {
-                featureGroup: drawnItems
-            }
-        });
-        // add draw tools
-
-        map.addControl(drawControl);
-        $(".leaflet-draw-draw-circlemarker").hide();
-
-
-        map.on('draw:created', function(e) {
-
-            var type = e.layerType;
-
-            layer = e.layer;
-
-            drawnItems.addLayer(layer);
-            console.log(type);
-            var data = layer.toGeoJSON();
-            console.log(JSON.stringify(data));
-
-            $('#geo').val(JSON.stringify(data.geometry));
-            // submitDetailsForm(data)
-
-        });
+        //     $.ajax({
+        //         type: "POST",
+        //         url: actionUrl,
+        //         data: form.serialize(), // serializes the form's elements.
+        //         success: function(data) {
+        //             alert(data); // show response from the php script.
+        //         },
+        //         error: function(xhr) {
+                  
+        //             $.each(xhr.responseJSON.errors, function(key, value) {
+        //                console.log(key);
+        //             });
+        //         },
+        //     });
+        // });
     </script>
 @endsection

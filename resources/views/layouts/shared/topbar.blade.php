@@ -276,7 +276,7 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
 
-                    @if (Auth::user()->type != "superAdmin")
+                    @if (Auth::user()->type == "superAdmin")
                     <a href="/my-account/{{ Auth::user()->name}}" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account</span>

@@ -106,6 +106,18 @@
                         <input id="emergency_contact" type="number" name="emergency_contact" class="form-control"
                             value="{{ old('emergency_contact', $client->emergency_contact) }}">
                     </div>
+
+                    <div>
+                        <label for="client_identity">Client Identity card / Passport no</label>
+                        <span class="text-danger">
+                            @error('client_identity')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="client_identity" type="number" name="client_identity" class="form-control"
+                            value="{{ old('client_identity', $client->client_identity) }}">
+                    </div>
+
                     <div>
                         <label for="client_address">Client address</label>
                         <span class="text-danger">
@@ -156,6 +168,27 @@
                             <input id="profile_image" type="file" name="profile_image" class="form-control">
                         </div>
                     </div>
+
+
+                    <div class="row">
+                        
+                            <label for="client_identity_img">Client Identity card / Passport Image</label>
+                            
+                        <div class="col-6 text-center">
+                            <a href="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
+                                data-lightbox="roadtrip">
+                                <img id="temprary" src="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
+                                    style="height: 70px; width: 70px;">
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            
+                            <input id="client_identity_img" type="file" name="client_identity_img" class="form-control"
+                                value="{{ old('client_identity_img') }}">
+                        </div>
+                    </div>
+
+                    
                 </div>
   
 

@@ -17,7 +17,7 @@
     </div>
 
 
-    <div class="container col-7">
+    <div class="container col-md-10">
         <div class="card p-3 mt-4">
             <h2 class="text-center">Maid Details</h1>
 
@@ -34,7 +34,8 @@
                         value="{{ old('agency_id', $maid->agency_id) }}">
                 </div> --}}
 
-                <div>
+                <div class="row">
+                <div class="col-md-6">
                     <label for="user_name">User Name</label>
                     <span class="text-danger">
                         @error('user_name')
@@ -45,7 +46,7 @@
                         value="{{ old('user_name', $maid->user_name) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="first_name">First Name</label>
                     <span class="text-danger">
                         @error('first_name')
@@ -56,7 +57,7 @@
                         value="{{ old('first_name', $maid->first_name) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="last_name">Last Name</label>
                     <span class="text-danger">
                         @error('last_name')
@@ -67,7 +68,7 @@
                         value="{{ old('last_name', $maid->last_name) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="full_name">Full Name</label>
                     <span class="text-danger">
                         @error('full_name')
@@ -78,7 +79,7 @@
                         value="{{ old('full_name', $maid->full_name) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="gender">Gender</label>
                     <span class="text-danger">
                         @error('gender')
@@ -94,7 +95,7 @@
 
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="email">Email</label>
                     <span class="text-danger">
                         @error('email')
@@ -105,7 +106,7 @@
                         value="{{ old('email', $maid->email) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="permanent_address">Agency pic number</label>
                     <span class="text-danger">
                         @error('permanent_address')
@@ -116,7 +117,7 @@
                         value="{{ old('permanent_address', $maid->permanent_address) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="date_of_birth">Date of Birth</label>
                     <span class="text-danger">
                         @error('date_of_birth')
@@ -127,7 +128,7 @@
                         value="{{ old('date_of_birth', $maid->date_of_birth) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="country">Country</label>
                     <span class="text-danger">
                         @error('country')
@@ -144,7 +145,7 @@
                     {{-- <input id="country" name="country" class="form-control" value="{{old('country')}}"> --}}
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="contact_number">Contact Number</label>
                     <span class="text-danger">
                         @error('contact_number')
@@ -154,7 +155,7 @@
                     <input id="contact_number" disabled type="integer" name="contact_number" class="form-control"
                         value="{{ old('contact_number', $maid->contact_number) }}">
                 </div>
-                <div>
+                <div class="col-md-6">
                     <label for="emergency_contact">Emergency Contact</label>
                     <span class="text-danger">
                         @error('emergency_contact')
@@ -164,7 +165,7 @@
                     <input id="emergency_contact" type="number" disabled name="emergency_contact" class="form-control"
                         value="{{ old('emergency_contact', $maid->emergency_contact) }}">
                 </div>
-                <div>
+                <div class="col-md-6">
                     <label for="education">Education</label>
                     <span class="text-danger">
                         @error('education')
@@ -174,7 +175,7 @@
                     <input id="education" name="education" class="form-control" disabled
                         value="{{ old('education', $maid->education) }}">
                 </div>
-                <div>
+                <div class="col-md-6">
                     <label for="occupation">Occupation</label>
                     <span class="text-danger">
                         @error('occupation')
@@ -184,7 +185,7 @@
                     <input id="occupation" name="occupation" class="form-control" disabled
                         value="{{ old('occupation', $maid->occupation) }}">
                 </div>
-                <div>
+                <div class="col-md-6">
                     <label for="skills">Skills</label>
                     <span class="text-danger">
                         @error('skills')
@@ -194,7 +195,7 @@
                     <input id="skills" name="skills" class="form-control" disabled
                         value="{{ old('skills', $maid->skills) }}">
                 </div>
-                <div>
+                <div class="col-md-6">
                     <label for="religion">Religion</label>
                     <span class="text-danger">
                         @error('religion')
@@ -205,7 +206,7 @@
                         value="{{ old('religion', $maid->religion) }}">
                 </div>
 
-                <div>
+                <div class="col-md-6">
                     <label for="passport_number">Passport Number</label>
                     <span class="text-danger">
                         @error('passport_number')
@@ -215,7 +216,15 @@
                     <input id="passport_number" name="passport_number" disabled class="form-control"
                         value="{{ old('passport_number', $maid->passport_number) }}">
                 </div>
-                <div>
+
+                <div class="col-md-6">
+                    <label for="health_certificate_status">Health Certificate Status</label>
+                    <span class="text-danger">@error('health_certificate_status'){{ $message }}@enderror</span>
+                    <input id="health_certificate_status" type="date" name="health_certificate_status" disabled class="form-control"
+                        value="{{ old('health_certificate_status', $maid->health_certificate_status) }}">
+                </div>
+
+                <div class="col-md-6">
                     <label for="passport_expiry">Passport Expiry</label>
                     <span class="text-danger">
                         @error('passport_expiry')
@@ -227,7 +236,7 @@
                 </div>
 
 
-                <div>
+                <div class="col-md-6">
                     <label for="visa_expiry_date">Visa Expiry Date</label>
                     <span class="text-danger">
                         @error('visa_expiry_date')
@@ -238,6 +247,11 @@
                         value="{{ old('visa_expiry_date', $maid->visa_expiry_date) }}">
                 </div>
 
+                <div class="col-md-6">
+                    <label for="health_card_expiry">Health Card Expiry </label>
+                    <span class="text-danger">@error('health_card_expiry'){{ $message }}@enderror</span>
+                    <input id="health_card_expiry" type="date" name="health_card_expiry" disabled class="form-control"
+                    value="{{ old('health_card_expiry', $maid->health_card_expiry) }}">                </div>
                 
 
                 <div class="row">
@@ -285,9 +299,19 @@
                                 style="height: 70px; width: 70px;">
                         </a>
                     </div>
+
+
+                    <div class="col-6 text-center p-3">
+                        <label for="health_certificate" class="col-12 text-start">Health Certificate</label>
+                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->health_certificate) }}"
+                            data-lightbox="roadtrip">
+                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->health_certificate) }}"
+                                style="height: 70px; width: 70px;">
+                        </a>
+                    
                 </div>
 
-
+                </div>
                 @if ($maid->client_id != "")
                     
                 

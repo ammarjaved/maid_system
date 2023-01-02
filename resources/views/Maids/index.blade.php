@@ -94,7 +94,7 @@
                                                         class="btn  btn-sm dropdown-item">Detail</a>
                                                 </li>
 
-                                                <li><a href="{{ route('maid.edit', $maid->id) }}"
+                                                <li><a href="{{ route('maid.edit', $maid->user_name) }}"
                                                         class="btn btn-sm dropdown-item">Edit</a></li>
 
                                                 <li>
