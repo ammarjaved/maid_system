@@ -276,12 +276,13 @@
                         <h6 class="text-overflow m-0">Welcome !</h6>
                     </div>
 
-                    @if (Auth::user()->type == "superAdmin")
+                    @if (Auth::user()->type == "agency")
                     <a href="/my-account/{{ Auth::user()->name}}" class="dropdown-item notify-item">
                         <i class="fe-user"></i>
                         <span>My Account</span>
                     </a> 
-
+                    @endif
+                    @if (Auth::user()->type == "superAdmin")
                     <a href="/change-password/{{Auth::user()->name}}" class="dropdown-item notify-item">
                         <i class="fe-lock"></i>
                         <span>Change Password</span>
