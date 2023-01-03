@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ChangePassword;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Maid\MaidController;
 use App\Http\Controllers\Client\MapBoundry;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\mailController;
 
 /*
@@ -71,7 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::view('/get-test','Client.test' );
 
-    Route::view('/dashboard','Dashboards.Agency-dashboard');
+    Route::get('/dashboard',[DashboardController::class,'index']);
 
     Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
 

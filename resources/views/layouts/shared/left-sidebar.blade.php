@@ -44,7 +44,7 @@
 
             <ul id="side-menu">
 
-                <li class="menu-title">Navigation</li>
+                
 
                 {{-- <li>
                     <a href="#sidebarDashboards" data-bs-toggle="collapse">
@@ -72,6 +72,19 @@
                 </li> --}}
 
                 {{-- <li class="menu-title mt-2">Apps</li> --}}
+                @if (Auth::user()->type == "agency")
+                <li class="menu-title">Navigation</li>
+                <li>
+                    <a href="/dashboard" >
+                        <i data-feather="airplay"></i>
+                        
+                        <span> Dashboard </span>
+                    </a>
+            
+                </li>
+                @endif
+                
+                <li class="menu-title mt-2">Apps</li>
 
                 @if (Auth::user()->type == "superAdmin")
                  

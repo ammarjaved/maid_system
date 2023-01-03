@@ -124,18 +124,22 @@ class MaidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($username)
     {
         //
-        $maid = maid::find($id);
+        $maid = maid::where('user_name',$username)->first();
     
         $client = '';
         if($maid->client_id != ''){
         $client = Client::where('id',$maid->client_id)->get();
         }
-        $health = health::where('user_name',$maid->user_name)->first();
+      
+        if(!health::where('user_name',$username)->first()){
+            return redirect()->route('maid.index')->with('message','Something is wrong try again letter');
        
-
+        }
+        $health = health::where('user_name',$username)->first();
+     
         return $maid != "" ? view('Maids.show',['maid'=> $maid,'client'=>$client,'health'=>$health]): abort('404');
     }
 
@@ -149,6 +153,10 @@ class MaidController extends Controller
     {
         //
         $maid = maid::where('user_name' , $username)->first();
+        if(!health::where('user_name',$username)->first()){
+            return redirect()->route('maid.index')->with('message','Something is wrong try again letter');
+       
+        }
         $health = health::where('user_name',$username)->first();
         // $maid = maid::where('user_name' , $username)
         // ->join('tbl_health', 'tbl_user.user_name', 'tbl_health.user_name')

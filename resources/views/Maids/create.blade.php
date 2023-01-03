@@ -64,7 +64,7 @@
         <div class="col-md-6">
             <label for="gender">Gender</label>
             <span class="text-danger">@error('gender'){{ $message }}@enderror</span>
-            <select name="gender" id="gender" class="form-control">
+            <select name="gender" id="gender" class="form-select">
                 <option value="{{ old('gender') }}" selected="" hidden>
                     {{ old('gender',"Select Gender") }}</option>
                 <option value="male">Male</option>
@@ -90,7 +90,7 @@
         <div class="col-md-6">
             <label for="country">Country</label>
             <span class="text-danger">@error('country'){{ $message }}@enderror</span>
-            <select name="country" class="form-control">
+            <select name="country" class="form-select">
                 <option value="{{ old('country') }}" selected="" hidden>
                     {{ old('country',"Select Country") }}</option>
                 @foreach ($countries as $country)
@@ -140,8 +140,8 @@
         <div class="col-md-6">
             <label for="health_certificate_status">Health Certificate Status</label>
             <span class="text-danger">@error('health_certificate_status'){{ $message }}@enderror</span>
-            
-            <select class="form-control" name="health_certificate_status">
+
+            <select class="form-select" name="health_certificate_status">
                 <option value="{{old('health_certificate_status', '')}}" hidden>
                 {{old('health_certificate_status', 'Select Value')}}</option>
                 <option value="valid">valid</option>

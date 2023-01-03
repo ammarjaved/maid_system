@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\newUserRegister;
+use App\Models\changePassword;
 
 class ClientController extends Controller
 {
@@ -58,23 +59,7 @@ class ClientController extends Controller
         $request['created_by'] = Auth::user()->name;
         $request['user_name'] = $request->name;
 
-        try{
-            $token = rand();
-
-            $details = [
-                // 'title'=>'Mail from me',
-                'subject' => 'Successfully registered in AeroSunergy',
-                'name'=>$request->user_name,
-                'password'=>$request->password,
-                'url'=> asset('/change-my-password').'/'.$request->user_name.'/'. base64_encode($token),
-            ];
-
-
-            Mail::to($request->agency_email)->send(new newUserRegister($details));
-        }catch(Exception $e){
-            return $e->getMessage();
-            return redirect()->route('agency.create')->with('message' , 'Mail sending failed');
-        }
+        
 
         try {
             $data = Client::create($request->all());
@@ -117,19 +102,30 @@ class ClientController extends Controller
                 ->with('message', 'Image Not saved');
         }
 
-        //
+        try{
+            $token = rand();
+
+            $details = [
+                // 'title'=>'Mail from me',
+                'subject' => 'Successfully registered in AeroSunergy',
+                'name'=>$request->user_name,
+                'password'=>$request->password,
+                'url'=> asset('/change-my-password').'/'.$request->user_name.'/'. base64_encode($token),
+            ];
+
+
+            Mail::to($request->agency_email)->send(new newUserRegister($details));
+        }catch(Exception $e){
+            // return $e->getMessage();
+            return redirect()->route('client.index')->with('message' , 'Mail sending failed');
+        }
+        changePassword::create([
+            'user_name' => $request->user_name,
+            'token' => $token,
+        ]);
         return redirect()->route('client.index');
 
-        // try{
-        //     tbl_login::create([
-        //         'user_name'=>$request->user_name,
-        //         'password' => "abcd1234",
-        //         'user_type' => 'client'
-        //     ]);
-        // }catch(Exception $e){
-        //     // return $e->getMessage();
-        //     return redirect()->route('client.create')->with('message' , 'Except user login all data is saved');
-        // }
+
     }
 
     /**

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Agency;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AgencyRequest;
@@ -18,8 +17,6 @@ use Illuminate\Support\Facades\Mail;
 
 class AgencyController extends Controller
 {
-
-    
     /**
      * Display a listing of the resource.
      *
@@ -28,8 +25,7 @@ class AgencyController extends Controller
     public function index()
     {
         //
-        return view('Agency.index',['agencys'=> agency::all()]);
-
+        return view('Agency.index', ['agencys' => agency::all()]);
     }
 
     /**
@@ -39,7 +35,6 @@ class AgencyController extends Controller
      */
     public function create()
     {
-       
         //
         // return "asdasd";
         return view('Agency.create');
@@ -54,56 +49,54 @@ class AgencyController extends Controller
     public function store(AgencyRequest $request)
     {
         $token = rand();
-      
-        $request['user_name']= $request->name;
 
-        try{
+        $request['user_name'] = $request->name;
 
-            $details = [
-                // 'title'=>'Mail from me',
-                'subject' => 'Successfully registered in AeroSunergy',
-                'name'=>$request->name,
-                'password'=>$request->password,
-                'url'=> asset('/change-my-password').'/'.$request->name.'/'. base64_encode($token),
-            ];
-            // dd($request);
-
-            Mail::to($request->agency_email)->send(new newUserRegister($details));
-        }catch(Exception $e){
-            return $e->getMessage();
-            return redirect()->route('agency.create')->with('message' , 'Mail sending failed');
+        try {
+            agency::create($request->all());
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->with('message', 'Something is worng');
         }
 
-        try{
-            agency::create($request->all());
-            }catch(Exception $e){
-                return redirect()->back()->with('message','Something is worng');
-            }
-
-           
-            try{
+        try {
             User::create([
-                'name'=>$request->user_name,
-                'email'=>$request->agency_email,
+                'name' => $request->user_name,
+                'email' => $request->agency_email,
                 'password' => Hash::make($request->password),
                 'type' => 'agency',
             ]);
 
+            try {
+                $details = [
+                    // 'title'=>'Mail from me',
+                    'subject' => 'Successfully registered in AeroSunergy',
+                    'name' => $request->name,
+                    'password' => $request->password,
+                    'url' => asset('/change-my-password') . '/' . $request->name . '/' . base64_encode($token),
+                ];
+                // dd($request);
 
+                Mail::to($request->agency_email)->send(new newUserRegister($details));
+            } catch (Exception $e) {
+                // return $e->getMessage();
+                return redirect()
+                    ->route('agency.index')
+                    ->with('message', 'Mail sending failed');
+            }
             changePassword::create([
-                'user_name'=>$request->user_name,
-                'token'=>$token,
-                
+                'user_name' => $request->user_name,
+                'token' => $token,
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
-            return redirect()->route('agency.create')->with('message' , 'Except user login all data is saved');
+            return redirect()
+                ->route('agency.create')
+                ->with('message', 'Except user login all data is saved');
         }
 
-        
-    
-            return redirect()->route('agency.index');
-
+        return redirect()->route('agency.index');
     }
 
     /**
@@ -116,7 +109,7 @@ class AgencyController extends Controller
     {
         //
         $agency = agency::find($id);
-        return $agency != "" ? view('Agency.show',['agency'=>$agency]) : abort('404');
+        return $agency != '' ? view('Agency.show', ['agency' => $agency]) : abort('404');
     }
 
     /**
@@ -129,7 +122,7 @@ class AgencyController extends Controller
     {
         //
         $agency = agency::find($id);
-        return $agency != "" ? view('Agency.edit',['agency'=>$agency]) : abort('404');
+        return $agency != '' ? view('Agency.edit', ['agency' => $agency]) : abort('404');
     }
 
     /**
@@ -141,22 +134,22 @@ class AgencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $request['user_name'] = Auth::user()->name;
         //
-        try{
+        try {
             $id = agency::find($id);
-            
+
             User::where('name', $id->user_name)->update([
-                'email'=>$request->agency_email,     
+                'email' => $request->agency_email,
             ]);
 
             $id->update($request->all());
-        }catch(Exception $e){
-            return redirect()->back()->with('message' , 'Something is worng Try again later');
+        } catch (Exception $e) {
+            return redirect()
+                ->back()
+                ->with('message', 'Something is worng Try again later');
         }
         return redirect()->route('agency.show', $id->id);
-       
     }
 
     /**
@@ -168,13 +161,14 @@ class AgencyController extends Controller
     public function destroy($id)
     {
         //
-        agency::where('user_name',$id)->delete();
-        User::where('name',$id)->delete();
+        agency::where('user_name', $id)->delete();
+        User::where('name', $id)->delete();
         return redirect()->route('agency.index');
     }
 
-    public function myAccount($name){
-        $agency = agency::where("user_name",$name)->first();
-        return $agency != "" ? view('Agency.show',['agency'=>$agency]) : abort('404');
+    public function myAccount($name)
+    {
+        $agency = agency::where('user_name', $name)->first();
+        return $agency != '' ? view('Agency.show', ['agency' => $agency]) : abort('404');
     }
 }

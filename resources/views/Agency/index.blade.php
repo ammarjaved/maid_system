@@ -23,8 +23,14 @@
     <div class="row">
         <div class="col-12">
             <div class="card ">
+                <div class="col-8 text-center p-3">
+                    @if (Session::has('message'))
+                        <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}
+                        </p>
+                    @endif
+                </div>
                 <div class="card-body">
-                    <h4 class="header-title">Clients</h4>
+                    <h4 class="header-title">Agency</h4>
                     {{-- <p class="text-muted font-13 mb-4">
                     DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
                     function:

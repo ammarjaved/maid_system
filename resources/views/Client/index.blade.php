@@ -26,13 +26,16 @@
     <div class="row">
         <div class="col-12">
             <div class="card ">
+                <div class="text-center">
+                <div class="col-8  p-3 pb-0">
+                    @if (Session::has('message'))
+                        <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
                 <div class="card-body">
                     <h4 class="header-title">Clients</h4>
-                    {{-- <p class="text-muted font-13 mb-4">
-                    DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
-                    function:
-                    <code>$().DataTable();</code>.
-                </p> --}}
 
                     <table id="basic-datatable" class="table dt-responsive nowrap w-100">
                         <thead>
@@ -64,7 +67,9 @@
                                     <td>{{ $client->client_address }}</td>
 
                                     <td class="text-center p-1">
-                                        <div class="dropdown">
+
+                                        <a href="/show-boundary/{{ $client->user_name }}">view</a>
+                                        {{-- <div class="dropdown">
                                             <button class="btn" type="button" id="dropdownMenuButton1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <img src="{{ URL::asset('images/three-dots-vertical.svg') }}">
@@ -82,7 +87,7 @@
 
 
                                             </ul>
-                                        </div>
+                                        </div> --}}
                                     </td>
 
 

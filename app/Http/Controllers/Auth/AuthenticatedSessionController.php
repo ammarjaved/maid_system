@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\agency;
+use Illuminate\Validation\ValidationException;
+
+use function PHPSTORM_META\type;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -29,13 +30,22 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
+        // $request->authenticate();
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
 
-      
-            return Auth::user()->type == "superAdmin" ? redirect()->route('agency.index') : redirect()->route('client.index');
-        
+        $input = $request->all();
+
+        if ( auth()->attempt(['name' => $input['name'], 'password' => $input['password'],'type'=>'superAdmin'])||
+        auth()->attempt(['name' => $input['name'], 'password' => $input['password'],'type'=>'agency'])) {
+
+            return Auth::user()->type == "superAdmin" ? redirect()->route('agency.index') : redirect('/dashboard');
+            }
+            else{
+                throw ValidationException::withMessages([
+                    'email' => __('auth.failed'),
+                ]);
+            }
     }
 
     /**

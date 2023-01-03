@@ -1,148 +1,93 @@
-@extends('layouts.vertical', ["page_title"=> "Dashboard 2"])
+@extends('layouts.vertical', ['page_title' => 'Dashboard'])
 
 @section('css')
-<!-- third party css -->
-<link href="{{asset('assets/libs/admin-resources/admin-resources.min.css')}}" rel="stylesheet" type="text/css" />
-<!-- third party css end -->
+    <!-- third party css -->
+    <link href="{{ asset('assets/libs/admin-resources/admin-resources.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
 @endsection
 
 @section('content')
-<!-- Start Content-->
-<div class="container-fluid">
+    <!-- Start Content-->
+    <div class="container-fluid">
 
-    <!-- start page title -->
-    <div class="row">
-        <div class="col-12">
-            <div class="page-title-box">
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Aero</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>
+                    <h4 class="page-title">Dashboard</h4>
                 </div>
-                <h4 class="page-title">Dashboard</h4>
             </div>
         </div>
-    </div>
-    <!-- end page title -->
+        <!-- end page title -->
 
-    <div class="row">
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="avatar-sm bg-blue rounded">
-                                <i class="fe-aperture avatar-title font-22 text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-end">
-                                <h3 class="text-dark my-1">$<span data-plugin="counterup">12,145</span></h3>
-                                <p class="text-muted mb-1 text-truncate">Income status</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <h6 class="text-uppercase">Target <span class="float-end">60%</span></h6>
-                        <div class="progress progress-sm m-0">
-                            <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                <span class="visually-hidden">60% Complete</span>
-                            </div>
-                        </div>
+        <div class="row">
+
+            <div class="col-md-6 col-xl-3">
+                <div class="card" id="tooltip-container">
+                    <div class="card-body">
+                        <a href="{{route('client.index')}}"> <i class="fa fa-info-circle text-muted float-end"
+                                data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
+                        <h4 class="mt-0 font-16">Total Clients</h4>
+                        <h2 class="text-primary my-3 text-center"><span
+                                data-plugin="counterup">{{ $data['total_clients'] }}</span></h2>
+                        {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                     </div>
                 </div>
-            </div> <!-- end card-->
-        </div> <!-- end col -->
+            </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="avatar-sm bg-success rounded">
-                                <i class="fe-shopping-cart avatar-title font-22 text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-end">
-                                <h3 class="text-dark my-1"><span data-plugin="counterup">1576</span></h3>
-                                <p class="text-muted mb-1 text-truncate">January's Sales</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <h6 class="text-uppercase">Target <span class="float-end">49%</span></h6>
-                        <div class="progress progress-sm m-0">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="49" aria-valuemin="0" aria-valuemax="100" style="width: 49%">
-                                <span class="visually-hidden">49% Complete</span>
-                            </div>
-                        </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card" id="tooltip-container">
+                    <div class="card-body">
+                        <a href="{{route('maid.index')}}"> <i class="fa fa-info-circle text-muted float-end"
+                                data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
+                        <h4 class="mt-0 font-16">Total Maids</h4>
+                        <h2 class="text-primary my-3 text-center"><span
+                                data-plugin="counterup">{{ $data['total_maids'] }}</span></h2>
+                        {{-- <p class="text-muted mb-0">Maids Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                     </div>
                 </div>
-            </div> <!-- end card-->
-        </div> <!-- end col -->
+            </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="avatar-sm bg-warning rounded">
-                                <i class="fe-bar-chart-2 avatar-title font-22 text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-end">
-                                <h3 class="text-dark my-1">$<span data-plugin="counterup">8947</span></h3>
-                                <p class="text-muted mb-1 text-truncate">Payouts</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <h6 class="text-uppercase">Target <span class="float-end">18%</span></h6>
-                        <div class="progress progress-sm m-0">
-                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" style="width: 18%">
-                                <span class="visually-hidden">18% Complete</span>
-                            </div>
-                        </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card" id="tooltip-container">
+                    <div class="card-body">
+                        <a href="#total-maids"> <i class="fa fa-info-circle text-muted float-end"
+                                data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
+                        <h4 class="mt-0 font-16">Visa Expiry in 2 months </h4>
+                        <h2 class="text-primary my-3 text-center"><span
+                                data-plugin="counterup">{{ $data['visa_expiry'] }}</span></h2>
+                        {{-- <p class="text-muted mb-0">Visa Expiry in 7 days <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                     </div>
                 </div>
-            </div> <!-- end card-->
-        </div> <!-- end col -->
+            </div>
 
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="avatar-sm bg-info rounded">
-                                <i class="fe-cpu avatar-title font-22 text-white"></i>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-end">
-                                <h3 class="text-dark my-1"><span data-plugin="counterup">178</span></h3>
-                                <p class="text-muted mb-1 text-truncate">Available Stores</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <h6 class="text-uppercase">Target <span class="float-end">74%</span></h6>
-                        <div class="progress progress-sm m-0">
-                            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="74" aria-valuemin="0" aria-valuemax="100" style="width: 74%">
-                                <span class="visually-hidden">74% Complete</span>
-                            </div>
-                        </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card" id="tooltip-container">
+                    <div class="card-body">
+                        <a href="#total-maids"> <i class="fa fa-info-circle text-muted float-end"
+                                data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
+                        <h4 class="mt-0 font-16">Health expiry in 2 months</h4>
+                        <h2 class="text-primary my-3 text-center"><span
+                                data-plugin="counterup">{{ $data['health_expiry'] }}</span></h2>
+                        {{-- <p class="text-muted mb-0">Health expiry in 7 days<span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                     </div>
                 </div>
-            </div> <!-- end card-->
-        </div> <!-- end col -->
-    </div>
-    <!-- end row -->
+            </div>
 
-    <div class="row">
-        <div class="col-xl-4 col-md-12">
+        </div>
+        <div class="row">
+            {{-- <div class="col-xl-4 col-md-12">
             <!-- Portlet card -->
             <div class="card">
                 <div class="card-body">
@@ -176,9 +121,9 @@
                     </div> <!-- collapsed end -->
                 </div> <!-- end card-body -->
             </div> <!-- end card-->
-        </div> <!-- end col-->
+        </div> <!-- end col--> --}}
 
-        <div class="col-xl-4 col-md-6">
+            {{-- <div class="col-xl-4 col-md-6">
             <div class="card">
                 <div class="card-body">
                     <div class="card-widgets">
@@ -209,9 +154,9 @@
                     </div> <!-- collapsed end -->
                 </div> <!-- end card-body -->
             </div> <!-- end card-->
-        </div> <!-- end col-->
+        </div> <!-- end col--> --}}
 
-        <div class="col-xl-4 col-md-6">
+            {{-- <div class="col-xl-4 col-md-6">
             <div class="card">
                 <div class="card-body">
                     <div class="card-widgets">
@@ -242,12 +187,12 @@
                     </div> <!-- collapsed end -->
                 </div> <!-- end card-body -->
             </div> <!-- end card-->
-        </div> <!-- end col-->
-    </div>
-    <!-- end row -->
+        </div> <!-- end col--> --}}
+        </div>
+        <!-- end row -->
 
-    <div class="row">
-        <div class="col-xl-6">
+        <div class="row">
+            {{-- <div class="col-xl-6">
             <div class="card">
                 <div class="card-body">
                     <div class="card-widgets">
@@ -262,98 +207,161 @@
                     </div> <!-- collapsed end -->
                 </div> <!-- end card-body -->
             </div> <!-- end card-->
-        </div> <!-- end col -->
+        </div> <!-- end col --> --}}
 
-        <div class="col-xl-6">
+        <div class="col-xl-6 col-lg-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="card-widgets">
-                        <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
-                        <a data-bs-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false" aria-controls="cardCollpase5"><i class="mdi mdi-minus"></i></a>
-                        <a href="javascript: void(0);" data-toggle="remove"><i class="mdi mdi-close"></i></a>
-                    </div>
-                    <h4 class="header-title mb-0">Top Selling Products</h4>
+                    
+                    <h4 class="header-title mb-3">Health expiry in 2 months</h4>
 
-                    <div id="cardCollpase5" class="collapse pt-3 show">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-centered mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Product Name</th>
-                                        <th>Price</th>
-                                        <th>Quantity</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>ASOS Ridley High Waist</td>
-                                        <td>$79.49</td>
-                                        <td>82</td>
-                                        <td>$6,518.18</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Marco Lightweight Shirt</td>
-                                        <td>$128.50</td>
-                                        <td>37</td>
-                                        <td>$4,754.50</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Half Sleeve Shirt</td>
-                                        <td>$39.99</td>
-                                        <td>64</td>
-                                        <td>$2,559.36</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lightweight Jacket</td>
-                                        <td>$20.00</td>
-                                        <td>184</td>
-                                        <td>$3,680.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Marco Shoes</td>
-                                        <td>$28.49</td>
-                                        <td>69</td>
-                                        <td>$1,965.81</td>
-                                    </tr>
-                                    <tr>
-                                        <td>ASOS Ridley High Waist</td>
-                                        <td>$79.49</td>
-                                        <td>82</td>
-                                        <td>$6,518.18</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Half Sleeve Shirt</td>
-                                        <td>$39.99</td>
-                                        <td>64</td>
-                                        <td>$2,559.36</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lightweight Jacket</td>
-                                        <td>$20.00</td>
-                                        <td>184</td>
-                                        <td>$3,680.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> <!-- end table responsive-->
-                    </div> <!-- collapsed end -->
-                </div> <!-- end card-body -->
-            </div> <!-- end card-->
-        </div> <!-- end col -->
+                    <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                        <div class="simplebar-wrapper" style="margin: 0px;">
+                            <div class="simplebar-height-auto-observer-wrapper">
+                                <div class="simplebar-height-auto-observer"></div>
+                            </div>
+                            <div class="simplebar-mask">
+                                <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                    <div class="simplebar-content-wrapper"
+                                        style="height: auto; overflow: hidden scroll;">
+                                        <div class="
+                                                                                      "
+                                            style="padding: 0px;">
+
+                                            <table id="selection-datatable" class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline" role="grid" aria-describedby="selection-datatable_info" style="width: 1008px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Username</th>
+                                                        {{-- <th>Contact no</th> --}}
+                                                        <th>Expiry date</th>
+                                                      
+                                                        <th>Detail</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($data['health'] as $health)
+                                                        <tr>
+                                                            {{-- <td> --}}
+                                                                {{-- <div class="inbox-item">
+                                                                    <div class="inbox-item-img"><img
+                                                                            src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
+                                                                            class="rounded-circle" alt="">
+                                                                    </div>
+                                                                </div> --}}
+                                                            {{-- </td> --}}
+                                                            <td class="text-capitalize">{{ $health->user_name }}</td>
+                                                            {{-- <td>{{$health->health_certificate_status}}</td> --}}
+                                                            <td>{{ $health->health_card_expiry }}</td>
+                                                            
+                                                            <td class="text-center"><a href="{{ route('maid.show', $health->user_name) }}"><i class="fas fa-eye"></i></a></td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div> <!-- end table responsive-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
+                    </div>
+                    <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                        <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                    </div>
+                    <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                        <div class="simplebar-scrollbar"
+                            style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                    </div>
+                </div> <!-- end inbox-widget -->
+            </div>
+        </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        
+                        <h4 class="header-title mb-3">Visa expiry in 2 months</h4>
+
+                        <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                            <div class="simplebar-wrapper" style="margin: 0px;">
+                                <div class="simplebar-height-auto-observer-wrapper">
+                                    <div class="simplebar-height-auto-observer"></div>
+                                </div>
+                                <div class="simplebar-mask">
+                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                        <div class="simplebar-content-wrapper"
+                                            style="height: auto; overflow: hidden scroll;">
+                                            <div class="
+                                                                                          "
+                                                style="padding: 0px;">
+
+                                                <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Username</th>
+                                                            {{-- <th>Contact no</th> --}}
+                                                            <th>Expiry date</th>
+                                                          
+                                                            <th>Detail</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($data['maids'] as $maid)
+                                                            <tr>
+                                                                {{-- <td> --}}
+                                                                    {{-- <div class="inbox-item">
+                                                                        <div class="inbox-item-img"><img
+                                                                                src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
+                                                                                class="rounded-circle" alt="">
+                                                                        </div>
+                                                                    </div> --}}
+                                                                {{-- </td> --}}
+                                                                <td class="text-capitalize">{{ $maid->user_name }}</td>
+                                                                {{-- <td>{{$maid->contact_number}}</td> --}}
+                                                                <td>{{ $maid->visa_expiry_date }}</td>
+                                                                
+                                                                <td class="text-center"><a href="{{ route('maid.show', $maid->user_name) }}"><i class="fas fa-eye"></i></a></td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                            </div> <!-- end table responsive-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                            <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                            <div class="simplebar-scrollbar"
+                                style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                        </div>
+                    </div> <!-- end inbox-widget -->
+                </div>
+            </div> <!-- end card -->
+        </div>
+    </div>
+
     </div>
     <!-- end row -->
 
-</div> <!-- container -->
+    </div> <!-- container -->
 @endsection
 
 @section('script')
-<!-- third party js -->
-<script src="{{asset('assets/libs/jquery-sparkline/jquery-sparkline.min.js')}}"></script>
-<script src="{{asset('assets/libs/admin-resources/admin-resources.min.js')}}"></script>
-<!-- third party js ends -->
+    <!-- third party js -->
+    <script src="{{ asset('assets/libs/jquery-sparkline/jquery-sparkline.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/admin-resources/admin-resources.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/libs/pdfmake/pdfmake.min.js') }}"></script>
+    <!-- third party js ends -->
 
-<!-- demo app -->
-<script src="{{asset('assets/js/pages/dashboard-2.init.js')}}"></script>
-<!-- end demo js-->
+    <!-- demo app -->
+    <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/dashboard-2.init.js') }}"></script>
+    <!-- end demo js-->
 @endsection

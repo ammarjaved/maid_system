@@ -174,7 +174,7 @@
                             <td>{{ $maid->email }}</td>
                             <td>{{ $maid->contact_number }}</td>
 
-                            <th><a href="{{ route('maid.show', $maid->id) }}">view</a></th>
+                            <th><a href="{{ route('maid.show', $maid->user_name) }}">view</a></th>
                             <td>
                                 <form action="{{ route('maid.unAssing') }}" method="POST">
                                     @csrf

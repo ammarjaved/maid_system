@@ -27,6 +27,9 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+                    @if (Session::has('message'))
+                <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
+            @endif
                     <h4 class="header-title">Clients</h4>
                     {{-- <p class="text-muted font-13 mb-4">
                     DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction
@@ -90,7 +93,7 @@
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
-                                                <li><a href="{{ route('maid.show', $maid->id) }}"
+                                                <li><a href="{{ route('maid.show', $maid->user_name) }}"
                                                         class="btn  btn-sm dropdown-item">Detail</a>
                                                 </li>
 
@@ -158,7 +161,7 @@
                         <div class="my-3">
                         <span id="er_client_id" class="text-danger"></span>
 
-                        <select name="client_id" class="form-control" id="client_id" onchange="getAddress(this)">
+                        <select name="client_id" class="form-control" id="client_id">
                             <option value="" hidden>Select Client</option>
                             @foreach ($clients as $client)
                                 <option value="{{ $client->id }}" class="form-control">{{ $client->user_name }}</option>
@@ -167,7 +170,7 @@
                         </select>
                         </div>
 
-                        <div class="my-3">
+                        {{-- <div class="my-3">
                         <span id="er_client_boundary" class="text-danger"></span>
                         <select name="client_boundary_address" class="form-control" id="client_boundary">
                             <option value="" hidden>Select Address</option>
@@ -175,7 +178,7 @@
 
                         </select>
 
-                        </div>
+                        </div> --}}
 
                     </div>
 
@@ -256,11 +259,11 @@
         }
 
         function submitFoam() {
-            if (('#client_boundary').val() === '') {
-                ('#er_client_boundary').html('Select address')
-            } else {
-                ('#er_client_boundary').html('');
-            }
+            // if (('#client_boundary').val() === '') {
+            //     ('#er_client_boundary').html('Select address')
+            // } else {
+            //     ('#er_client_boundary').html('');
+            // }
             if (('#client_id').val() === '') {
                 ('#client_id').val() === null
             } else {
