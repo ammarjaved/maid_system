@@ -221,7 +221,7 @@
                     <label for="health_certificate_status">Health Certificate Status</label>
                     <span class="text-danger">@error('health_certificate_status'){{ $message }}@enderror</span>
                     <input id="health_certificate_status" type="date" name="health_certificate_status" disabled class="form-control"
-                        value="{{ old('health_certificate_status', $maid->health_certificate_status) }}">
+                        value="{{ old('health_certificate_status', $health->health_certificate_status) }}">
                 </div>
 
                 <div class="col-md-6">
@@ -251,7 +251,7 @@
                     <label for="health_card_expiry">Health Card Expiry </label>
                     <span class="text-danger">@error('health_card_expiry'){{ $message }}@enderror</span>
                     <input id="health_card_expiry" type="date" name="health_card_expiry" disabled class="form-control"
-                    value="{{ old('health_card_expiry', $maid->health_card_expiry) }}">                </div>
+                    value="{{ old('health_card_expiry', $health->health_card_expiry) }}">                </div>
                 
 
                 <div class="row">
@@ -303,9 +303,9 @@
 
                     <div class="col-6 text-center p-3">
                         <label for="health_certificate" class="col-12 text-start">Health Certificate</label>
-                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->health_certificate) }}"
+                        <a href="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                             data-lightbox="roadtrip">
-                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->health_certificate) }}"
+                            <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                                 style="height: 70px; width: 70px;">
                         </a>
                     

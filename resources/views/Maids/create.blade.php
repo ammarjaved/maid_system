@@ -140,7 +140,14 @@
         <div class="col-md-6">
             <label for="health_certificate_status">Health Certificate Status</label>
             <span class="text-danger">@error('health_certificate_status'){{ $message }}@enderror</span>
-            <input id="health_certificate_status" name="health_certificate_status" class="form-control" value="{{old('health_certificate_status')}}">
+            
+            <select class="form-control" name="health_certificate_status">
+                <option value="{{old('health_certificate_status', '')}}" hidden>
+                {{old('health_certificate_status', 'Select Value')}}</option>
+                <option value="valid">valid</option>
+                <option value="expire">expire</option>
+            </select>
+            {{-- <input id="health_certificate_status" name="health_certificate_status" class="form-control" value="{{old('health_certificate_status')}}"> --}}
         </div>
 
         <div class="col-md-6">

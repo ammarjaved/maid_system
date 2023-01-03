@@ -128,14 +128,15 @@ class MaidController extends Controller
     {
         //
         $maid = maid::find($id);
-        //  $maid;
+    
         $client = '';
         if($maid->client_id != ''){
         $client = Client::where('id',$maid->client_id)->get();
         }
+        $health = health::where('user_name',$maid->user_name)->first();
        
 
-        return $maid != "" ? view('Maids.show',['maid'=> $maid,'client'=>$client]): abort('404');
+        return $maid != "" ? view('Maids.show',['maid'=> $maid,'client'=>$client,'health'=>$health]): abort('404');
     }
 
     /**
@@ -148,10 +149,11 @@ class MaidController extends Controller
     {
         //
         $maid = maid::where('user_name' , $username)->first();
+        $health = health::where('user_name',$username)->first();
         // $maid = maid::where('user_name' , $username)
         // ->join('tbl_health', 'tbl_user.user_name', 'tbl_health.user_name')
         // ->first();
-        return $maid != "" ? view('Maids.edit',['maid'=> $maid,'countries'=> Country::all()]) : abort('404');
+        return $maid != "" ? view('Maids.edit',['maid'=> $maid,'countries'=> Country::all(),'health'=>$health]) : abort('404');
         
       
        

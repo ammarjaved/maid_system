@@ -57,7 +57,8 @@ class ChangePassword extends Controller
         ]);
         
         if(ModelsChangePassword::where('user_name',$req->username)
-        ->where('token',base64_decode($token))->first()){
+        ->where('token',base64_decode($token))
+        ->first()){
            
             $user = User::where('name', $req->username)->first();
             $user->password = Hash::make($req->password);

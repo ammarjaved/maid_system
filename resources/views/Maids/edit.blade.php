@@ -228,9 +228,15 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="health_certificate_status" type="text" name="health_certificate_status"
+                        <select class="form-control" name="health_certificate_status">
+                            <option value="{{old('health_certificate_status', $health->health_certificate_status)}}" hidden>
+                            {{old('health_certificate_status', $health->health_certificate_status)}}</option>
+                            <option value="valid">valid</option>
+                            <option value="expire">expire</option>
+                        </select>
+                         {{-- <input id="health_certificate_status" type="text" name="health_certificate_status"
                             class="form-control"
-                            value="{{ old('health_certificate_status', $maid->health_certificate_status) }}">
+                            value="{{ old('health_certificate_status', $health->health_certificate_status) }}"> --}}
                     </div>
 
 
@@ -266,7 +272,7 @@
                             @enderror
                         </span>
                         <input id="health_card_expiry" type="date" name="health_card_expiry" 
-                            class="form-control" value="{{ old('health_card_expiry', $maid->health_card_expiry) }}">
+                            class="form-control" value="{{ old('health_card_expiry', $health->health_card_expiry) }}">
                     </div>
 
                     <div class="col-md-6 mt-2">
@@ -380,10 +386,10 @@
                     <div class="col-md-6">
                         <label for="health_certificate">Visa image back</label>
                         <div class="col-6 text-center">
-                            <a href="{{ URL::asset('asset/images/Maid/' . $maid->health_certificate) }}"
+                            <a href="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                                 data-lightbox="roadtrip">
                                 <img id="temprary"
-                                    src="{{ URL::asset('asset/images/Maid/' . $maid->health_certificate) }}"
+                                    src="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                                     alt="no image found" style="height: 70px; width: 70px;">
                             </a>
                         </div>
