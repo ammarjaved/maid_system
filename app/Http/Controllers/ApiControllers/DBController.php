@@ -29,5 +29,37 @@ class DBController extends Controller
 
     }
 
+    public function insert(Request $req)
+    {
+        
+        try {
+            $data = DB::select($req->qury);
+        } 
+            catch (Exception $e) {
+                return response()->json([
+                    'message'=>'failed'
+                ]);
+            }
+
+            return response()->json([
+                'message'=>'success'
+            ]);
+    }
+
+    public function update(Request $req)
+    {       
+        try {
+            $data = DB::select($req->qury);
+        } 
+            catch (Exception $e) {
+                return response()->json([
+                    'message'=>'failed'
+                ]);
+            }
+
+            return response()->json([
+                'message'=>'success'
+            ]);
+    }
     
 }

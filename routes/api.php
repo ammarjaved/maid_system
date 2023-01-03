@@ -4,6 +4,7 @@
 use App\Http\Controllers\ApiControllers\UpdateUserInfo;
 use App\Http\Controllers\ApiControllers\UploadImages;
 use App\Http\Controllers\ApiControllers\SalaryController;
+use App\Http\Controllers\ApiControllers\DBController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +29,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
 
-Route::post("/database/GetResults",[App\Http\Controllers\ApiControllers\DBController::class,'GetResults']);
+Route::post("/database/GetResults",[DBController::class,'GetResults']);
+Route::post("/database/insert",[DBController::class,'insert']);
+Route::post("/database/update",[DBController::class,'update']);
 Route::get('/test',[App\Http\Controllers\ApiControllers\LoginController::class,"test"]);
 Route::post('/upload-maid-images',[UploadImages::class,"upload"]);
 Route::post('/update-maid-info/{id}',[UpdateUserInfo::class,"updateMaid"]);

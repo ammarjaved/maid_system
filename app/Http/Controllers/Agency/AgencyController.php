@@ -62,11 +62,11 @@ class AgencyController extends Controller
             $details = [
                 // 'title'=>'Mail from me',
                 'subject' => 'Successfully registered in AeroSunergy',
-                'name'=>$request->user_name,
+                'name'=>$request->name,
                 'password'=>$request->password,
-                'url'=> asset('/change-my-password').'/'.$request->user_name.'/'. base64_encode($token),
+                'url'=> asset('/change-my-password').'/'.$request->name.'/'. base64_encode($token),
             ];
-
+            // dd($request);
 
             Mail::to($request->agency_email)->send(new newUserRegister($details));
         }catch(Exception $e){
