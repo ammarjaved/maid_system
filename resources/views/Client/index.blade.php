@@ -27,7 +27,7 @@
         <div class="col-12">
             <div class="card ">
                 <div class="text-center">
-                <div class="col-8  p-3 pb-0">
+                <div class="col-12  p-3 pb-0">
                     @if (Session::has('message'))
                         <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}
                         </p>
