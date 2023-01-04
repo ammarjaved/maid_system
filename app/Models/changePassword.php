@@ -13,6 +13,7 @@ class changePassword extends Model
     public $timestamps = false;
     protected $fillable=[
         'user_name',
-        'token'
+        'token',
+        'created_at',
     ];
 }

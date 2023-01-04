@@ -30,12 +30,13 @@ require __DIR__ . '/auth.php';
 
 
 Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['middleware' => 'superAdmin:agency'], function () {
+
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
-    Route::get('/my-account/edit/{name}',[AgencyController::class,'edit']);
     
     
-    Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
-    Route::post('/new-password',[ChangePassword::class,'newPassword'] );
+    
 
     Route::resource('maid',MaidController::class);
     Route::resource('client',ClientController::class);
@@ -58,23 +59,27 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::get('/get-address/{name}',[MapBoundry::class,'getAddress']);
 
-    // Route::post('/update-boundry',[MapBoundry::class,'update']);
-    // Route::get('/remove-boundry/{id}',[MapBoundry::class,'destroy']);
-
-
-    Route::resource('agency',AgencyController::class);
-
     Route::post('/maid-assign',[AssingMaid::class,"assign_maid"])->name("maid.assign");
     Route::view('/','client.create');
-
     Route::post('/un-assign',[AssingMaid::class,'unAssign'])->name("maid.unAssing");
 
-
+  
     Route::view('/get-test','Client.test' );
 
     Route::get('/dashboard',[DashboardController::class,'index']);
 
-    Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
+
+});
+   
+    Route::group(['middleware' => 'superAdmin:superAdmin'], function () {
+        Route::resource('agency',AgencyController::class);
+        Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
+        Route::post('/new-password',[ChangePassword::class,'newPassword'] );
+
+    });
+
+   
+   
 
 });
 

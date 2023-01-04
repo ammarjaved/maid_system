@@ -68,15 +68,20 @@ class AgencyController extends Controller
                 'type' => 'agency',
             ]);
 
+            changePassword::create([
+                'user_name' => $request->user_name,
+                'token' => $token,
+                'created_at'=>date('Y-m-d', strtotime('-1 day')),
+            ]);
+
             try {
                 $details = [
-                    // 'title'=>'Mail from me',
                     'subject' => 'Successfully registered in AeroSunergy',
                     'name' => $request->name,
                     'password' => $request->password,
                     'url' => asset('/change-my-password') . '/' . $request->name . '/' . base64_encode($token),
                 ];
-                // dd($request);
+              
 
                 Mail::to($request->agency_email)->send(new newUserRegister($details));
             } catch (Exception $e) {
@@ -85,10 +90,7 @@ class AgencyController extends Controller
                     ->route('agency.index')
                     ->with('message', 'Mail sending failed');
             }
-            changePassword::create([
-                'user_name' => $request->user_name,
-                'token' => $token,
-            ]);
+           
         } catch (Exception $e) {
             return $e->getMessage();
             return redirect()

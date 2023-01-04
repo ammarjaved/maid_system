@@ -15,15 +15,15 @@ class SuperAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $type)
     {
         $currentURL = \Request::url();
 
 
-        if(Auth::user()->type == "superAdmin" ){
+        if(Auth::user()->type == $type ){
             return $next($request);    
         }
-        return redirect()->route('client.index');
+        return redirect()->back();
         
        
     }
