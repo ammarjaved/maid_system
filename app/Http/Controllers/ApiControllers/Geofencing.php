@@ -16,8 +16,8 @@ class Geofencing extends Controller
        if(geom::where('user_name',$request->username)->first()){
 
        
-        $log = $request->log ;
-        $lat = $request->lat;
+        $log = (float)$request->log ;
+        $lat = (float)$request->lat;
         $user = $request->username;
         $result = DB::select("select st_intersects(st_geomfromtext('POINT('||$lat||' '||$log||')',4326),geom)  
         from client_geoms  where user_name='$user'");

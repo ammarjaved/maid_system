@@ -7,22 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class newUserRegister extends Mailable 
+class MobileMial extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $details = [];
-
+    public $detail=[];
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($detail)
     {
-       
-        $this->details = $details;
         //
+        $this->$detail = $detail;
     }
 
     /**
@@ -32,8 +30,6 @@ class newUserRegister extends Mailable
      */
     public function build()
     {
-       
-        return $this->subject($this->details['subject'])
-        ->view('Mail.MailNotification');
+        return $this->view('view.name');
     }
 }
