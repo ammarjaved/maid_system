@@ -45,7 +45,8 @@
                                 <th>Contact Number</th>
                                 <th>House Coords</th>
                                 {{-- <th>Created By</th> --}}
-                                <th>Client Address</th>
+                                {{-- <th>Client Address</th> --}}
+                                <th>Reset password</th>
                                 <th>Boundary</th>
                                 <th>Action</th>
 
@@ -64,7 +65,9 @@
                                     <td>{{ $client->contact_number }}</td>
                                     <td>{{ $client->house_coords }}</td>
                                     {{-- <td>{{ $client->created_by }}</td> --}}
-                                    <td>{{ $client->client_address }}</td>
+                                    {{-- <td>{{ $client->client_address }}</td> --}}
+                                    <td class="text-center"><a href="/send-mail-for-change-password/{{$client->user_name}}/{{'client'}}" class="btn btn-sm btn-success">
+                                        Send mail</a></td>
 
                                     <td class="text-center p-1">
 

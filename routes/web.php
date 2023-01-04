@@ -44,15 +44,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/check-that-email-will-send-or-not',[mailController::class,'test']);
 
+   
+
 
 
     //map routes
-    Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
-    Route::post('/add-client-boundary',[MapBoundry::class,'store']);
-    Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
-    Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
-    Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
-    Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
+    // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
+    // Route::post('/add-client-boundary',[MapBoundry::class,'store']);
+    // Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
+    // Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
+    // Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
+    // Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
     Route::get('/show-all-boundry/{name}',[MapBoundry::class,'getAllBoundry']);
 
 
@@ -79,7 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
    
-   
+    Route::get('/send-mail-for-change-password/{name}/{type}',[mailController::class,'sendMail']);
 
 });
 

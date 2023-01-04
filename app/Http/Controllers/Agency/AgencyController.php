@@ -71,7 +71,7 @@ class AgencyController extends Controller
             changePassword::create([
                 'user_name' => $request->user_name,
                 'token' => $token,
-                'created_at'=>date('Y-m-d', strtotime('-1 day')),
+                'created_at'=>date('Y-m-d', strtotime('+1 day')),
             ]);
 
             try {

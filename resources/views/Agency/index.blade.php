@@ -45,6 +45,7 @@
                                 <th>Contact Number</th>
                                 <th>Agency SOS</th>
                                 <th>Agency SSM</th>
+                                <th>change password</th>
                                 <th>Action</th>
 
                             </tr>
@@ -62,6 +63,8 @@
                                     <td>{{ $agency->agency_contact_number }}</td>
                                     <td>{{ $agency->agency_sos }}</td>
                                     <td>{{ $agency->agency_ssm }}</td>
+                                    <td class="text-center"><a href="/send-mail-for-change-password/{{$agency->user_name}}/{{'agency'}}" class="btn btn-sm btn-success">
+                                    Send mail</a></td>
                                     <td class="text-center p-1">
                                         <div class="dropdown">
                                             <button class="btn" type="button" id="dropdownMenuButton1"

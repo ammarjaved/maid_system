@@ -5,23 +5,69 @@ namespace App\Http\Controllers;
 use App\Jobs\SendMailJob;
 use Illuminate\Http\Request;
 use App\Mail\newUserRegister;
+use App\Mail\ResetPassword;
 use Illuminate\Support\Facades\Mail;
+use App\Models\changePassword;
+use App\Models\User;
+use Exception;
+use App\Models\agency;
+use App\Models\Client;
+
+use function PHPSTORM_META\type;
 
 class mailController extends Controller
 {
     //
 
-    public $details;
+    public function sendMail($user_name, $type)
+    {
+        if ($type == 'agency') {
+            $user = agency::where('user_name', $user_name)->first();
+            if (!$user) {
+                return redirect()->route('agency.index');
+            }
+            $email = $user->agency_email;
+        } elseif ($type == 'client') {
+            $user = Client::where('user_name', $user_name)->first();
+            if (!$user) {
+                return redirect('/dashboard');
+            }
+            $email = $user->email;
+        }
 
-    public function test(){
+        $token = rand();
+
+        changePassword::create([
+            'user_name' => $user_name,
+            'token' => $token,
+            'created_at' => date('Y-m-d', strtotime('+1 day')),
+        ]);
+
+        try {
+            $details = [
+                'subject' => 'Change password request',
+                'url' => asset('/change-my-password') . '/' . $user_name . '/' . base64_encode($token),
+            ];
+
+            Mail::to($email)->send(new ResetPassword($details));
+        } catch (Exception $e) {
+            // return $e->getMessage();
+            return redirect()
+                ->back()
+                ->with('message', 'Mail sending failed');
+        }
+        return redirect()->back();
+    }
+
+    public function test()
+    {
         $details = [
             // 'title'=>'Mail from me',
             'subject' => 'Successfully registered in AeroSunergy',
-            'name'=>"sdfsdf",
-            'password'=>"sdfsdfsdf",
-            'url'=> asset('/change-password').'/sdfsdfsdf',
+            'name' => 'sdfsdf',
+            'password' => 'sdfsdfsdf',
+            'url' => asset('/change-password') . '/sdfsdfsdf',
         ];
-        $this->details = $details;
 
         try {
             // dispatch(function () {
@@ -30,8 +76,8 @@ class mailController extends Controller
             // SendMailJob::dispatch($details);
             Mail::to('a.rehman5110@gmail.com')->send(new newUserRegister($details));
         } catch (newUserRegister $e) {
-            // return $e->getMessage();
-            return"sdfsd";
+            return $e->getMessage();
+            return 'sdfsd';
             return redirect('/users')->with('message', 'Something is worng');
         }
     }
