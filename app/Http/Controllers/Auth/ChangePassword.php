@@ -77,7 +77,7 @@ class ChangePassword extends Controller
     public function mailPasswordView($username, $token){
         if(ModelsChangePassword::where('user_name',$username)
         ->where('token',base64_decode($token))->first()){
-
+            
             return view('ChangePassword.changePassword-view',['username'=>$username,'token'=>$token]);
         }else{
             return view('ChangePassword.not-valid',['message'=>"Your Information is not valid or expired.. "]);
