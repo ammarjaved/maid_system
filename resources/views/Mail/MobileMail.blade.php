@@ -4,6 +4,7 @@
     </head>
     <body>
         
+        
         <p>{{$details['body']}}</p>
 
     </body>

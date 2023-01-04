@@ -11,16 +11,17 @@ class MobileMial extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $detail=[];
+    public $details = [];
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($detail)
+    public function __construct($details)
     {
+        // dd($details);
         //
-        $this->$detail = $detail;
+        $this->details = $details;
     }
 
     /**
@@ -30,6 +31,8 @@ class MobileMial extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        // dd($this->details);
+        return $this->subject($this->details['subject'])
+        ->view('Mail.MobileMail');
     }
 }
