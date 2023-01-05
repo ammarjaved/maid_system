@@ -23,10 +23,17 @@ class Geofencing extends Controller
         $log = (float)$request->log ;
         $lat = (float)$request->lat;
          $user = $maid->client_boundary_id;
-        $result = DB::select("select st_intersects(st_geomfromtext('POINT('||$lat||' '||$log||')',4326),geom)  
-        from client_geoms  where id='$user'");
+        $query="select st_intersects(st_geomfromtext('POINT('||$lat||' '||$log||')',4326),geom)  
+        from client_geoms  where id='$user'"; 
+        if($user==''){
+            return response()->json(['message'=>'no found boundary found against this user']);
+        }else{
+        //echo  $query;
+        //exit();
+        $result = DB::select($query);
 
         return $result[0];
+        }
        }
        else{
         return response()->json(['message'=>'user not found']);
