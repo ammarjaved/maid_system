@@ -142,9 +142,10 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                       
+
                         <div class="input-group input-group-merge">
-                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+                            <input type="password" name="password" id="password" class="form-control"
+                                placeholder="Enter your password">
                             <div class="input-group-text" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
@@ -159,7 +160,9 @@
                             @enderror
                         </span>
                         <div class="input-group input-group-merge">
-                            <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirmation" class="form-control" placeholder="Enter your password">
+                            <input type="password" name="password_confirmation"
+                                value="{{ old('password_confirmation') }}" id="password_confirmation"
+                                class="form-control" placeholder="Enter your password">
                             <div class="input-group-text" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
