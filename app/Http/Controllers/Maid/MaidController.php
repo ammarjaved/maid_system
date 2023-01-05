@@ -180,7 +180,10 @@ class MaidController extends Controller
         
         $maid = maid::find($id);
         try{
-            
+            User::where('name',$maid->user_name)
+                ->update([
+                    'email'=>$request->email
+                ]);
             
             $maid->update($request->all());
             

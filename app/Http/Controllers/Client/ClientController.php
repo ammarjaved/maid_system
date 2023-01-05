@@ -114,7 +114,7 @@ class ClientController extends Controller
             ];
 
 
-            Mail::to($request->agency_email)->send(new newUserRegister($details));
+            Mail::to($request->email)->send(new newUserRegister($details));
         }catch(Exception $e){
             // return $e->getMessage();
             return redirect()->route('client.index')->with('message' , 'Mail sending failed');

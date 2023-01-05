@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
     // Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
     // Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
-    // Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
+    Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
     Route::get('/show-all-boundry/{name}',[MapBoundry::class,'getAllBoundry']);
 
 

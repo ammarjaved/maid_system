@@ -60,7 +60,7 @@ class ChangePassword extends Controller
                 ->first()
         ) {
             $user = User::where('name', $req->username)->first();
-            $user->password = Hash::make($req->password);
+            $user->password = Hash::make($req->new_password_confirm);
             $user->save();
             ModelsChangePassword::where('user_name', $req->username)
                 ->where('token', base64_decode($token))

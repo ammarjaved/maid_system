@@ -70,8 +70,10 @@
                                         Send mail</a></td>
 
                                     <td class="text-center p-1">
-
+                                        {{-- @if ($client->client_boundary_id != '') --}}
                                         <a href="/show-boundary/{{ $client->user_name }}">view</a>
+                                        {{-- @endif --}}
+                                       
                                         {{-- <div class="dropdown">
                                             <button class="btn" type="button" id="dropdownMenuButton1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
