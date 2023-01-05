@@ -73,6 +73,12 @@ class AgencyController extends Controller
                 'token' => $token,
                 'created_at'=>date('Y-m-d', strtotime('+1 day')),
             ]);
+        } catch (Exception $e) {
+            // return $e->getMessage();
+            return redirect()
+                ->route('agency.create')
+                ->with('message', 'Except user login all data is saved');
+        }
 
             try {
                 $details = [
@@ -91,12 +97,7 @@ class AgencyController extends Controller
                     ->with('message', 'Mail sending failed');
             }
            
-        } catch (Exception $e) {
-            return $e->getMessage();
-            return redirect()
-                ->route('agency.create')
-                ->with('message', 'Except user login all data is saved');
-        }
+        
 
         return redirect()->route('agency.index');
     }
