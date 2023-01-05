@@ -27,7 +27,7 @@ class AgencyRequest extends FormRequest
          return [
                 'name'=>['required',Rule::unique('users')],
                 'agency_name'=>'required' ,
-                'agency_email'=>['required','email', Rule::unique('users')],
+                'email'=>['required','email', Rule::unique('users')],
                 'agency_address'=>'required',
                 'agency_contact_number'=>'required|min:9|max:11',
                 'agency_sos'=>'required',

@@ -49,6 +49,7 @@ class AgencyController extends Controller
     public function store(AgencyRequest $request)
     {
         $token = rand();
+        $request['agency_email'] = $request->email;
 
         $request['user_name'] = $request->name;
 
