@@ -53,14 +53,14 @@
                     </div>
 
                     <div class="col-6 mb-2 px-3 ">
-                        <label for="agency_email">Agency Email</label>
+                        <label for="email">Agency Email</label>
                         <span class="text-danger">
-                            @error('agency_email')
+                            @error('email')
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="agency_email" name="agency_email" class="form-control"
-                            value="{{ old('agency_email', $agency->agency_email) }}">
+                        <input id="email" name="email" class="form-control"
+                            value="{{ old('email', $agency->agency_email) }}">
                     </div>
 
                     <div class="col-6 mb-2 px-3">

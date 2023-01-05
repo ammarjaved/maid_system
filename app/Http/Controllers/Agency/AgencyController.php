@@ -138,7 +138,8 @@ class AgencyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request['user_name'] = Auth::user()->name;
+        // $request['user_name'] = Auth::user()->name;
+        $request['agency_email'] = $request->email;
         //
         try {
             $id = agency::find($id);
@@ -149,6 +150,7 @@ class AgencyController extends Controller
 
             $id->update($request->all());
         } catch (Exception $e) {
+            return $e->getMessage();
             return redirect()
                 ->back()
                 ->with('message', 'Something is worng Try again later');
