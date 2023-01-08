@@ -45,8 +45,9 @@
                                 <th>Contact Number</th>
                                 <th>Gender</th>
 
-                                <th>Skills</th>
+                                {{-- <th>Skills</th> --}}
                                 <th>Status</th>
+                                <th>Salary</th>
                                 <th class="text-center">Action</th>
 
                             </tr>
@@ -64,7 +65,7 @@
                                     <td>{{ $maid->contact_number }}</td>
                                     <td class="text-capitalize">{{ $maid->gender }}</td>
 
-                                    <td>{{ $maid->skills }}</td>
+                                    {{-- <td>{{ $maid->skills }}</td> --}}
                                     <td class="text-capitalize">
                                         @if ($maid->client_id != '')
                                             <?php
@@ -85,6 +86,9 @@
                                             <span class="badge badge-soft-danger">no client assign</span>
                                         @endif
                                     </td>
+
+                                     <td><a href="/slaray-detail/{{$maid->user_name}}" class="btn btn-secondary btn-sm">Deatil</a> </td>
+                            
                                     <td class="text-center p-1">
                                         <div class="dropdown">
                                             <button class="btn" type="button" id="dropdownMenuButton1"

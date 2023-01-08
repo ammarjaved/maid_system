@@ -118,18 +118,31 @@
                         value="{{ old('number_of_maids', $agency->number_of_maids) }}">
                 </div>
 
+                <div class="col-6 mb-2 px-3">
+                    <label for="number_of_maids">Total Clients</label>
+                    <input id="number_of_maids" disabled name="number_of_maids" class="form-control"
+                        value="{{  $client}}">
+                </div>
+
+                <div class="col-6 mb-2 px-3">
+                    <label for="number_of_maids">Total Maids</label>
+    
+                    <input id="number_of_maids" disabled name="number_of_maids" class="form-control"
+                        value="{{$maid }}">
+                </div>
+
 
                 {{-- <div>
                 <label for="created_by">created_by</label>
                 <input id="created_by" name="created_by" hidden class="form-control" value="">
             </div> --}}
                 {{-- <input id="created_by" type="hidden" name="created_by" class="form-control" value="{{Auth::user()->email}}"> --}}
-                <div class="text-center">
+                {{-- <div class="text-center">
                     @if (Auth::user()->type == 'superAdmin')
                     <a href="{{ route('agency.edit', $agency->id) }}"><button type="submit" class="btn btn-success btn-sm mt-3">Update Information</button>
                     @endif
 
-                </div>
+                </div> --}}
             </div>
             </form>
 

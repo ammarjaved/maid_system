@@ -275,7 +275,7 @@ class MaidController extends Controller
             $file5 = $req->file('passport_image_back');   
 
             $exc = $file5->getClientOriginalExtension();
-            $filename =  $maid->user_name.'-passport-front-image-'.strtotime(now()).'.'.$exc;
+            $filename =  $maid->user_name.'-passport-back-image-'.strtotime(now()).'.'.$exc;
             $file5->move($destinationPath, $filename);
             $maid->passport_image_back = $filename;
             

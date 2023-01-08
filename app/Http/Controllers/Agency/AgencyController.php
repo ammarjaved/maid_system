@@ -13,6 +13,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\newUserRegister;
+use App\Models\Client;
+use App\Models\maid;
 use Illuminate\Support\Facades\Mail;
 
 class AgencyController extends Controller
@@ -113,7 +115,9 @@ class AgencyController extends Controller
     {
         //
         $agency = agency::find($id);
-        return $agency != '' ? view('Agency.show', ['agency' => $agency]) : abort('404');
+        $client = Client::where('created_by',$agency->user_name)->count();
+        $maid = maid::where('created_by',$agency->user_name)->count();
+        return $agency != '' ? view('Agency.show', ['agency' => $agency,'client'=>$client,'maid'=>$maid]) : abort('404');
     }
 
     /**

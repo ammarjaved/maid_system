@@ -43,11 +43,13 @@
                                 <th>Username</th>
                                 <th>email</th>
                                 <th>Contact Number</th>
-                                <th>House Coords</th>
+                            
                                 {{-- <th>Created By</th> --}}
                                 {{-- <th>Client Address</th> --}}
+                                
+                                <th class="text-center">Boundary</th>
+                                {{-- <th>Salary</th> --}}
                                 <th>Reset password</th>
-                                <th>Boundary</th>
                                 <th>Action</th>
 
                             </tr>
@@ -63,15 +65,16 @@
                                     <td>{{ $client->user_name }}</td>
                                     <td>{{ $client->email }}</td>
                                     <td>{{ $client->contact_number }}</td>
-                                    <td>{{ $client->house_coords }}</td>
+                                   
                                     {{-- <td>{{ $client->created_by }}</td> --}}
                                     {{-- <td>{{ $client->client_address }}</td> --}}
-                                    <td class="text-center"><a href="/send-mail-for-change-password/{{$client->user_name}}/{{'client'}}" class="btn btn-sm btn-success">
-                                        Send mail</a></td>
 
-                                    <td class="text-center p-1">
+                                 
+                                   
+
+                                    <td class="text-center">
                                         {{-- @if ($client->client_boundary_id != '') --}}
-                                        <a href="/show-boundary/{{ $client->user_name }}">view</a>
+                                        <a href="/show-boundary/{{ $client->user_name }}" ><i class="mdi mdi-home-map-marker" style="font-size: 25px ; color: grey"></i></a>
                                         {{-- @endif --}}
                                        
                                         {{-- <div class="dropdown">
@@ -94,6 +97,9 @@
                                             </ul>
                                         </div> --}}
                                     </td>
+                                    {{-- <td><a href="/slaray-detail/{{$client->user_name}}" class="btn btn-secondary btn-sm">Deatil</a> </td> --}}
+                                    <td class="text-center"><a href="/send-mail-for-change-password/{{$client->user_name}}/{{'client'}}" class="btn btn-sm btn-success">
+                                        Send mail</a></td>
 
 
 

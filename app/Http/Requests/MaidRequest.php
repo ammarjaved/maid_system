@@ -37,7 +37,7 @@ class MaidRequest extends FormRequest
                 'last_name' => 'required',
                 // 'full_name' => 'required',
                 'gender' => 'required',
-                'email' => ['required','email', Rule::unique('users').$this->user()->id],
+                'email' => ['required','email'],
                 'permanent_address' => 'required',
                 'date_of_birth' => 'required',
                 'country' => 'required',

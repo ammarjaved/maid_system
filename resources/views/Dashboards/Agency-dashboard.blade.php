@@ -60,10 +60,10 @@
             <div class="col-md-6 col-xl-3">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
-                        <a href="#total-maids"> <i class="fa fa-info-circle text-muted float-end"
+                        <a href="#maid_visa_expiry"> <i class="fa fa-info-circle text-muted float-end"
                                 data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
-                        <h4 class="mt-0 font-16">Visa Expiry in 2 months </h4>
+                        <h4 class="mt-0 font-16">Maid Visa Expiry in 2 months </h4>
                         <h2 class="text-primary my-3 text-center"><span
                                 data-plugin="counterup">{{ $data['visa_expiry'] }}</span></h2>
                         {{-- <p class="text-muted mb-0">Visa Expiry in 7 days <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
@@ -74,10 +74,10 @@
             <div class="col-md-6 col-xl-3">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
-                        <a href="#total-maids"> <i class="fa fa-info-circle text-muted float-end"
+                        <a href="#maid_health_expiry"> <i class="fa fa-info-circle text-muted float-end"
                                 data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
-                        <h4 class="mt-0 font-16">Health expiry in 2 months</h4>
+                        <h4 class="mt-0 font-16">Maid Health expiry in 2 months</h4>
                         <h2 class="text-primary my-3 text-center"><span
                                 data-plugin="counterup">{{ $data['health_expiry'] }}</span></h2>
                         {{-- <p class="text-muted mb-0">Health expiry in 7 days<span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
@@ -213,7 +213,7 @@
             <div class="card">
                 <div class="card-body">
                     
-                    <h4 class="header-title mb-3">Health expiry in 2 months</h4>
+                    <h4 class="header-title mb-3" id="maid_health_expiry">Maid Health expiry in 2 months</h4>
 
                     <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
                         <div class="simplebar-wrapper" style="margin: 0px;">
@@ -280,7 +280,7 @@
                 <div class="card">
                     <div class="card-body">
                         
-                        <h4 class="header-title mb-3">Visa expiry in 2 months</h4>
+                        <h4 class="header-title mb-3" id="maid_visa_expiry">Maid Visa expiry in 2 months</h4>
 
                         <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
                             <div class="simplebar-wrapper" style="margin: 0px;">
