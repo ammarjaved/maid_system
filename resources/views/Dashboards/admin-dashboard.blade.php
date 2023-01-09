@@ -28,7 +28,7 @@
 
     <div class="row">
 
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-6 col-xl-4">
             <div class="card" id="tooltip-container">
                 <div class="card-body">
                     <a href="#"> <i class="fa fa-info-circle text-muted float-end"
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-6 col-xl-4">
             <div class="card" id="tooltip-container">
                 <div class="card-body">
                     <a href="#"> <i class="fa fa-info-circle text-muted float-end"
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-3">
+        <div class="col-md-6 col-xl-4">
             <div class="card" id="tooltip-container">
                 <div class="card-body">
                     <a href="#"> <i class="fa fa-info-circle text-muted float-end"
@@ -70,6 +70,33 @@
             </div>
         </div>
     </div>
+
+
+        <div class="card p-4">
+            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                <thead>
+                    <th>Agency name</th>
+                    <th>username</th>
+                    <th class="text-center">total maids</th>
+                    <th class="text-center">total clients</th>
+                    <th>Created AT</th>
+                    <th>Detail</th>
+                </thead>
+                <tbody>
+                  @foreach ($agency as $agen)
+                  <tr>
+                     <td>{{$agen->agency_name}}</td>
+                     <td>{{$agen->user_name}}</td>
+                     <td class="text-center">{{$agen->total_maid}}</td>
+                     <td class="text-center">{{$agen->total_client}}</td>
+                     <td>{{date('d-m-Y', strtotime($agen->created_at))}}</td>
+                     <td class="text-center"><a href="{{route('agency.show',$agen->id)}}"> <i class="fas fa-eye" style="color: grey"></i></a></td>
+                    </tr>
+                  @endforeach
+                </tbody>
+            </table>
+        </div>
+    
 </div>
 
 
