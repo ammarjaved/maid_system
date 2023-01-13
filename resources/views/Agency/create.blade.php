@@ -30,7 +30,7 @@
                 <div class="row">
                     <div class="col-6 mb-2 px-3">
 
-                        <label for="user_name">User Name</label>
+                        <label for="user_name">Username</label>
                         <span class="text-danger">
                             @error('name')
                                 {{ $message }}
@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="col-6 mb-2 px-3">
-                        <label for="agency_pic_number">Agency pic number</label>
+                        <label for="agency_pic_number">Agency PIC number</label>
                         <span class="text-danger">
                             @error('agency_pic_number')
                                 {{ $message }}
@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="col-6 mb-2 px-3">
-                        <label for="agency_aps_license_number">Agency aps license number</label>
+                        <label for="agency_aps_license_number">Agency APS license Number</label>
                         <span class="text-danger">
                             @error('agency_aps_license_number')
                                 {{ $message }}

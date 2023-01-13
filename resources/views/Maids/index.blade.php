@@ -60,7 +60,7 @@
 
 
 
-                                    <td>{{ $maid->user_name }}</td>
+                                    <td class="text-capitalize">{{ $maid->user_name }}</td>
                                     <td>{{ $maid->email }}</td>
                                     <td>{{ $maid->contact_number }}</td>
                                     <td class="text-capitalize">{{ $maid->gender }}</td>

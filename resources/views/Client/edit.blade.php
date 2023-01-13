@@ -32,7 +32,7 @@
                     <input value="{{ $client->id }}" id="client_id" type="hidden">
 
                     <div>
-                        <label for="user_name">User Name</label>
+                        <label for="user_name">Username</label>
                         <span class="text-danger">
                             @error('user_name')
                                 {{ $message }}
@@ -114,7 +114,7 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="client_identity" type="number" name="client_identity" class="form-control"
+                        <input id="client_identity" type="text" name="client_identity" class="form-control"
                             value="{{ old('client_identity', $client->client_identity) }}">
                     </div>
 

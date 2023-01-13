@@ -55,6 +55,15 @@
 
                 </li>
 
+                <li>
+                    <a href="/map-view">
+                        <i class="mdi mdi-map-marker"></i>
+
+                        <span> Map </span>
+                    </a>
+
+                </li>
+
 
                 <li class="menu-title mt-2">Apps</li>
 

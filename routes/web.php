@@ -12,6 +12,7 @@ use App\Http\Controllers\Client\MapBoundry;
 use App\Http\Controllers\Agency\DashboardController;
 use App\Http\Controllers\Client\SalaryController as ClientSalaryController;
 use App\Http\Controllers\mailController;
+use App\Http\Controllers\MapController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,7 +36,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => 'superAdmin:agency'], function () {
 
+        Route::get('/map-view',[MapController::class,'index']);
+
+        Route::get('/show-all-clients',[MapController::class,'show']);
+
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
+    Route::view('/hehehe','Mail.resetPassword');
     
     
     
@@ -86,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
 
    
     Route::get('/send-mail-for-change-password/{name}/{type}',[mailController::class,'sendMail']);
+
+   
 
 });
 

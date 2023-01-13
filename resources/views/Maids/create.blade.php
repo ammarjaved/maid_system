@@ -31,7 +31,7 @@
         @endif
 <div class="row">
         <div class="col-md-6">
-            <label for="user_name">User Name</label>
+            <label for="user_name">Username</label>
             <span class="text-danger">@error('name'){{ $message }}@enderror</span>
             <input id="user_name" name="name" class="form-control" value="{{old('name')}}" >
         </div>

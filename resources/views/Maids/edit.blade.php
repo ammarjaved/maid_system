@@ -40,7 +40,7 @@
                 </div> --}}
                 <div class="row">
                     <div class="col-md-6">
-                        <label for="user_name">User Name</label>
+                        <label for="user_name">Username</label>
                         <span class="text-danger">
                             @error('user_name')
                                 {{ $message }}
