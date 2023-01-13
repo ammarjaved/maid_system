@@ -6,6 +6,7 @@ use App\Http\Controllers\ApiControllers\UploadImages;
 use App\Http\Controllers\ApiControllers\SalaryController;
 use App\Http\Controllers\ApiControllers\DBController;
 use App\Http\Controllers\ApiControllers\Geofencing;
+use App\Http\Controllers\ApiControllers\GetDetailsController;
 use App\Http\Controllers\ApiControllers\SendMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,5 +42,10 @@ Route::post('/update-client-info/{id}',[UpdateUserInfo::class,"updateClient"]);
 Route::post('/addsalary-maid',[SalaryController::class,"addSalaryInfo"]);
 Route::post("/check-user-location",[Geofencing::class,"userLocation"]);
 Route::post("/send-mail",[SendMail::class,"sendMail"]);
+
+Route::get('/get-assigned-maids/{client_user_name}',[GetDetailsController::class,'assignedMaids']);
+Route::get('/get-maid-detail/{maid_user_name}',[GetDetailsController::class,'maidDetail']);
+Route::get('/get-agency-detail/{client_user_name}',[GetDetailsController::class,'getAgency']);
+
 
 Route::post('/login',[App\Http\Controllers\ApiControllers\LoginController::class,"login"]);
