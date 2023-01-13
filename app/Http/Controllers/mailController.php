@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendMailJob;
+
 use Illuminate\Http\Request;
 use App\Mail\newUserRegister;
 use App\Mail\ResetPassword;
 use Illuminate\Support\Facades\Mail;
 use App\Models\changePassword;
-use App\Models\User;
 use Exception;
 use App\Models\agency;
 use App\Models\Client;
+use Illuminate\Support\Facades\DB;
 
 use function PHPSTORM_META\type;
 
@@ -21,6 +21,10 @@ class mailController extends Controller
 
     public function sendMail($user_name, $type)
     {
+        $post_user = changePassword::where('user_name',$user_name)->get();
+        if($post_user){
+            $post_user->delete();
+        }
         if ($type == 'agency') {
             $user = agency::where('user_name', $user_name)->first();
             if (!$user) {
