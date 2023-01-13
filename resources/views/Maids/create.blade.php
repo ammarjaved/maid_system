@@ -30,17 +30,9 @@
             <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
         @endif
 <div class="row">
-        <div class="col-md-6">
-            <label for="user_name">Username</label>
-            <span class="text-danger">@error('name'){{ $message }}@enderror</span>
-            <input id="user_name" name="name" class="form-control" value="{{old('name')}}" >
-        </div>
+        
 
-        <div class="col-md-6">
-            <label for="email">Email</label>
-            <span class="text-danger">@error('email'){{ $message }}@enderror</span>
-            <input id="email" name="email" class="form-control" value="{{old('email')}}">
-        </div>
+       
 
 
         <div class="col-md-6">
@@ -53,6 +45,12 @@
             <label for="last_name">Last Name</label>
             <span class="text-danger">@error('last_name'){{ $message }}@enderror</span>
             <input id="last_name" name="last_name" class="form-control" value="{{old('last_name')}}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="email">Email</label>
+            <span class="text-danger">@error('email'){{ $message }}@enderror</span>
+            <input id="email" name="email" class="form-control" value="{{old('email')}}">
         </div>
 
         {{-- <div>
@@ -197,10 +195,16 @@
             <input id="visa_image_back" name="visa_image_back" type="file" class="form-control" value="{{old('visa_image_back')}}">
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-6">
             <label for="health_certificate">Health Certificate</label>
             <span class="text-danger">@error('health_certificate'){{ $message }}@enderror</span>
             <input id="health_certificate" name="health_certificate" type="file" class="form-control" value="{{old('health_certificate')}}">
+        </div>
+
+        <div class="col-md-12">
+            <label for="user_name">Username</label>
+            <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+            <input id="user_name" name="name" class="form-control" value="{{old('name')}}" >
         </div>
 
         <div class="col-md-6">

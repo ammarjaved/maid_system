@@ -31,15 +31,7 @@
                 <div class="first">
 
 
-                    <div>
-                        <label for="user_name">Username</label>
-                        <span class="text-danger">
-                            @error('name')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                        <input id="user_name" name="name" class="form-control" value="{{ old('name') }}">
-                    </div>
+                   
 
                     <div>
                         <label for="first_name">First Name</label>
@@ -158,6 +150,8 @@
                             value="{{ old('client_identity_img') }}">
                     </div>
 
+                    
+
 
 
                     <div>
@@ -169,6 +163,16 @@
                         </span>
                         <input id="profile_image" type="file" name="profile_image" class="form-control"
                             value="{{ old('profile_image') }}">
+                    </div>
+
+                    <div>
+                        <label for="user_name">Username</label>
+                        <span class="text-danger">
+                            @error('name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="user_name" name="name" class="form-control" value="{{ old('name') }}">
                     </div>
 
                     <div class="">

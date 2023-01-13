@@ -28,16 +28,7 @@
             <form action="{{ route('agency.store') }}" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-6 mb-2 px-3">
-
-                        <label for="user_name">Username</label>
-                        <span class="text-danger">
-                            @error('name')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                        <input id="user_name" name="name" class="form-control" value="{{ old('name') }}">
-                    </div>
+                    
 
                     <div class="col-6 mb-2 px-3">
                         <label for="agency_name">Agency Name</label>
@@ -135,6 +126,17 @@
                     </div>
 
 
+                    <div class="col-6 mb-2 px-3">
+
+                        <label for="user_name">Username</label>
+                        <span class="text-danger">
+                            @error('name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                        <input id="user_name" name="name" class="form-control" value="{{ old('name') }}">
+                    </div>
+
                     <div class="col-md-6 mb-2 px-3">
                         <label for="password">Password</label>
                         <span class="text-danger">
@@ -166,10 +168,10 @@
                             <div class="input-group-text" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
-                        </div>
+                        </div> 
                         {{-- <input id="password_confirmation"  name="password_confirmation" class="form-control"
                             value="{{ old('password_confirmation') }}"> --}}
-                    </div>
+                     </div> 
 
 
                     {{-- <div class="col-6 mb-2 px-3">
