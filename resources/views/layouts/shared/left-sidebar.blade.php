@@ -54,6 +54,8 @@
                     </a>
 
                 </li>
+@if (Auth::user()->type == 'agency')
+    
 
                 <li>
                     <a href="/map-view">
@@ -64,7 +66,7 @@
 
                 </li>
 
-
+                @endif
                 <li class="menu-title mt-2">Apps</li>
 
                 @if (Auth::user()->type == 'superAdmin')

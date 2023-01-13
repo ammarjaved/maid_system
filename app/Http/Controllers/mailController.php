@@ -21,7 +21,7 @@ class mailController extends Controller
 
     public function sendMail($user_name, $type)
     {
-        $post_user = changePassword::where('user_name',$user_name)->get();
+        $post_user = changePassword::where('user_name',$user_name)->first();
         if($post_user){
             $post_user->delete();
         }
