@@ -34,6 +34,7 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => 'auth'], function () {
 
+    Route::view('/hehehe','Mail.resetPassword');
     Route::group(['middleware' => 'superAdmin:agency'], function () {
 
         Route::get('/map-view',[MapController::class,'index']);
@@ -41,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/show-all-clients',[MapController::class,'show']);
 
     Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
-    Route::view('/hehehe','Mail.resetPassword');
+    
     
     
     
