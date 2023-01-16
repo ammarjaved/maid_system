@@ -27,7 +27,12 @@ class ClientController extends Controller
     public function index()
     {
         //
+        if(Auth::user()->type == 'agency'){
         $clients = Client::where('created_by', Auth::user()->name)->orderBy('id', 'DESC')->get();
+        }else{
+            $clients = Client::all();
+        }
+
         return view('Client.index', ['clients' => $clients]);
     }
 

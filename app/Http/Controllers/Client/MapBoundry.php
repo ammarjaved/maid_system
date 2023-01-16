@@ -73,6 +73,7 @@ class MapBoundry extends Controller
 
     public function show($username)
     {
+        // return "SDf";
        return view('Client.Boundary.show',['username'=>$username]);
     }
 

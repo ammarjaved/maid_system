@@ -25,7 +25,7 @@ class AssingMaid extends Controller
 
 
     public function unAssign(Request $request){
-    
+        // return "SDfsd";
         
         maid::find($request->maid_id)->update([
             'client_id'=>"",

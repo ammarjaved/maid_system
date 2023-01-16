@@ -31,80 +31,58 @@ use App\Http\Controllers\MapController;
 
 require __DIR__ . '/auth.php';
 
-
 Route::group(['middleware' => 'auth'], function () {
-
-    Route::view('/hehehe','Mail.resetPassword');
-    Route::group(['middleware' => 'superAdmin:agency'], function () {
-
-        Route::get('/map-view',[MapController::class,'index']);
-
-        Route::get('/show-all-clients',[MapController::class,'show']);
-
-    Route::get('/my-account/{name}',[AgencyController::class,'myAccount']);
-    
-    
-    
-    
-
-    Route::resource('maid',MaidController::class);
-    Route::resource('client',ClientController::class);
-    Route::get('/get-geo-detail/{id}',[ClientController::class,'getGeo']);
-
-    Route::get('/check-that-email-will-send-or-not',[mailController::class,'test']);
+    Route::view('/hehehe', 'Mail.resetPassword');
+    Route::resource('maid', MaidController::class);
+    Route::resource('client', ClientController::class);
 
    
+        Route::get('/map-view', [MapController::class, 'index']);
+
+        Route::get('/show-all-clients', [MapController::class, 'show']);
+
+        Route::get('/my-account/{name}', [AgencyController::class, 'myAccount']);
+
+        
+        Route::get('/get-geo-detail/{id}', [ClientController::class, 'getGeo']);
+
+        //map routes
+        // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
+        // Route::post('/add-client-boundary',[MapBoundry::class,'store']);
+        // Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
+        // Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
+        // Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
+
+        
 
 
+        Route::get('/show-boundary/{name}', [MapBoundry::class, 'show']);
+        Route::get('/show-all-boundry/{name}', [MapBoundry::class, 'getAllBoundry']);
 
-    //map routes
-    // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
-    // Route::post('/add-client-boundary',[MapBoundry::class,'store']);
-    // Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
-    // Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
-    // Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
-    Route::get('/show-boundary/{name}',[MapBoundry::class,'show']);
-    Route::get('/show-all-boundry/{name}',[MapBoundry::class,'getAllBoundry']);
+        Route::get('/get-address/{name}', [MapBoundry::class, 'getAddress']);
 
+        Route::post('/maid-assign', [AssingMaid::class, 'assign_maid'])->name('maid.assign');
+        Route::view('/', 'client.create');
+        Route::post('/un-assign', [AssingMaid::class, 'unAssign'])->name('maid.unAssing');
 
-    
-    Route::get('/get-address/{name}',[MapBoundry::class,'getAddress']);
+        Route::view('/get-test', 'Client.test');
 
-    Route::post('/maid-assign',[AssingMaid::class,"assign_maid"])->name("maid.assign");
-    Route::view('/','client.create');
-    Route::post('/un-assign',[AssingMaid::class,'unAssign'])->name("maid.unAssing");
-
-  
-    Route::view('/get-test','Client.test' );
-
-    Route::get('/dashboard',[DashboardController::class,'index']);
-    Route::get('/slaray-detail/{name}',[ClientSalaryController ::class,'show']);
-
-
-});
+        Route::get('/dashboard', [DashboardController::class, 'index']);
+        Route::get('/slaray-detail/{name}', [ClientSalaryController::class, 'show']);
    
+
     Route::group(['middleware' => 'superAdmin:superAdmin'], function () {
-        Route::resource('agency',AgencyController::class);
-        Route::get('/change-password/{name}',[ChangePassword::class,'changePassword'] );
-        Route::post('/new-password',[ChangePassword::class,'newPassword'] );
-        Route::get('/admin-dashboard',[adminDashboard::class,'home']);
-
+        Route::resource('agency', AgencyController::class);
+        Route::get('/change-password/{name}', [ChangePassword::class, 'changePassword']);
+        Route::post('/new-password', [ChangePassword::class, 'newPassword']);
+        Route::get('/admin-dashboard', [adminDashboard::class, 'home']);
     });
 
-   
-    Route::get('/send-mail-for-change-password/{name}/{type}',[mailController::class,'sendMail']);
-
-   
-
+    Route::get('/send-mail-for-change-password/{name}/{type}', [mailController::class, 'sendMail']);
 });
 
-Route::post('/change-your-password/{token}',[ChangePassword::class,'changePasswordMail']);
-Route::get('/change-my-password/{username}/{token}',[ChangePassword::class,'mailPasswordView']);
-
-
-
-
-
+Route::post('/change-your-password/{token}', [ChangePassword::class, 'changePasswordMail']);
+Route::get('/change-my-password/{username}/{token}', [ChangePassword::class, 'mailPasswordView']);
 
 Route::group(['prefix' => '/'], function () {
     Route::get('', [RoutingController::class, 'index'])->name('root');
@@ -112,6 +90,3 @@ Route::group(['prefix' => '/'], function () {
     Route::get('{first}/{second}', [RoutingController::class, 'secondLevel'])->name('second');
     Route::get('{any}', [RoutingController::class, 'root'])->name('any');
 });
-
-
-

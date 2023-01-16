@@ -17,6 +17,7 @@ use File;
 use App\Models\user_activity;
 use App\Models\agency;
 use App\Models\health;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class MaidController extends Controller
@@ -29,15 +30,20 @@ class MaidController extends Controller
     public function index()
     {
         //
-    
-        $maids = maid::where('created_by' , Auth::user()->name)->get();
-        $client = Client::where('created_by' , Auth::user()->name)->get();
 
-        
-       
-        return view('Maids.index',['maids'=>$maids,'clients'=>$client]);
-        
-        
+        if (Auth::user()->type == 'Agency') {
+            $maids = maid::where('created_by', Auth::user()->name)->get();
+            $client = Client::where('created_by', Auth::user()->name)->get();
+            return view('Maids.index', ['maids' => $maids, 'clients' => $client]);
+        } else {
+            $maids = maid::all();
+            $client = Client::all();
+            $data = DB::select("select a.maid,b.assigned , c.visa_expiry ,d.health_expiry from (select count(*) maid from tbl_user b) a, (select count(*) assigned
+  from tbl_user b where   client_id != '')b ,
+  (select count(*) visa_expiry from tbl_user  where visa_expiry_date::date < now()::date +60) c,
+  (select count(*) health_expiry from tbl_health where health_card_expiry::date < now()::date +60)d");
+            return view('Maids.index', ['maids' => $maids, 'clients' => $client, 'data' => $data[0]]);
+        }
     }
 
     /**
@@ -48,13 +54,13 @@ class MaidController extends Controller
     public function create()
     {
         //
-        
-         $countries = Country::all();
-         if(!$countries){
-            $countries = "";
-         }
-        
-        return view('Maids.create',['countries'=>$countries]);
+
+        $countries = Country::all();
+        if (!$countries) {
+            $countries = '';
+        }
+
+        return view('Maids.create', ['countries' => $countries]);
     }
 
     /**
@@ -65,17 +71,14 @@ class MaidController extends Controller
      */
     public function store(MaidRequest $request)
     {
-
-        
-      
-        $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
-        $request['agency_id'] =$agency_id[0]['id'];
+        $agency_id = agency::where('user_name', Auth::user()->name)->get('id');
+        $request['agency_id'] = $agency_id[0]['id'];
         $request['created_by'] = Auth::user()->name;
         $request['user_name'] = $request->name;
-        $request['full_name'] = $request->first_name .' '.$request->last_name;
+        $request['full_name'] = $request->first_name . ' ' . $request->last_name;
 
         // return $request;
-        try{
+        try {
             health::create($request->all());
             $data = maid::create($request->all());
             // $request->addUser();
@@ -86,35 +89,33 @@ class MaidController extends Controller
                 'password' => Hash::make($request->password),
                 'type' => 'maid',
             ]);
-            
-           
-           
+
             user_activity::create([
-                'user_id'=>$data->id,
-                'coords'=>'0,0',
+                'user_id' => $data->id,
+                'coords' => '0,0',
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             return $e->getMessage();
-            return redirect()->route('maid.create')->with('message' , "Something is worg try again later");
+            return redirect()
+                ->route('maid.create')
+                ->with('message', 'Something is worg try again later');
         }
 
-        $this->save_images($request , $data->id);
-        
-        
+        $this->save_images($request, $data->id);
 
-        
-        
         return redirect()->route('maid.index');
 
-        try{
+        try {
             tbl_login::create([
-                'user_name'=>$request->user_name,
-                'password' => "abcd1234",
-                'user_type' => 'maid'
+                'user_name' => $request->user_name,
+                'password' => 'abcd1234',
+                'user_type' => 'maid',
             ]);
-        }catch(Exception $e){
+        } catch (Exception $e) {
             // return $e->getMessage();
-            return redirect()->route('maid.create')->with('message' , 'Except user login all data is saved');
+            return redirect()
+                ->route('maid.create')
+                ->with('message', 'Except user login all data is saved');
         }
     }
 
@@ -127,20 +128,21 @@ class MaidController extends Controller
     public function show($username)
     {
         //
-        $maid = maid::where('user_name',$username)->first();
-    
+        $maid = maid::where('user_name', $username)->first();
+
         $client = '';
-        if($maid->client_id != ''){
-        $client = Client::where('id',$maid->client_id)->get();
+        if ($maid->client_id != '') {
+            $client = Client::where('id', $maid->client_id)->get();
         }
-      
-        if(!health::where('user_name',$username)->first()){
-            return redirect()->route('maid.index')->with('message','Something is wrong try again letter');
-       
+
+        if (!health::where('user_name', $username)->first()) {
+            return redirect()
+                ->route('maid.index')
+                ->with('message', 'Something is wrong try again letter');
         }
-        $health = health::where('user_name',$username)->first();
-     
-        return $maid != "" ? view('Maids.show',['maid'=> $maid,'client'=>$client,'health'=>$health]): abort('404');
+        $health = health::where('user_name', $username)->first();
+
+        return $maid != '' ? view('Maids.show', ['maid' => $maid, 'client' => $client, 'health' => $health]) : abort('404');
     }
 
     /**
@@ -152,19 +154,17 @@ class MaidController extends Controller
     public function edit($username)
     {
         //
-        $maid = maid::where('user_name' , $username)->first();
-        if(!health::where('user_name',$username)->first()){
-            return redirect()->route('maid.index')->with('message','Something is wrong try again letter');
-       
+        $maid = maid::where('user_name', $username)->first();
+        if (!health::where('user_name', $username)->first()) {
+            return redirect()
+                ->route('maid.index')
+                ->with('message', 'Something is wrong try again letter');
         }
-        $health = health::where('user_name',$username)->first();
+        $health = health::where('user_name', $username)->first();
         // $maid = maid::where('user_name' , $username)
         // ->join('tbl_health', 'tbl_user.user_name', 'tbl_health.user_name')
         // ->first();
-        return $maid != "" ? view('Maids.edit',['maid'=> $maid,'countries'=> Country::all(),'health'=>$health]) : abort('404');
-        
-      
-       
+        return $maid != '' ? view('Maids.edit', ['maid' => $maid, 'countries' => Country::all(), 'health' => $health]) : abort('404');
     }
 
     /**
@@ -177,35 +177,32 @@ class MaidController extends Controller
     public function update(MaidRequest $request, $id)
     {
         //
-        
+
         $maid = maid::find($id);
-        try{
-            User::where('name',$maid->user_name)
-                ->update([
-                    'email'=>$request->email
-                ]);
-            
+        try {
+            User::where('name', $maid->user_name)->update([
+                'email' => $request->email,
+            ]);
+
             $maid->update($request->all());
-            
-                $request['user_name'] = $maid->user_name;
-                
-            
-            
-            }catch(Exception $e){
-                // return $e->getMessage();
-                return redirect()->route('maid.edit',$maid->user_name)->with('message' , 'something is  worng try again later');
-            }
 
-            try{
-                health::where('user_name',$request->user_name)->update([
-                    'health_card_expiry'=>$request->health_card_expiry,
-                    'health_certificate_status'=>$request->health_certificate_status,
-                ]);
-            }catch(Exception $e){
-                
-            }
+            $request['user_name'] = $maid->user_name;
+        } catch (Exception $e) {
+            // return $e->getMessage();
+            return redirect()
+                ->route('maid.edit', $maid->user_name)
+                ->with('message', 'something is  worng try again later');
+        }
 
-            $this->save_images($request , $id);
+        try {
+            health::where('user_name', $request->user_name)->update([
+                'health_card_expiry' => $request->health_card_expiry,
+                'health_certificate_status' => $request->health_certificate_status,
+            ]);
+        } catch (Exception $e) {
+        }
+
+        $this->save_images($request, $id);
 
         return redirect()->route('maid.index');
     }
@@ -218,130 +215,113 @@ class MaidController extends Controller
      */
     public function destroy($id)
     {
-        $img_exits = public_path().'/asset/images/Maid/';
+        $img_exits = public_path() . '/asset/images/Maid/';
         //
-         $maid = maid::find($id);
-         $this->removeImage($maid->profile_image);
-         $this->removeImage($maid->passport_image_front);
-         $this->removeImage($maid->passport_image_back);
-         $this->removeImage($maid->visa_image_front);
-         $this->removeImage($maid->visa_image_back);
+        $maid = maid::find($id);
+        $this->removeImage($maid->profile_image);
+        $this->removeImage($maid->passport_image_front);
+        $this->removeImage($maid->passport_image_back);
+        $this->removeImage($maid->visa_image_front);
+        $this->removeImage($maid->visa_image_back);
 
-         User::where('name',$maid->user_name)->delete();
+        User::where('name', $maid->user_name)->delete();
 
-         $maid->delete();
+        $maid->delete();
 
         return redirect()->route('maid.index');
     }
 
-    public function save_images($req , $id){
-
+    public function save_images($req, $id)
+    {
         $destinationPath = 'asset/images/Maid';
-        $img_exits = public_path().'/asset/images/Maid/';
+        $img_exits = public_path() . '/asset/images/Maid/';
 
         $maid = maid::find($id);
 
-        if($req->has('profile_image')){
-
+        if ($req->has('profile_image')) {
             $this->removeImage($maid->profile_image);
 
-            $file5 = $req->file('profile_image');   
+            $file5 = $req->file('profile_image');
 
             $exc = $file5->getClientOriginalExtension();
-            $filename =   $maid->user_name.'-profile-image-'.strtotime(now()).'.'.$exc;
+            $filename = $maid->user_name . '-profile-image-' . strtotime(now()) . '.' . $exc;
             $file5->move($destinationPath, $filename);
             $maid->profile_image = $filename;
-
         }
 
-
-        if($req->has('passport_image_front')){
-
+        if ($req->has('passport_image_front')) {
             $this->removeImage($maid->passport_image_front);
 
-            $file5 = $req->file('passport_image_front');   
+            $file5 = $req->file('passport_image_front');
 
             $exc = $file5->getClientOriginalExtension();
-            $filename =  $maid->user_name.'-passport-front-image-'.strtotime(now()).'.'.$exc;
+            $filename = $maid->user_name . '-passport-front-image-' . strtotime(now()) . '.' . $exc;
             $file5->move($destinationPath, $filename);
             $maid->passport_image_front = $filename;
-
         }
 
-        if($req->has('passport_image_back')){
-
+        if ($req->has('passport_image_back')) {
             $this->removeImage($maid->passport_image_back);
 
-            $file5 = $req->file('passport_image_back');   
+            $file5 = $req->file('passport_image_back');
 
             $exc = $file5->getClientOriginalExtension();
-            $filename =  $maid->user_name.'-passport-back-image-'.strtotime(now()).'.'.$exc;
+            $filename = $maid->user_name . '-passport-back-image-' . strtotime(now()) . '.' . $exc;
             $file5->move($destinationPath, $filename);
             $maid->passport_image_back = $filename;
-            
         }
 
-        if($req->has('visa_image_front')){
-
+        if ($req->has('visa_image_front')) {
             $this->removeImage($maid->visa_image_front);
-            $file5 = $req->file('visa_image_front');   
- 
+            $file5 = $req->file('visa_image_front');
+
             $exc = $file5->getClientOriginalExtension();
-            $filename =  $maid->user_name.'-visa-image-front-'.strtotime(now()).'.'.$exc;
+            $filename = $maid->user_name . '-visa-image-front-' . strtotime(now()) . '.' . $exc;
             $file5->move($destinationPath, $filename);
             $maid->visa_image_front = $filename;
-            
         }
 
-        if($req->has('visa_image_back')){
-
+        if ($req->has('visa_image_back')) {
             $this->removeImage($maid->visa_image_back);
-           
 
-            $file5 = $req->file('visa_image_back');   
+            $file5 = $req->file('visa_image_back');
 
             $exc = $file5->getClientOriginalExtension();
-            $filename =  $maid->user_name.'-visa-image-back-'.strtotime(now()).'.'.$exc;
+            $filename = $maid->user_name . '-visa-image-back-' . strtotime(now()) . '.' . $exc;
             $file5->move($destinationPath, $filename);
             $maid->visa_image_back = $filename;
-            
         }
 
         $maid->save();
 
-        if($req->has('health_certificate')){
-
+        if ($req->has('health_certificate')) {
             $health = health::where('user_name', $req->user_name)->first();
             $this->removeImage($health->health_certificate);
-           
 
-            $file5 = $req->file('health_certificate');   
+            $file5 = $req->file('health_certificate');
 
             $exc = $file5->getClientOriginalExtension();
-            $filename =  $health->user_name.'-health-card-expiry-'.strtotime(now()).'.'.$exc;
+            $filename = $health->user_name . '-health-card-expiry-' . strtotime(now()) . '.' . $exc;
             $file5->move($destinationPath, $filename);
             $health->health_certificate = $filename;
 
             $health->save();
-            
         }
     }
 
-    public function assign_maid(Request $request){
-    
+    public function assign_maid(Request $request)
+    {
         maid::find($request->maid_id)->update([
-            'client_id'=>$request->client_id,
+            'client_id' => $request->client_id,
         ]);
         return back();
     }
 
-    public function removeImage($name){
-
-        $img_exits = public_path().'/asset/images/Maid/';
-        if(File::exists($img_exits.$name)){
-            File::delete($img_exits.$name);
+    public function removeImage($name)
+    {
+        $img_exits = public_path() . '/asset/images/Maid/';
+        if (File::exists($img_exits . $name)) {
+            File::delete($img_exits . $name);
         }
-
-
     }
 }

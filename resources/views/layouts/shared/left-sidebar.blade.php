@@ -54,7 +54,7 @@
                     </a>
 
                 </li>
-@if (Auth::user()->type == 'agency')
+
     
 
                 <li>
@@ -66,7 +66,17 @@
 
                 </li>
 
-                @endif
+                <li>
+                    {{-- <a href="/show-all-boundaries"> --}}
+                        <a href="#">
+                        <i class="mdi mdi-map-marker"></i>
+
+                        <span> Boundary </span>
+                    </a>
+
+                </li>
+
+            
                 <li class="menu-title mt-2">Apps</li>
 
                 @if (Auth::user()->type == 'superAdmin')
@@ -92,7 +102,23 @@
                             </ul>
                         </div>
                     </li>
+                    <li>
+                        <a href="{{ route('client.index') }}">
+                            <i data-feather="file-text"></i>
+                            <span>Clients</span>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        
+                        <a href="{{ route('maid.index') }}">
+                            <i data-feather="layout"></i>Maid</a>
+                    </li>
+
+
                 @else
+                
                     <li>
                         <a href="#sidebarClient" data-bs-toggle="collapse">
                             <i data-feather="file-text"></i>

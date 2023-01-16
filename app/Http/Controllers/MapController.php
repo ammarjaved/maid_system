@@ -16,28 +16,43 @@ class MapController extends Controller
         return view('Map.show');
     }
 
-    public function show(){
+    public function show()
+    {
+        $id = ModelsAgency::where('user_name', Auth::user()->name)->first();
 
-        $id =ModelsAgency::where('user_name', Auth::user()->name )->first();
-        
         // return $id;
-        
 
-        $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
+        if (Auth::user()->type == 'agency') {
+            $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
         'properties', json_build_object(
-		'user_name', user_name,
+  'user_name', user_name,
         'gender',gender,
         'email',email,
         'contact_number',contact_number,
         'profile_image',profile_image
-	
+ 
     
         )))) as geojson
         FROM (select b.user_name,b.gender,b.email, b.contact_number, b.profile_image,a.geom,a.id from tbl_user_activity a,tbl_user b
-			where a.user_id in(
-			select id from tbl_user where agency_id=$id->id
-			) and b.id=a.user_id	) as tbl1; ");
-
-             return $data[0]->geojson;
+   where a.user_id in(
+   select id from tbl_user where agency_id=$id->id
+   ) and b.id=a.user_id	) as tbl1; ");
+        } else {
+            $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
+        'properties', json_build_object(
+  'user_name', user_name,
+        'gender',gender,
+        'email',email,
+        'contact_number',contact_number,
+        'profile_image',profile_image
+ 
+    
+        )))) as geojson
+        FROM (select b.user_name,b.gender,b.email, b.contact_number, b.profile_image,a.geom,a.id from (select * from tbl_user_activity where geom != '')a,tbl_user b
+   where a.user_id in(
+   select id from tbl_user
+   ) and b.id=a.user_id	) as tbl1; ");
+        }
+        return $data[0]->geojson;
     }
 }
