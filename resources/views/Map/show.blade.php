@@ -6,6 +6,9 @@
             display: none;
             text-decoration: none;
         }
+        .my-icon {
+    border-radius: 50%;
+}
     </style>
 @endsection
 
@@ -71,11 +74,26 @@
         // $(".leaflet-draw-draw-circlemarker").hide();
         // var current_time = new Date();
         // var specified_time;
+
         var fiveMinutesAgo = new Date(new Date().getTime() - 5 * 60 * 1000);
 
 
 
+        var LeafIcon = L.Icon.extend({
+            options: {
+                iconSize: [35, 35],
+                className: 'my-icon'
+            }
+        });
 
+        var greenIcon ;
+        var time2;
+        // = new LeafIcon({
+        //     iconUrl: '/asset/images/Client/1672295096PPSC_Pic_Blue.jpeg'
+        // });
+        // L.marker([51.5, -0.09], {
+        //     icon: greenIcon
+        // }).addTo(map).bindPopup("I am a green leaf.");
 
 
 
@@ -84,7 +102,7 @@
         });
 
         getGeom = function() {
-            // let name = document.querySelector('#username').value;
+
             $.ajax({
                 type: 'GET',
                 url: `/show-all-clients`,
@@ -96,16 +114,18 @@
 
                     ct.features.map((value, i) => {
                         cor = value.geometry.coordinates;
-                        // $current_time = new Date();
-                        // $specified_time = strtotime(value.properties.last_updated);
-                        // $time_difference = round(($current_time - $specified_time) / 60);
-                        // console.log($time_difference);
+        
+                        last_update = new Date(value.properties.last_updated)
+                        if(fiveMinutesAgo.getTime() > last_update.getTime()){
+                            console.log("offline");
+                        }else{
+                            console.log("online");
+                        }
+                        greenIcon=new LeafIcon({iconUrl: '/asset/images/Maid/'+value.properties.profile_image});
+                        maker[i]  = L.marker([cor[1], cor[0]], {
+                            icon: greenIcon
+                        }).addTo(map)
 
-                        // if(value.properties.last_updated > fiveMinutesAgo){
-                        //     console.log("asdasdasd");
-
-                        // }
-                        maker[i] = L.marker([cor[1], cor[0]]).addTo(map);
                         maker[i].bindPopup("<table class='table table-bordered'>" +
                             "<tr>" +
                             "<th>Username</th>" +
@@ -141,15 +161,15 @@
 
                             "</table>");
 
-    //                         $current_time = time();
-    // $specified_time = strtotime(value.properties.last_updated);
-    // $time_difference = round(($current_time - $specified_time) / 60);
-    // if ($time_difference < 5) {
+                        //                         $current_time = time();
+                        // $specified_time = strtotime(value.properties.last_updated);
+                        // $time_difference = round(($current_time - $specified_time) / 60);
+                        // if ($time_difference < 5) {
 
-    //     echo "Time difference is less than 5 minutes" + time_difference;
-    // } else {
-    //     echo "Time difference is more than 5 minutes" +time_difference;
-    // }
+                        //     echo "Time difference is less than 5 minutes" + time_difference;
+                        // } else {
+                        //     echo "Time difference is more than 5 minutes" +time_difference;
+                        // }
 
                         // specified_time = new Date(value.properties.last_updated);
                         // console.log(specified_time);
