@@ -6,9 +6,17 @@
             display: none;
             text-decoration: none;
         }
-        .my-icon {
-    border-radius: 50%;
-}
+
+        .my-icon-white {
+            border-radius: 50%;
+            border: 5px solid white;
+
+        }
+
+        .my-icon-green {
+            border-radius: 50%;
+            border: 5px solid green;
+        }
     </style>
 @endsection
 
@@ -68,34 +76,10 @@
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 
-        // var drawnItems = new L.FeatureGroup();
-        // map.addLayer(drawnItems);
-
-        // $(".leaflet-draw-draw-circlemarker").hide();
-        // var current_time = new Date();
-        // var specified_time;
-
         var fiveMinutesAgo = new Date(new Date().getTime() - 5 * 60 * 1000);
-
-
-
-        var LeafIcon = L.Icon.extend({
-            options: {
-                iconSize: [35, 35],
-                className: 'my-icon'
-            }
-        });
-
-        var greenIcon ;
+        var LeafIcon;
+        var greenIcon;
         var time2;
-        // = new LeafIcon({
-        //     iconUrl: '/asset/images/Client/1672295096PPSC_Pic_Blue.jpeg'
-        // });
-        // L.marker([51.5, -0.09], {
-        //     icon: greenIcon
-        // }).addTo(map).bindPopup("I am a green leaf.");
-
-
 
         $(document).ready(function() {
             getGeom();
@@ -110,22 +94,36 @@
                     var ct = JSON.parse(data);
                     var cor = ct.features[0].geometry.coordinates;
                     var maker = [];
+
                     console.log(ct.features);
 
                     ct.features.map((value, i) => {
+
+
                         cor = value.geometry.coordinates;
-        
+
                         last_update = new Date(value.properties.last_updated)
-                        if(fiveMinutesAgo.getTime() > last_update.getTime()){
-                            console.log("offline");
-                        }else{
-                            console.log("online");
+                        if (fiveMinutesAgo.getTime() > last_update.getTime()) {
+                            LeafIcon = L.Icon.extend({
+                                options: {
+                                    iconSize: [55, 55],
+                                    className: 'my-icon-white'
+                                }
+                            });
+                        } else {
+                            LeafIcon = L.Icon.extend({
+                                options: {
+                                    iconSize: [55, 55],
+                                    className: 'my-icon-green'
+                                }
+                            });
                         }
-                        greenIcon=new LeafIcon({iconUrl: '/asset/images/Maid/'+value.properties.profile_image});
-                        maker[i]  = L.marker([cor[1], cor[0]], {
+                        greenIcon = new LeafIcon({
+                            iconUrl: '/asset/images/Maid/' + value.properties.profile_image
+                        });
+                        maker[i] = L.marker([cor[1], cor[0]], {
                             icon: greenIcon
                         }).addTo(map)
-
                         maker[i].bindPopup("<table class='table table-bordered'>" +
                             "<tr>" +
                             "<th>Username</th>" +
@@ -155,52 +153,14 @@
                             "<td><a href='/maid/" + value.properties.user_name +
                             "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
                             "</tr>" +
-
-
-
-
                             "</table>");
 
-                        //                         $current_time = time();
-                        // $specified_time = strtotime(value.properties.last_updated);
-                        // $time_difference = round(($current_time - $specified_time) / 60);
-                        // if ($time_difference < 5) {
-
-                        //     echo "Time difference is less than 5 minutes" + time_difference;
-                        // } else {
-                        //     echo "Time difference is more than 5 minutes" +time_difference;
-                        // }
-
-                        // specified_time = new Date(value.properties.last_updated);
-                        // console.log(specified_time);
-                        //  if(specified_time < current_time ){
-                        //     console.log("time is less than 5 mins")
-                        //  }else {
-                        //     console.log("time is more than 5 mins")
-                        //  }
                     });
 
-                    // var marker = L.marker([cor[1], cor[0]]).addTo(map);
-                    // marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
-
-                    // var myLayer = L.geoJSON(JSON.parse(data));
-                    // addNonGroupLayers(myLayer, drawnItems);
-                    // // drawnItems.addLayer(myLayer);
-                    // map.fitBounds(myLayer.getBounds());
 
                 }
             });
 
         }
-
-        // function addNonGroupLayers(sourceLayer, targetGroup) {
-        //     if (sourceLayer instanceof L.LayerGroup) {
-        //         sourceLayer.eachLayer(function(layer) {
-        //             addNonGroupLayers(layer, targetGroup);
-        //         });
-        //     } else {
-        //         targetGroup.addLayer(sourceLayer);
-        //     }
-        // }
     </script>
 @endsection
