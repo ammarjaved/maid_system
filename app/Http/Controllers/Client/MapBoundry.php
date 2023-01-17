@@ -60,7 +60,7 @@ class MapBoundry extends Controller
 
     public function getLayer($username)
     {
-        // return $id;
+        // return $username;
         $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
         'properties', json_build_object(
         'user_name', 'user_name',
@@ -68,7 +68,7 @@ class MapBoundry extends Controller
     
         )))) as geojson
         FROM (SELECT id,address, geom
-            FROM public.client_geoms where user_name=$username) as tbl1;");
+            FROM public.client_geoms where user_name='$username') as tbl1;");
         return $data[0]->geojson;
     }
 

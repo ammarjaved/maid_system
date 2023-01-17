@@ -69,7 +69,7 @@
                 <li>
                     <a href="/show-boundary-map">
                         {{-- <a href=""> --}}
-                        <i class="mdi mdi-map-marker"></i>
+                        <i class="mdi mdi-map-outline"></i>
 
                         <span> Boundary </span>
                     </a>
@@ -113,7 +113,7 @@
                     <li>
                         
                         <a href="{{ route('maid.index') }}">
-                            <i data-feather="layout"></i>Maid</a>
+                            <i class="fa fas fa-male"></i>Maid</a>
                     </li>
 
 
@@ -139,13 +139,13 @@
                                 </li>
 
                             </ul>
-                        </div>
+                        </div>  
                     </li>
 
 
                     <li>
                         <a href="#sidebarMaid" data-bs-toggle="collapse">
-                            <i data-feather="layout"></i>
+                            <i class="fa fas fa-male"></i>
                             <span> Maid </span>
                             <span class="menu-arrow"></span>
                         </a>
