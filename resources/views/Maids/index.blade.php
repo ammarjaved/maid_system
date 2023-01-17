@@ -80,7 +80,7 @@
                    
                     <h4 class="mt-0 font-16">Total offline</h4>
                     <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup"></span></h2>
+                            data-plugin="counterup">{{$data->total_offline}}</span></h2>
                     {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                 </div>
             </div>
@@ -119,9 +119,13 @@
                             <tr>
                                 <th>Username</th>
                                 <th>email</th>
-                                <th>Contact Number</th>
+                                @if (Auth::user()->type == 'superAdmin')
+                                <td>Agency name</td>
+                                @else
                                 <th>Gender</th>
-
+                                @endif
+                                
+                                <th>Contact Number</th>
                                 {{-- <th>Skills</th> --}}
                                 <th>Status</th>
                                 <th>Salary</th>
@@ -139,8 +143,13 @@
 
                                     <td class="text-capitalize">{{ $maid->user_name }}</td>
                                     <td>{{ $maid->email }}</td>
-                                    <td>{{ $maid->contact_number }}</td>
+                                    @if (Auth::user()->type == 'superAdmin')
+                                    <td>{{ $maid->created_by }}</td>
+                                    @else
                                     <td class="text-capitalize">{{ $maid->gender }}</td>
+                                    @endif
+                                    <td>{{ $maid->contact_number }}</td>
+                                   
 
                                     {{-- <td>{{ $maid->skills }}</td> --}}
                                     <td class="text-capitalize">

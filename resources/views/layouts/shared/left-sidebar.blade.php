@@ -67,8 +67,8 @@
                 </li>
 
                 <li>
-                    {{-- <a href="/show-all-boundaries"> --}}
-                        <a href="#">
+                    <a href="/show-boundary-map">
+                        {{-- <a href=""> --}}
                         <i class="mdi mdi-map-marker"></i>
 
                         <span> Boundary </span>

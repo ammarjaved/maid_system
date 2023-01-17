@@ -44,11 +44,12 @@ class MapController extends Controller
         'gender',gender,
         'email',email,
         'contact_number',contact_number,
-        'profile_image',profile_image
+        'profile_image',profile_image,
+        'last_updated',last_updated
  
     
         )))) as geojson
-        FROM (select b.user_name,b.gender,b.email, b.contact_number, b.profile_image,a.geom,a.id from (select * from tbl_user_activity where geom != '')a,tbl_user b
+        FROM (select b.user_name,b.gender,b.email, b.contact_number, b.profile_image,a.last_updated,a.geom,a.id from (select * from tbl_user_activity where geom != '')a,tbl_user b
    where a.user_id in(
    select id from tbl_user
    ) and b.id=a.user_id	) as tbl1; ");

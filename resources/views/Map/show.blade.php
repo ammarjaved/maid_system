@@ -3,14 +3,13 @@
 @section('css')
     <style>
         .leaflet-control-attribution a {
-    display: none;
-    text-decoration: none;
-}
+            display: none;
+            text-decoration: none;
+        }
     </style>
 @endsection
 
 @section('content')
-
     <div class="row">
         <div class="col-12">
             <div class="page-title-box">
@@ -70,6 +69,12 @@
         // map.addLayer(drawnItems);
 
         // $(".leaflet-draw-draw-circlemarker").hide();
+        // var current_time = new Date();
+        // var specified_time;
+        var fiveMinutesAgo = new Date(new Date().getTime() - 5 * 60 * 1000);
+
+
+
 
 
 
@@ -88,44 +93,73 @@
                     var cor = ct.features[0].geometry.coordinates;
                     var maker = [];
                     console.log(ct.features);
-                    
-                    ct.features.map((value ,i )=>{
+
+                    ct.features.map((value, i) => {
                         cor = value.geometry.coordinates;
+                        // $current_time = new Date();
+                        // $specified_time = strtotime(value.properties.last_updated);
+                        // $time_difference = round(($current_time - $specified_time) / 60);
+                        // console.log($time_difference);
 
-                         maker[i] = L.marker([cor[1], cor[0]]).addTo(map);
-                        maker[i].bindPopup("<table class='table table-bordered'>"+
-                            "<tr>"+
-                                "<th>Username</th>"+
-                                "<td>"+value.properties.user_name+"</td>"+
-                                "</tr>"+
-                                "<tr>"+
-                                "<th>Gender</th>"+
-                                "<td>"+value.properties.gender+"</td>"+
-                                "</tr>"+
-                                "<tr>"+
-                                "<th>Email</th>"+
-                                "<td>"+value.properties.email+"</td>"+
-                                "</tr>"+
-                                "<tr>"+
-                                "<th>Contact no</th>"+
-                                "<td>"+value.properties.contact_number+"</td>"+
-                                "</tr>"+
-                                "<tr>"+
-                                "<th>Profile Image</th>"+
-                                "<td><a class='example-image-link' href='"+value.properties.profile_image+"' data-lightbox='example-set' data-title='Before Pic'><img src='"+value.properties.profile_image+"' height='50'/></a></td>"+
-                                "</tr>"+
-                                "<tr>"+
-                                "<th>Detail</th>"+
-                                "<td><a href='/maid/"+value.properties.user_name+"' class='btn  btn-sm dropdown-item'>Detail</a></td>"+
-                                "</tr>"+
+                        // if(value.properties.last_updated > fiveMinutesAgo){
+                        //     console.log("asdasdasd");
+
+                        // }
+                        maker[i] = L.marker([cor[1], cor[0]]).addTo(map);
+                        maker[i].bindPopup("<table class='table table-bordered'>" +
+                            "<tr>" +
+                            "<th>Username</th>" +
+                            "<td>" + value.properties.user_name + "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Gender</th>" +
+                            "<td>" + value.properties.gender + "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Email</th>" +
+                            "<td>" + value.properties.email + "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Contact no</th>" +
+                            "<td>" + value.properties.contact_number + "</td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Profile Image</th>" +
+                            "<td><a class='example-image-link' href='/asset/images/Maid/" +
+                            value.properties.profile_image +
+                            "' data-lightbox='example-set' data-title='Before Pic'><img src='/asset/images/Maid/" +
+                            value.properties.profile_image + "' height='50'/></a></td>" +
+                            "</tr>" +
+                            "<tr>" +
+                            "<th>Detail</th>" +
+                            "<td><a href='/maid/" + value.properties.user_name +
+                            "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
+                            "</tr>" +
 
 
 
-                    
+
                             "</table>");
-                    }
-                    );
-                    
+
+    //                         $current_time = time();
+    // $specified_time = strtotime(value.properties.last_updated);
+    // $time_difference = round(($current_time - $specified_time) / 60);
+    // if ($time_difference < 5) {
+
+    //     echo "Time difference is less than 5 minutes" + time_difference;
+    // } else {
+    //     echo "Time difference is more than 5 minutes" +time_difference;
+    // }
+
+                        // specified_time = new Date(value.properties.last_updated);
+                        // console.log(specified_time);
+                        //  if(specified_time < current_time ){
+                        //     console.log("time is less than 5 mins")
+                        //  }else {
+                        //     console.log("time is more than 5 mins")
+                        //  }
+                    });
+
                     // var marker = L.marker([cor[1], cor[0]]).addTo(map);
                     // marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
 

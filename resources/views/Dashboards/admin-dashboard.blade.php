@@ -28,7 +28,7 @@
 
     <div class="row">
 
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-xl-3">
             <div class="card" id="tooltip-container">
                 <div class="card-body">
                     <a href="#"> <i class="fa fa-info-circle text-muted float-end"
@@ -36,13 +36,13 @@
                             title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
                     <h4 class="mt-0 font-16">Total Agencies</h4>
                     <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup">{{ $data['total_agency'] }}</span></h2>
+                            data-plugin="counterup">{{ $data->total_agency}}</span></h2>
                     {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-xl-3">
             <div class="card" id="tooltip-container">
                 <div class="card-body">
                     <a href="#"> <i class="fa fa-info-circle text-muted float-end"
@@ -50,13 +50,13 @@
                             title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
                     <h4 class="mt-0 font-16">Total Clients</h4>
                     <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup">{{ $data['total_clients'] }}</span></h2>
+                            data-plugin="counterup">{{ $data->total_clients }}</span></h2>
                     {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 col-xl-4">
+        <div class="col-md-6 col-xl-3">
             <div class="card" id="tooltip-container">
                 <div class="card-body">
                     <a href="#"> <i class="fa fa-info-circle text-muted float-end"
@@ -64,11 +64,26 @@
                             title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
                     <h4 class="mt-0 font-16">Total Maids</h4>
                     <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup">{{ $data['total_maids'] }}</span></h2>
+                            data-plugin="counterup">{{ $data->total_maids }}</span></h2>
                     {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card" id="tooltip-container">
+                <div class="card-body">
+                    <a href="#"> <i class="fa fa-info-circle text-muted float-end"
+                            data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
+                    <h4 class="mt-0 font-16">Total offline Maids</h4>
+                    <h2 class="text-primary my-3 text-center"><span
+                            data-plugin="counterup">{{ $data->total_offline }}</span></h2>
+                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
+                </div>
+            </div>
+        </div>
+
     </div>
 
 

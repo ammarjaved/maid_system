@@ -50,12 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
         // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
         // Route::post('/add-client-boundary',[MapBoundry::class,'store']);
         // Route::get('/edit-boundry/{username}',[MapBoundry::class,'edit']);
-        // Route::get('/get-boundary-layer/{id}',[MapBoundry::class,'getLayer']);
+        Route::get('/get-boundary-layer/{user_name}',[MapBoundry::class,'getLayer']);
         // Route::post('/edit-client-boundary',[MapBoundry::class,'update']);
 
-        
 
-
+        Route::get('/show-boundary-map',[MapBoundry::class,'showAllBoundaries']);
         Route::get('/show-boundary/{name}', [MapBoundry::class, 'show']);
         Route::get('/show-all-boundry/{name}', [MapBoundry::class, 'getAllBoundry']);
 

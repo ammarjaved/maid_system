@@ -38,10 +38,12 @@ class MaidController extends Controller
         } else {
             $maids = maid::all();
             $client = Client::all();
-            $data = DB::select("select a.maid,b.assigned , c.visa_expiry ,d.health_expiry from (select count(*) maid from tbl_user b) a, (select count(*) assigned
-  from tbl_user b where   client_id != '')b ,
-  (select count(*) visa_expiry from tbl_user  where visa_expiry_date::date < now()::date +60) c,
-  (select count(*) health_expiry from tbl_health where health_card_expiry::date < now()::date +60)d");
+            $data = DB::select("select a.maid,b.assigned , c.visa_expiry ,d.health_expiry , e.total_offline from
+            (select count(*) maid from tbl_user b) a, 
+            (select count(*) assigned from tbl_user b where   client_id != '')b ,
+            (select count(*) visa_expiry from tbl_user  where visa_expiry_date::date < now()::date +60) c,
+            (select count(*) health_expiry from tbl_health where health_card_expiry::date < now()::date +60)d,
+            (SELECT count(*) total_offline from tbl_user_activity where last_updated <NOW() - INTERVAL '5 minutes') e");
             return view('Maids.index', ['maids' => $maids, 'clients' => $client, 'data' => $data[0]]);
         }
     }

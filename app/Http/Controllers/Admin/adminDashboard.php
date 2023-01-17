@@ -15,20 +15,16 @@ class adminDashboard extends Controller
 
     public function home()
     {
-        $agency = agency::all();
+        $agency = DB::select("SELECT *, (SELECT COUNT(*) FROM tbl_user WHERE created_by = tbl_agency.user_name) as total_maid ,
+        (SELECT COUNT(*) FROM tbl_client WHERE created_by = tbl_agency.user_name) as total_client
+FROM tbl_agency");
 
-       foreach($agency as $agen){
-        $qury = DB::select("select a.maid,b.client from (select count(*) maid from tbl_user b where  
-         created_by = '$agen->user_name') a, (select count(*) client from tbl_client b where   created_by = '$agen->user_name')b");
-        $agen['total_client'] = $qury[0]->maid;
-        $agen['total_maid'] = $qury[0]->client;
-       }
-
-        $data =[];
-
-        $data['total_agency'] = agency::all()->count();
-        $data['total_maids'] = maid::all()->count();
-        $data['total_clients'] = Client::all()->count();
-        return view('Dashboards.admin-dashboard',['data'=>$data,'agency'=>$agency]);
+        $data = DB::select("SELECT a.total_agency ,b.total_maids ,c.total_clients, d.total_offline FROM 
+        (SELECT count(*) total_agency from tbl_agency) a
+        ,(SELECT count(*) total_maids from tbl_user) b,
+        (SELECT count(*) total_clients from tbl_client) c,
+        (SELECT count(*) total_offline from tbl_user_activity where last_updated <NOW() - INTERVAL '5 minutes')d");
+        
+        return view('Dashboards.admin-dashboard', ['data' => $data[0], 'agency' => $agency]);
     }
 }

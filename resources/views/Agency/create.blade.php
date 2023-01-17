@@ -30,7 +30,7 @@
                 <div class="row">
                     
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_name">Agency Name</label>
                         <span class="text-danger">
                             @error('agency_name')
@@ -40,7 +40,7 @@
                         <input id="agency_name" name="agency_name" class="form-control" value="{{ old('agency_name') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3 ">
+                    <div class="col-md-6 mb-2 px-3 ">
                         <label for="email">Agency Email</label>
                         <span class="text-danger">
                             @error('email')
@@ -50,7 +50,7 @@
                         <input id="email" name="email" class="form-control" value="{{ old('email') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_address">Agency Address</label>
                         <span class="text-danger">
                             @error('agency_address')
@@ -61,7 +61,7 @@
                             value="{{ old('agency_address') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_contact_number">Agency Contact No</label>
                         <span class="text-danger">
                             @error('agency_contact_number')
@@ -72,7 +72,7 @@
                             value="{{ old('agency_contact_number') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_sos">Agency SOS</label>
                         <span class="text-danger">
                             @error('agency_sos')
@@ -82,7 +82,7 @@
                         <input id="agency_sos" name="agency_sos" class="form-control" value="{{ old('agency_sos') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_ssm">Agency SSM</label>
                         <span class="text-danger">
                             @error('agency_ssm')
@@ -92,7 +92,7 @@
                         <input id="agency_ssm" name="agency_ssm" class="form-control" value="{{ old('agency_ssm') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_pic_number">Agency PIC number</label>
                         <span class="text-danger">
                             @error('agency_pic_number')
@@ -103,7 +103,7 @@
                             value="{{ old('agency_pic_number') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="agency_aps_license_number">Agency APS license Number</label>
                         <span class="text-danger">
                             @error('agency_aps_license_number')
@@ -114,7 +114,7 @@
                             value="{{ old('agency_aps_license_number') }}">
                     </div>
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
                         <label for="number_of_maids">Number of maids</label>
                         <span class="text-danger">
                             @error('number_of_maids')
@@ -126,7 +126,7 @@
                     </div>
 
 
-                    <div class="col-6 mb-2 px-3">
+                    <div class="col-md-6 mb-2 px-3">
 
                         <label for="user_name">Username</label>
                         <span class="text-danger">

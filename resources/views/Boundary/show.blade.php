@@ -31,10 +31,7 @@
                         @endif
                         <form action="/edit-client-boundary" onsubmit="return validate()" method="post">
                             @csrf
-                            <div class="m-3">
-                                <label>User name</label>
-                                <input value="{{ $client }}" class="form-control" style="background-color: #00000008"
-                                    disabled>
+                          
                             </div>
 
 
@@ -43,9 +40,9 @@
                                 <span class="text-danger ms-3" id="er_id"></span>
                                 <select id="address" class="form-control" onchange="changeLayer(this)">
                                     <option value="" hidden>Select address to view</option>
-                                    @foreach ($address as $addres)
-                                        <option value="{{ $addres->id }}">{{ $addres->address }}</option>
-                                    @endforeach
+                                   @foreach ($client as $cli)
+                                       <option value="{{$cli->user_name}}">{{$cli->user_name}}</option>
+                                   @endforeach
                                 </select>
 
                             </div>
