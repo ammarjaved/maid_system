@@ -87,9 +87,9 @@
 var myLayer;
 
         function changeLayer(element) {
-            if(myLayer){
-                map.removeLayer(myLayer);
-            }
+            // if(myLayer){
+            //     map.removeLayer(myLayer);
+            // }
                        let id = document.querySelector('#address').value;
             var text = element.options[element.selectedIndex].text;
            
@@ -100,9 +100,11 @@ var myLayer;
                 url: `/get-boundary-layer/${id}`,
                 success: function(data) {
                     // console.log(JSON.parse(data));
-                    
-                     myLayer = L.geoJSON(JSON.parse(data));
-                    addNonGroupLayers(myLayer, drawnItems);
+                    if(myLayer){
+                        map.removeLayer(myLayer);
+                    }
+                     myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
+                    // addNonGroupLayers(myLayer, drawnItems);
                     map.fitBounds(myLayer.getBounds());
                 },
             });

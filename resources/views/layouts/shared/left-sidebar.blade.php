@@ -102,7 +102,7 @@
                             </ul>
                         </div>
                     </li>
-                    {{-- <li>
+                    <li>
                         <a href="{{ route('client.index') }}">
                             <i data-feather="file-text"></i>
                             <span>Clients</span>
@@ -114,11 +114,11 @@
                         
                         <a href="{{ route('maid.index') }}">
                             <i class="fa fas fa-male"></i>Maid</a>
-                    </li> --}}
+                    </li>
 
 
                 @else
-                @endif
+                
                     <li>
                         <a href="#sidebarClient" data-bs-toggle="collapse">
                             <i data-feather="file-text"></i>
@@ -166,7 +166,7 @@
                         </div>
                     </li>
                 
-
+                    @endif
 
 
 

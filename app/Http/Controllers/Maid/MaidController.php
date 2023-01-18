@@ -73,14 +73,11 @@ class MaidController extends Controller
      */
     public function store(MaidRequest $request)
     {
-        if(Auth::user()->type == 'agency'){
+      
         $agency_id = agency::where('user_name', Auth::user()->name)->get('id');
         $request['agency_id'] = $agency_id[0]['id'];
         $request['created_by'] = Auth::user()->name;
-        }else{
-            $agency_id = agency::where('user_name', $request->created_by)->get('id');
-            $request['agency_id'] = $agency_id[0]['id'];
-        }
+       
         $request['user_name'] = $request->name;
         $request['full_name'] = $request->first_name . ' ' . $request->last_name;
 

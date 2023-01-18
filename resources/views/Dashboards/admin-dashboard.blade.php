@@ -92,8 +92,8 @@
                 <thead>
                     <th>Agency name</th>
                     <th>username</th>
-                    <th class="text-center">total maids</th>
-                    <th class="text-center">total clients</th>
+                    <th class="text-center">Total maids</th>
+                    <th class="text-center">Total clients</th>
                     <th>Created AT</th>
                     <th>Detail</th>
                 </thead>

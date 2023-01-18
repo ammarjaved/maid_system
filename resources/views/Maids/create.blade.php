@@ -200,26 +200,7 @@
             <span class="text-danger">@error('health_certificate'){{ $message }}@enderror</span>
             <input id="health_certificate" name="health_certificate" type="file" class="form-control" value="{{old('health_certificate')}}">
         </div>
-        @if (Auth::user()->type == 'superAdmin')
-                        <?php
-                        $agency = \App\Models\agency::all();
-                        ?>
-                        <div class="col-md-12">
-                            <label for="created_by">Agency Name</label>
-                            <span class="text-danger">
-                                @error('created_by')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                            <select name="created_by" id="created_by" required class="form-select">
-                                <option value="">Select Agency</option>
-                                @foreach ($agency as $agen)
-                                    <option value="{{ $agen->user_name }}">{{ $agen->user_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endif
-
+  
         <div class="col-md-12">
             <label for="user_name">Username</label>
             <span class="text-danger">@error('name'){{ $message }}@enderror</span>

@@ -165,24 +165,6 @@
                             value="{{ old('profile_image') }}">
                     </div>
 
-                    @if (Auth::user()->type == 'superAdmin')
-                        <?php
-                        $agency = \App\Models\agency::all();
-                        ?>
-                        <div>
-                            <label for="created_by">Agency Name</label>
-                            <span class="text-danger">
-                                @error('created_by')
-                                    {{ $message }}
-                                @enderror
-                            </span>
-                            <select name="created_by" id="created_by" required class="form-select">
-                                <option value="">Select Agency</option>
-                                @foreach ($agency as $agen)
-                                    <option value="{{ $agen->user_name }}">{{ $agen->user_name }}</option>
-                                @endforeach
-                            </select>
-                    @endif
                     <div>
                         <label for="user_name">Username</label>
                         <span class="text-danger">
