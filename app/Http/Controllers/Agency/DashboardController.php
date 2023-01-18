@@ -40,6 +40,9 @@ class DashboardController extends Controller
          $data['health'] = DB::select("select * from tbl_health where created_by = '$username' and health_card_expiry::date < now()::date +60");
         //  return sizeof($data['maids']);
          $data['health_expiry'] = sizeof($data['health']);
+
+         $data['offline'] = DB::select("SELECT *, tbl_user_activity.last_updated FROM tbl_user INNER JOIN tbl_user_activity ON tbl_user.id=tbl_user_activity.user_id where tbl_user.created_by ='$username' ");
+         $data['total_offline'] = sizeof($data['offline']);
         return view('Dashboards.Agency-dashboard',['data'=>$data]);
     }
 }

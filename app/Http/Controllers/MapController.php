@@ -7,13 +7,20 @@ use App\Models\agency as ModelsAgency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Client;
 class MapController extends Controller
 {
     //
     public function index()
     {
         // return "SDf";
-        return view('Map.show');
+
+        if (Auth::user()->type == 'superAdmin') {
+            $client = Client::all();
+        } else {
+            $client = Client::where('created_by', Auth::user()->name)->get();
+        }
+        return view('Map.show',['client'=>$client]);
     }
 
     public function show()
@@ -55,6 +62,7 @@ class MapController extends Controller
    select id from tbl_user
    ) and b.id=a.user_id	) as tbl1; ");
         }
+       
         return $data[0]->geojson;
     }
 }

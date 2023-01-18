@@ -66,15 +66,15 @@
 
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="/show-boundary-map">
-                        {{-- <a href=""> --}}
+              
                         <i class="mdi mdi-map-outline"></i>
 
                         <span> Boundary </span>
                     </a>
 
-                </li>
+                </li> --}}
 
             
                 <li class="menu-title mt-2">Apps</li>
@@ -113,7 +113,8 @@
                     <li>
                         
                         <a href="{{ route('maid.index') }}">
-                            <i class="fa fas fa-male"></i>Maid</a>
+                            <i class="fa fas fa-male"></i>
+                            <span>Maid</span></a>
                     </li>
 
 

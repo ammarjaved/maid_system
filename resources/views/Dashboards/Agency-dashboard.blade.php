@@ -29,7 +29,7 @@
 
         <div class="row">
 
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-2">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
                         <a href="{{route('client.index')}}"> <i class="fa fa-info-circle text-muted float-end"
@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-2">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
                         <a href="{{route('maid.index')}}"> <i class="fa fa-info-circle text-muted float-end"
@@ -80,6 +80,20 @@
                         <h4 class="mt-0 font-16">Maid Health expiry in 2 months</h4>
                         <h2 class="text-primary my-3 text-center"><span
                                 data-plugin="counterup">{{ $data['health_expiry'] }}</span></h2>
+                        {{-- <p class="text-muted mb-0">Health expiry in 7 days<span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-2" >
+                <div class="card" id="tooltip-container">
+                    <div class="card-body">
+                        <a href="#offline_maids"> <i class="fa fa-info-circle text-muted float-end"
+                                data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
+                        <h4 class="mt-0 font-16">Offline Maids</h4>
+                        <h2 class="text-primary my-3 text-center"><span
+                                data-plugin="counterup">{{ $data['total_offline'] }}</span></h2>
                         {{-- <p class="text-muted mb-0">Health expiry in 7 days<span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                     </div>
                 </div>
@@ -343,6 +357,75 @@
                     </div> <!-- end inbox-widget -->
                 </div>
             </div> <!-- end card -->
+        </div>
+    </div>
+
+
+    <div class="col-xl-6 col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                
+                <h4 class="header-title mb-3" id="offline_maids">Offline Maids</h4>
+
+                <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                    <div class="simplebar-wrapper" style="margin: 0px;">
+                        <div class="simplebar-height-auto-observer-wrapper">
+                            <div class="simplebar-height-auto-observer"></div>
+                        </div>
+                        <div class="simplebar-mask">
+                            <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                <div class="simplebar-content-wrapper"
+                                    style="height: auto; overflow: hidden scroll;">
+                                    <div class="
+                                                                                  "
+                                        style="padding: 0px;">
+
+                                        <table id="selection-datatable" class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline" role="grid" aria-describedby="selection-datatable_info" style="width: 1008px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>Username</th>
+                                                    {{-- <th>Contact no</th> --}}
+                                                    <th>Last update</th>
+                                                  
+                                                    <th>Detail</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($data['offline'] as $health)
+                                                    <tr>
+                                                        {{-- <td> --}}
+                                                            {{-- <div class="inbox-item">
+                                                                <div class="inbox-item-img"><img
+                                                                        src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
+                                                                        class="rounded-circle" alt="">
+                                                                </div>
+                                                            </div> --}}
+                                                        {{-- </td> --}}
+                                                        <td class="text-capitalize">{{ $health->user_name }}</td>
+                                                        {{-- <td>{{$health->health_certificate_status}}</td> --}}
+                                                        <td>{{ $health->last_updated }}</td>
+                                                        
+                                                        <td class="text-center"><a href="{{ route('maid.show', $health->user_name) }}"><i class="fas fa-eye"></i></a></td>
+                                                    </tr>
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                    </div> <!-- end table responsive-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
+                </div>
+                <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                    <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                </div>
+                <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                    <div class="simplebar-scrollbar"
+                        style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                </div>
+            </div> <!-- end inbox-widget -->
         </div>
     </div>
 

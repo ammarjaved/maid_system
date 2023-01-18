@@ -29,35 +29,35 @@
                             <p class="alert {{ Session::get('alert-class', 'alert-success') }} mx-5">
                                 {{ Session::get('message') }}</p>
                         @endif
-                    
-                          
-                            </div>
 
 
-                            <div class="m-3">
-                                <label for="contact_number">Client</label>
-                                <span class="text-danger ms-3" id="er_id"></span>
-                                <select id="address" class="form-control" onchange="changeLayer(this)">
-                                    <option value="" hidden>Select Client to view</option>
-                                   @foreach ($client as $cli)
-                                       <option value="{{$cli->user_name}}">{{$cli->user_name}}</option>
-                                   @endforeach
-                                </select>
-
-                            </div>
-
-                           
-
-
-                            <div class="p-3">
-                            <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
-
-                        </div>
-                       
                     </div>
+
+
+                    <div class="m-3">
+                        <label for="contact_number">Client</label>
+                        <span class="text-danger ms-3" id="er_id"></span>
+                        <select id="address" class="form-control" onchange="changeLayer(this)">
+                            <option value="" hidden>Select Client to view</option>
+                            @foreach ($client as $cli)
+                                <option value="{{ $cli->user_name }}">{{ $cli->user_name }}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+
+
+
+
+                    <div class="p-3">
+                        <div id="map" class="map" style="height: 400px; marign :20px ;"></div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
@@ -76,34 +76,24 @@
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 
-        var drawnItems = new L.FeatureGroup();
-        map.addLayer(drawnItems);
-        
-
-        // add draw tools
-        map.addControl(drawControl);
-        // $(".leaflet-draw-draw-circlemarker").hide();
-
-var myLayer;
+        var myLayer;
 
         function changeLayer(element) {
-            // if(myLayer){
-            //     map.removeLayer(myLayer);
-            // }
-                       let id = document.querySelector('#address').value;
+
+            let id = document.querySelector('#address').value;
             var text = element.options[element.selectedIndex].text;
-           
-        
+
+
             $('#layer').val('');
             $.ajax({
                 type: "GET",
                 url: `/get-boundary-layer/${id}`,
                 success: function(data) {
                     // console.log(JSON.parse(data));
-                    if(myLayer){
+                    if (myLayer) {
                         map.removeLayer(myLayer);
                     }
-                     myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
+                    myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
                     // addNonGroupLayers(myLayer, drawnItems);
                     map.fitBounds(myLayer.getBounds());
                 },
@@ -122,9 +112,6 @@ var myLayer;
                 targetGroup.addLayer(sourceLayer);
             }
         }
-
-
-      
 
         
     </script>

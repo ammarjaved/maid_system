@@ -21,84 +21,6 @@
             </div>
         </div>
     </div>
-@if (Auth::user()->type == 'superAdmin')
-    
-
-    <div class="row">
-
-        <div class="col-md-6 col-xl-2">
-            <div class="card" id="tooltip-container">
-                <div class="card-body">
-                    {{-- <a href="#"> <i class="fa fa-info-circle text-muted float-end"
-                            data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="" data-bs-original-title="More Info" aria-label="More Info" onclick="alert('asd')"></i></a> --}}
-                    <h4 class="mt-0 font-16">Total Maids</h4>
-                    <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup">{{sizeof($maids)}}</span></h2>
-                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-xl-2">
-            <div class="card" id="tooltip-container">
-                <div class="card-body">
-   
-                   
-                    <h4 class="mt-0 font-16">Total assigned</h4>
-                    <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup">{{$data->assigned}}</span></h2>
-                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-2">
-            <div class="card" id="tooltip-container">
-                <div class="card-body">
-                
-                    <h4 class="mt-0 font-16">Health expiry in 2 months</h4>
-                    <h2 class="text-primary my-2 text-center"><span
-                            data-plugin="counterup">{{$data->health_expiry}}</span></h2>
-                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-2">
-            <div class="card" id="tooltip-container">
-                <div class="card-body">
-                   
-                    <h4 class="mt-0 font-16">Visa expiry in 2 months</h4>
-                    <h2 class="text-primary my-2 text-center"><span
-                            data-plugin="counterup">{{$data->visa_expiry}}</span></h2>
-                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-2">
-            <div class="card" id="tooltip-container">
-                <div class="card-body">
-                   
-                    <h4 class="mt-0 font-16">Total offline</h4>
-                    <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup">{{$data->total_offline}}</span></h2>
-                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-2">
-            <div class="card" id="tooltip-container">
-                <div class="card-body">
-                  
-                    <h4 class="mt-0 font-16">Total Agencies</h4>
-                    <h2 class="text-primary my-3 text-center"><span
-                            data-plugin="counterup"></span></h2>
-                    {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @endif
 
     <div class="row">
         <div class="col-12">
@@ -198,6 +120,9 @@
                                                             onclick="return confirm('Are you Sure')">Delete</button>
                                                     </form>
                                                 </li>
+                                                @if (Auth::user()->type == 'agency')
+                                                    
+                                                
                                                 <li>
                                                     @if ($maid->client_id == '')
                                                         <button class="btn btn-sm dropdown-item" data-bs-toggle="modal"
@@ -214,6 +139,7 @@
                                                     @endif
 
                                                 </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </td>

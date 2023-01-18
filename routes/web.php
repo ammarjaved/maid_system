@@ -46,6 +46,8 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/get-geo-detail/{id}', [ClientController::class, 'getGeo']);
 
+        Route::get('/ssee',[MapBoundry::class,'testsse']);
+
         //map routes
         // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);
         // Route::post('/add-client-boundary',[MapBoundry::class,'store']);
@@ -68,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index']);
         Route::get('/slaray-detail/{name}', [ClientSalaryController::class, 'show']);
+        
    
 
     Route::group(['middleware' => 'superAdmin:superAdmin'], function () {
@@ -75,6 +78,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/change-password/{name}', [ChangePassword::class, 'changePassword']);
         Route::post('/new-password', [ChangePassword::class, 'newPassword']);
         Route::get('/admin-dashboard', [adminDashboard::class, 'home']);
+        Route::get('/get-health-expiry',[adminDashboard::class,'health_expiry']);
+        Route::get('/get-visa-expiry',[adminDashboard::class,'visa_expiry']);
+        Route::get('/get-offline-maids',[adminDashboard::class,'offline']);
     });
 
     Route::get('/send-mail-for-change-password/{name}/{type}', [mailController::class, 'sendMail']);
