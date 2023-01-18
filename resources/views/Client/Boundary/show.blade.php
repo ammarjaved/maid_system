@@ -82,6 +82,7 @@
                     map.fitBounds(myLayer.getBounds());
 
                 }
+                
             });
 
         }

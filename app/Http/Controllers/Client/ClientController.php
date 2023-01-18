@@ -58,10 +58,16 @@ class ClientController extends Controller
         
         // return $request;
 
-        $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
-        $request['agency_id'] =$agency_id[0]['id'];
         
-        $request['created_by'] = Auth::user()->name;
+        if(Auth::user()->type == 'agency'){
+            $request['created_by'] = Auth::user()->name;
+            $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
+            $request['agency_id'] =$agency_id[0]['id'];
+        }else{
+            $agency_id = agency::where('user_name',$request->created_by)->get('id');
+            $request['agency_id'] =$agency_id[0]['id'];
+        }
+
         $request['user_name'] = $request->name;
 
         

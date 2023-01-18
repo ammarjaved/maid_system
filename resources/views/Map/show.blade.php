@@ -9,7 +9,7 @@
 
         .my-icon-white {
             border-radius: 50%;
-            border: 5px solid white;
+            border: 5px solid grey;
 
         }
 

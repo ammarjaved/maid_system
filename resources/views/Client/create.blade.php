@@ -31,7 +31,7 @@
                 <div class="first">
 
 
-                   
+
 
                     <div>
                         <label for="first_name">First Name</label>
@@ -150,7 +150,7 @@
                             value="{{ old('client_identity_img') }}">
                     </div>
 
-                    
+
 
 
 
@@ -165,6 +165,24 @@
                             value="{{ old('profile_image') }}">
                     </div>
 
+                    @if (Auth::user()->type == 'superAdmin')
+                        <?php
+                        $agency = \App\Models\agency::all();
+                        ?>
+                        <div>
+                            <label for="created_by">Agency Name</label>
+                            <span class="text-danger">
+                                @error('created_by')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            <select name="created_by" id="created_by" required class="form-select">
+                                <option value="">Select Agency</option>
+                                @foreach ($agency as $agen)
+                                    <option value="{{ $agen->user_name }}">{{ $agen->user_name }}</option>
+                                @endforeach
+                            </select>
+                    @endif
                     <div>
                         <label for="user_name">Username</label>
                         <span class="text-danger">
@@ -184,8 +202,8 @@
                         </span>
 
                         <div class="input-group input-group-merge">
-                            <input type="password" name="password" value="{{ old('password') }}"
-                                id="password" class="form-control" placeholder="Enter your password">
+                            <input type="password" name="password" value="{{ old('password') }}" id="password"
+                                class="form-control" placeholder="Enter your password">
                             <div class="input-group-text" data-password="false">
                                 <span class="password-eye"></span>
                             </div>
@@ -247,7 +265,7 @@
         //             alert(data); // show response from the php script.
         //         },
         //         error: function(xhr) {
-                  
+
         //             $.each(xhr.responseJSON.errors, function(key, value) {
         //                console.log(key);
         //             });

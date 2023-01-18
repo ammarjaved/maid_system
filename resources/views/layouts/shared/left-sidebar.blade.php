@@ -81,12 +81,12 @@
 
                 @if (Auth::user()->type == 'superAdmin')
                     <li>
-                        <a href="#sidebarClient" data-bs-toggle="collapse">
+                        <a href="#sidebarAgency" data-bs-toggle="collapse">
                             <i data-feather="file-text"></i>
                             <span> Agency </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse" id="sidebarClient">
+                        <div class="collapse" id="sidebarAgency">
                             <ul class="nav-second-level">
                                 <li>
                                     <a href="{{ route('agency.create') }}">
@@ -102,7 +102,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a href="{{ route('client.index') }}">
                             <i data-feather="file-text"></i>
                             <span>Clients</span>
@@ -114,11 +114,11 @@
                         
                         <a href="{{ route('maid.index') }}">
                             <i class="fa fas fa-male"></i>Maid</a>
-                    </li>
+                    </li> --}}
 
 
                 @else
-                
+                @endif
                     <li>
                         <a href="#sidebarClient" data-bs-toggle="collapse">
                             <i data-feather="file-text"></i>
@@ -165,7 +165,7 @@
                             </ul>
                         </div>
                     </li>
-                @endif
+                
 
 
 
