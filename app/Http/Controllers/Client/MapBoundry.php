@@ -166,7 +166,7 @@ class MapBoundry extends Controller
                     flush();
                 }
 
-                sleep(5);
+                sleep(60);
             }
         });
         // $res = json_decode($response);

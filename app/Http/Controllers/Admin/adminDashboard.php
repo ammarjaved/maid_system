@@ -26,6 +26,14 @@ FROM tbl_agency");
         (SELECT count(*) total_offline from tbl_user_activity where last_updated <NOW() - INTERVAL '5 minutes')d,
         (select count(*) visa_expiry from tbl_user where visa_expiry_date::date < now()::date +60)e,
         (select count(*) health_expiry from tbl_health where health_card_expiry::date < now()::date +60)f");
+
+        $offline = DB::select("SELECT *, tbl_user_activity.last_updated
+        FROM tbl_user
+        INNER JOIN tbl_user_activity ON tbl_user.id=tbl_user_activity.user_id");
+
+        $health_expiry = DB::select('select * from tbl_health where health_card_expiry::date < now()::date +60');
+        $visa_expiry = DB::select('select * from tbl_user where visa_expiry_date::date < now()::date +60');
+
         // $detail = [];
         // $visa_expiry = DB::select('select * from tbl_user where visa_expiry_date::date < now()::date +60');
         // $detail['visa_expiry'] = $visa_expiry;
@@ -36,7 +44,7 @@ FROM tbl_agency");
         // FROM tbl_user
         // INNER JOIN tbl_user_activity ON tbl_user.id=tbl_user_activity.user_id");
         // $detail['offline'] = $offline[0];
-        return view('Dashboards.admin-dashboard', ['data' => $data[0], 'agency' => $agency]);
+        return view('Dashboards.admin-dashboard', ['data' => $data[0], 'agency' => $agency, 'offline' => $offline,'health_expiry'=>$health_expiry,'visa_expiry'=>$visa_expiry]);
     }
 
     public function health_expiry()

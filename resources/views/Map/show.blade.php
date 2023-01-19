@@ -55,9 +55,9 @@
                                     <option value="{{ $cli->user_name }}">{{ $cli->user_name }}</option>
                                 @endforeach
                             </select>
-    
+
                         </div>
-    
+
 
                         <div class="m-3">
                             {{-- <label>Username</label> --}}
@@ -89,11 +89,13 @@
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
         }).addTo(map);
 
+        var baseMaps;
+
         var fiveMinutesAgo = new Date(new Date().getTime() - 5 * 60 * 1000);
         var LeafIcon;
         var greenIcon;
         var time2;
-        var maker;
+        var maker = [];
 
         // $(document).ready(function() {
         //     getGeom();
@@ -135,9 +137,9 @@
         //                 greenIcon = new LeafIcon({
         //                     iconUrl: '/asset/images/Maid/' + value.properties.profile_image
         //                 });
-        //                 maker = L.marker([cor[1], cor[0]], {
+        //                 maker[i] = L.marker([cor[1], cor[0]], {
         //                     icon: greenIcon
-        //                 }).addTo(map).bindPopup("<table class='table table-bordered'>" +
+        //                 }).bindPopup("<table class='table table-bordered'>" +
         //                     "<tr>" +
         //                     "<th>Username</th>" +
         //                     "<td>" + value.properties.user_name + "</td>" +
@@ -169,12 +171,14 @@
         //                     "</table>");
 
         //             });
+        //             pre_layer = L.layerGroup(maker).addTo(map);
         //         }
         //     });
 
         // }
 
-var pre_layer ;
+        var pre_layer;
+        var layer;
 
 
         var source = new EventSource("/ssee");
@@ -190,113 +194,127 @@ var pre_layer ;
 
 
             console.log(ct.features);
-            if(JSON.stringify(ct.features)  == JSON.stringify(pre_layer) ){
+            if (JSON.stringify(ct.features) !== JSON.stringify(pre_layer)) {
                 console.log('true');
-            }else{
+                if (layer) {
+                    map.removeLayer(layer);
+                }
+
+
+                ct.features.map((value, i) => {
+
+
+                    cor = value.geometry.coordinates;
+
+                    last_update = new Date(value.properties.last_updated)
+                    if (fiveMinutesAgo.getTime() > last_update.getTime()) {
+                        LeafIcon = L.Icon.extend({
+                            options: {
+                                iconSize: [55, 55],
+                                className: 'my-icon-white'
+                            }
+                        });
+                    } else {
+                        LeafIcon = L.Icon.extend({
+                            options: {
+                                iconSize: [55, 55],
+                                className: 'my-icon-green'
+                            }
+                        });
+                    }
+                    greenIcon = new LeafIcon({
+                        iconUrl: '/asset/images/Maid/' + value.properties.profile_image
+                    });
+
+                    maker[i] = L.marker([cor[1], cor[0]], {
+                        icon: greenIcon
+                    }).bindPopup("<table class='table table-bordered'>" +
+                        "<tr>" +
+                        "<th>Username</th>" +
+                        "<td>" + value.properties.user_name + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Gender</th>" +
+                        "<td>" + value.properties.gender + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Email</th>" +
+                        "<td>" + value.properties.email + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Contact no</th>" +
+                        "<td>" + value.properties.contact_number + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Profile Image</th>" +
+                        "<td><a class='example-image-link' href='/asset/images/Maid/" +
+                        value.properties.profile_image +
+                        "' data-lightbox='example-set' data-title='Before Pic'><img src='/asset/images/Maid/" +
+                        value.properties.profile_image + "' height='50'/></a></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Detail</th>" +
+                        "<td><a href='/maid/" + value.properties.user_name +
+                        "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
+                        "</tr>" +
+                        "</table>");
+
+                });
+
+                layer = L.layerGroup(maker).addTo(map);
+                pre_layer = ct.features;
+
+            } else {
                 console.log('false');
             }
-
-            ct.features.map((value, i) => {
-
-
-                cor = value.geometry.coordinates;
-
-                last_update = new Date(value.properties.last_updated)
-                if (fiveMinutesAgo.getTime() > last_update.getTime()) {
-                    LeafIcon = L.Icon.extend({
-                        options: {
-                            iconSize: [55, 55],
-                            className: 'my-icon-white'
-                        }
-                    });
-                } else {
-                    LeafIcon = L.Icon.extend({
-                        options: {
-                            iconSize: [55, 55],
-                            className: 'my-icon-green'
-                        }
-                    });
-                }
-                greenIcon = new LeafIcon({
-                    iconUrl: '/asset/images/Maid/' + value.properties.profile_image
-                });
-                maker = L.marker([cor[1], cor[0]], {
-                    icon: greenIcon
-                }).addTo(map).bindPopup("<table class='table table-bordered'>" +
-                    "<tr>" +
-                    "<th>Username</th>" +
-                    "<td>" + value.properties.user_name + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Gender</th>" +
-                    "<td>" + value.properties.gender + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Email</th>" +
-                    "<td>" + value.properties.email + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Contact no</th>" +
-                    "<td>" + value.properties.contact_number + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Profile Image</th>" +
-                    "<td><a class='example-image-link' href='/asset/images/Maid/" +
-                    value.properties.profile_image +
-                    "' data-lightbox='example-set' data-title='Before Pic'><img src='/asset/images/Maid/" +
-                    value.properties.profile_image + "' height='50'/></a></td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Detail</th>" +
-                    "<td><a href='/maid/" + value.properties.user_name +
-                    "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
-                    "</tr>" +
-                    "</table>");
-
-            });
+            var overlayMaps = {
+                "Cities": layer
+            };
+            var layerControl = L.control.layers(overlayMaps).addTo(map);
+    
         };
+
+
+
 
 
 
 
         var myLayer;
 
-function changeLayer(element) {
+        function changeLayer(element) {
 
-    let id = document.querySelector('#address').value;
-    var text = element.options[element.selectedIndex].text;
+            let id = document.querySelector('#address').value;
+            var text = element.options[element.selectedIndex].text;
 
 
-    $('#layer').val('');
-    $.ajax({
-        type: "GET",
-        url: `/get-boundary-layer/${id}`,
-        success: function(data) {
-            // console.log(JSON.parse(data));
-            if (myLayer) {
-                map.removeLayer(myLayer);
+            $('#layer').val('');
+            $.ajax({
+                type: "GET",
+                url: `/get-boundary-layer/${id}`,
+                success: function(data) {
+                    // console.log(JSON.parse(data));
+                    if (myLayer) {
+                        map.removeLayer(myLayer);
+                    }
+                    myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
+                    // addNonGroupLayers(myLayer, drawnItems);
+                    map.fitBounds(myLayer.getBounds());
+                },
+            });
+
+
+        }
+
+
+        function addNonGroupLayers(sourceLayer, targetGroup) {
+            if (sourceLayer instanceof L.LayerGroup) {
+                sourceLayer.eachLayer(function(layer) {
+                    addNonGroupLayers(layer, targetGroup);
+                });
+            } else {
+                targetGroup.addLayer(sourceLayer);
             }
-            myLayer = L.geoJSON(JSON.parse(data)).addTo(map);
-            // addNonGroupLayers(myLayer, drawnItems);
-            map.fitBounds(myLayer.getBounds());
-        },
-    });
-
-
-}
-
-
-function addNonGroupLayers(sourceLayer, targetGroup) {
-    if (sourceLayer instanceof L.LayerGroup) {
-        sourceLayer.eachLayer(function(layer) {
-            addNonGroupLayers(layer, targetGroup);
-        });
-    } else {
-        targetGroup.addLayer(sourceLayer);
-    }
-}
-
-
-
+        }
     </script>
 @endsection

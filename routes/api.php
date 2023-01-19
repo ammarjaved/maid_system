@@ -41,6 +41,7 @@ Route::post('/update-maid-info/{id}',[UpdateUserInfo::class,"updateMaid"]);
 Route::post('/update-client-info/{id}',[UpdateUserInfo::class,"updateClient"]);
 Route::post('/addsalary-maid',[SalaryController::class,"addSalaryInfo"]);
 Route::post("/check-user-location",[Geofencing::class,"userLocation"]);
+Route::post("/track-user-location",[Geofencing::class,"TrackUserLocation"]);
 Route::post("/send-mail",[SendMail::class,"sendMail"]);
 
 Route::get('/get-assigned-maids/{client_user_name}',[GetDetailsController::class,'assignedMaids']);

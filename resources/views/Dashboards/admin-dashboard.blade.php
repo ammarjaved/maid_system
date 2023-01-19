@@ -5,6 +5,12 @@
     <link href="{{ asset('assets/libs/admin-resources/admin-resources.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/libs/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- third party css end -->
+
+    <style>
+        div#tooltip-container {
+    height: 80%;
+}
+    </style>
 @endsection
 
 @section('content')
@@ -101,12 +107,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-xl-2" style="cursor: pointer" onclick="fade_fun('visa')">
+            <div class="col-md-6 col-xl-2" style="cursor: pointer; " onclick="fade_fun('visa')">
                 <div class="card" id="tooltip-container">
                     <div class="card-body p-2">
 
                         <h6 class="mt-0 font-16 ">Maid visa expiry in 2 months</h6>
-                        <h3 class="text-primary my-2 "><span data-plugin="counterup">{{ $data->visa_expiry }}</span></h3>
+                        <h3 class="text-primary my-2 text-center"><span data-plugin="counterup">{{ $data->visa_expiry }}</span></h3>
                         {{-- <p class="text-muted mb-0">Client Register this week <span class="float-end"><i class="fa fa-caret-up text-success me-1"></i>10.25%</span></p> --}}
                     </div>
                 </div>
@@ -119,13 +125,17 @@
                 <div class="card">
                     <div class="card-body">
 
+                        <div class="card-widgets">
+                            <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                            <a data-bs-toggle="collapse" href="#visaCollpase4" role="button" aria-expanded="true" aria-controls="cardCollpase4" class=""><i class="mdi mdi-minus"></i></a>
+                            <a href="javascript: void(0);" onclick="fade_fun('visa')"><i class="mdi mdi-close"></i></a>
+                        </div>
                         <h4 class="header-title mb-3" id="maid_health_expiry">Maid visa expiry in 2 months</h4>
 
-                        <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                        
+                        <div class="inbox-widget" data-simplebar="init" id="visaCollpase4" style="max-height: 407px;">
                             <div class="simplebar-wrapper" style="margin: 0px;">
-                                <div class="simplebar-height-auto-observer-wrapper">
-                                    <div class="simplebar-height-auto-observer"></div>
-                                </div>
+                               
                                 <div class="simplebar-mask">
                                     <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
                                         <div class="simplebar-content-wrapper"
@@ -134,7 +144,7 @@
                                                                                       "
                                                 style="padding: 0px;">
 
-                                                <table
+                                                <table id="visa-expiry"
                                                     class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline visa_expiry"
                                                     role="grid" aria-describedby="selection-datatable_info"
                                                     style="width: 1008px;">
@@ -148,6 +158,15 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        @foreach ($visa_expiry as $visa)
+                                                        <tr>
+                                                           
+                                                            <td class="text-capitalize">{{ $visa->user_name }}</td>
+                                                            <td>{{ $visa->visa_expiry_date }}</td>
+                                                            
+                                                            <td class="text-center"><a href="{{ route('maid.show', $visa->user_name) }}"><i class="fas fa-eye"></i></a></td>
+                                                        </tr>
+                                                    @endforeach
 
 
 
@@ -160,13 +179,7 @@
                             </div>
                             <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
                         </div>
-                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                            <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                        </div>
-                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                            <div class="simplebar-scrollbar"
-                                style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
-                        </div>
+                       
                     </div> <!-- end inbox-widget -->
                 </div>
             </div>
@@ -177,9 +190,14 @@
                 <div class="card">
                     <div class="card-body">
 
+                        <div class="card-widgets">
+                            <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                            <a data-bs-toggle="collapse" href="#offlineCollpase4" role="button" aria-expanded="true" aria-controls="cardCollpase4" class=""><i class="mdi mdi-minus"></i></a>
+                            <a href="javascript: void(0);" onclick="fade_fun('offline')"><i class="mdi mdi-close"></i></a>
+                        </div>
                         <h4 class="header-title mb-3" id="maid_health_expiry">Offline Maids</h4>
 
-                        <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                        <div class="inbox-widget" data-simplebar="init" id="offlineCollpase4" style="max-height: 407px;">
                             <div class="simplebar-wrapper" style="margin: 0px;">
                                 <div class="simplebar-height-auto-observer-wrapper">
                                     <div class="simplebar-height-auto-observer"></div>
@@ -193,7 +211,7 @@
                                                 style="padding: 0px;">
 
                                                 <table
-                                                 {{-- id="selection-datatable" --}}
+                                                 id="offline-datatable"
                                                     class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline offline"
                                                     role="grid" aria-describedby="selection-datatable_info"
                                                     style="width: 1008px;">
@@ -207,15 +225,15 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{-- @foreach ($data['health'] as $health)
+                                                        @foreach ($offline as $off)
                                                         <tr>
                                                            
-                                                            <td class="text-capitalize">{{ $health->user_name }}</td>
-                                                            <td>{{ $health->health_card_expiry }}</td>
+                                                            <td class="text-capitalize">{{ $off->user_name }}</td>
+                                                            <td>{{ $off->last_updated }}</td>
                                                             
-                                                            <td class="text-center"><a href="{{ route('maid.show', $health->user_name) }}"><i class="fas fa-eye"></i></a></td>
+                                                            <td class="text-center"><a href="{{ route('maid.show', $off->user_name) }}"><i class="fas fa-eye"></i></a></td>
                                                         </tr>
-                                                    @endforeach --}}
+                                                    @endforeach
 
                                                     </tbody>
                                                 </table>
@@ -226,13 +244,7 @@
                             </div>
                             <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
                         </div>
-                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                            <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                        </div>
-                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                            <div class="simplebar-scrollbar"
-                                style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
-                        </div>
+                        
                     </div> <!-- end inbox-widget -->
                 </div>
             </div>
@@ -241,10 +253,14 @@
             <div class="col-xl-6 col-lg-6 " id="health" style="display: none">
                 <div class="card">
                     <div class="card-body">
-
+                        <div class="card-widgets">
+                            <a href="javascript: void(0);" data-toggle="reload"><i class="mdi mdi-refresh"></i></a>
+                            <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="true" aria-controls="cardCollpase4" class=""><i class="mdi mdi-minus"></i></a>
+                            <a href="javascript: void(0);" onclick="fade_fun('health')"><i class="mdi mdi-close"></i></a>
+                        </div>
                         <h4 class="header-title mb-3" id="maid_health_expiry">Maid Health expiry in 2 months</h4>
-
-                        <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                        
+                        <div class="inbox-widget collapse pt-3 show" id="cardCollpase4" data-simplebar="init" style="max-height: 407px;">
                             <div class="simplebar-wrapper" style="margin: 0px;">
                                 <div class="simplebar-height-auto-observer-wrapper">
                                     <div class="simplebar-height-auto-observer"></div>
@@ -271,7 +287,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {{-- @foreach ($detail['health_expiry'] as $health)
+                                                        @foreach ($health_expiry as $health)
                                                         <tr>
                                                           
                                                             <td class="text-capitalize">{{ $health->user_name }}</td>
@@ -279,7 +295,7 @@
                                                             
                                                             <td class="text-center"><a href="{{ route('maid.show', $health->user_name) }}"><i class="fas fa-eye"></i></a></td>
                                                         </tr>
-                                                    @endforeach --}}
+                                                    @endforeach
 
                                                     </tbody>
                                                 </table>
@@ -290,13 +306,7 @@
                             </div>
                             <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
                         </div>
-                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                            <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                        </div>
-                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                            <div class="simplebar-scrollbar"
-                                style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
-                        </div>
+                       
                     </div> <!-- end inbox-widget -->
                 </div>
             </div>
@@ -357,80 +367,8 @@
                 $('#' + klass).fadeOut();
             }
         }
-        $(document).ready(function() {
-            health_expiry();
-            visa_expiry();
-            offline();
-        });
-
-        function health_expiry() {
-            $.ajax({
-                type: "GET",
-                url: `/get-health-expiry`,
-                success: function(data) {
-                    console.log(data);
-                    var table = document.getElementsByClassName("health_expiry")[0];
-                    for (i = 0; i < data.length; i++) {
-
-                        var newRow = table.insertRow(-1);
-
-                        var cell1 = newRow.insertCell(0);
-                        var cell2 = newRow.insertCell(1);
-                        var cell3 = newRow.insertCell(2);
-                        cell1.innerHTML = data[i].user_name;
-                        cell2.innerHTML = data[i].health_card_expiry;
-                        cell3.innerHTML = "<a href = '/maid/" + data[i].user_name +
-                            "' > <i class ='fas fa-eye' > </i></a>";
-                    }
-                }
-            });
-        }
-
-        function visa_expiry() {
-            $.ajax({
-                type: "GET",
-                url: `/get-visa-expiry`,
-                success: function(data) {
-                    console.log(data);
-                    var table = document.getElementsByClassName("visa_expiry")[0];
-                    for (i = 0; i < data.length; i++) {
-
-                        var newRow = table.insertRow(-1);
-
-                        var cell1 = newRow.insertCell(0);
-                        var cell2 = newRow.insertCell(1);
-                        var cell3 = newRow.insertCell(2);
-                        cell1.innerHTML = data[i].user_name;
-                        cell2.innerHTML = data[i].visa_expiry_date;
-                        cell3.innerHTML = "<a href = '/maid/" + data[i].user_name +
-                            "' > <i class ='fas fa-eye' > </i></a>";
-                    }
-                }
-            });
-        }
-
-        function offline() {
-            $.ajax({
-                type: "GET",
-                url: `/get-offline-maids`,
-                success: function(data) {
-                    console.log(data);
-                    var table = document.getElementsByClassName("offline")[0];
-                    for (i = 0; i < data.length; i++) {
-
-                        var newRow = table.insertRow(-1);
-
-                        var cell1 = newRow.insertCell(0);
-                        var cell2 = newRow.insertCell(1);
-                        var cell3 = newRow.insertCell(2);
-                        cell1.innerHTML = data[i].user_name;
-                        cell2.innerHTML = data[i].last_updated;
-                        cell3.innerHTML = "<a href = '/maid/" + data[i].user_name +
-                            "' > <i class ='fas fa-eye' > </i></a>";
-                    }
-                }
-            });
-        }
+        $("#offline-datatable").DataTable();
+        $("#visa-expiry").DataTable();
 
     </script>
 @endsection
