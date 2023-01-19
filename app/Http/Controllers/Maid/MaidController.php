@@ -110,6 +110,8 @@ class MaidController extends Controller
                 'password' => 'abcd1234',
                 'user_type' => 'maid',
             ]);
+
+            DB::select("INSERT into tbl_app_activity(user_name, type) values('$request->user_name' , 'client')");
         } catch (Exception $e) {
             // return $e->getMessage();
             return redirect()

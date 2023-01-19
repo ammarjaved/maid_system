@@ -13,6 +13,7 @@ use App\Http\Controllers\Agency\DashboardController;
 use App\Http\Controllers\Client\SalaryController as ClientSalaryController;
 use App\Http\Controllers\mailController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\ServerEventContoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,12 +42,15 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/show-all-clients', [MapController::class, 'show']);
 
+        Route::get('/get-maids-by-client/{id}',[MapController::class,'maidByClient']);
+        Route::get('/ssee-by-client/{username}',[ServerEventContoller::class,'EventByCLient']);
+
         Route::get('/my-account/{name}', [AgencyController::class, 'myAccount']);
 
         
         Route::get('/get-geo-detail/{id}', [ClientController::class, 'getGeo']);
 
-        Route::get('/ssee',[MapBoundry::class,'testsse']);
+        Route::get('/ssee',[ServerEventContoller::class,'sse']);
 
         //map routes
         // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);

@@ -109,6 +109,7 @@ class ClientController extends Controller
                 ->route('client.create')
                 ->with('message', 'Image Not saved');
         }
+        DB::select("INSERT into tbl_app_activity(user_name, type) values('$request->user_name' , 'client')");
 
         try{
             $token = rand();
@@ -131,6 +132,7 @@ class ClientController extends Controller
             'user_name' => $request->user_name,
             'token' => $token,
         ]);
+
         return redirect()->route('client.index');
 
 
