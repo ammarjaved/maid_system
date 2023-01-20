@@ -19,12 +19,13 @@
             <h2>Reset your password</h2>
             <p style="font-size: large;">if you want to change your password please click below link before 24 hours</p>
             <a href="{{ $details['url'] }}"><button
-                    style=" color: white;
-                background: #282a35cc;
-                padding: 13px;
-                font-size: 15px;
-                font-weight: 700;
-                border: none;">Reset
+                    style="     font-size: 16px;
+                    padding: 7px 16px;
+                    border: 0px;
+                    background: #147ecbf2;
+                    color: white;
+                    font-weight: 700;
+                    cursor: pointer;">Reset
                     Your Password</button></a>
 
             <p style="font-size: large;">If you don't want to rest your password you can safely ignore this email. Only a
