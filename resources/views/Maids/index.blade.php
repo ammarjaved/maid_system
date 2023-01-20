@@ -252,6 +252,19 @@
 
         }
 
+        function maidID($id){
+            $("#maid_id").val($id);
+        }
+
+        function clientId(){
+            if (('#client_id').val() === '') {
+                ('#er_client_id').html('Select client');
+                return false;
+            } else {
+                ('er_client_id').html('')
+            }
+        }
+
         function submitFoam() {
             // if (('#client_boundary').val() === '') {
             //     ('#er_client_boundary').html('Select address')

@@ -9,8 +9,7 @@
 
 
     <div style="display: flex;
-    justify-content: center;
-    align-items: center;">
+    justify-content:center">
         <div
             style=" width: 50%; background: #F4F5F7;
         border-radius: 30px; padding:15px;text-align: center;
@@ -23,7 +22,7 @@
             <a href="{{ $details['url'] }}"><button>Change Password</button></a>
             <p>if you want to change your password please click link before 24 hours</p>
         </div>
-
+    </div>
 
 </body>
 

@@ -8,8 +8,8 @@
 
     <style>
         div#tooltip-container {
-    height: 75%;
-}
+            height: 75%;
+        }
     </style>
 @endsection
 
@@ -38,7 +38,7 @@
             <div class="col-md-6 col-xl-2">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
-                        <a href="{{route('client.index')}}"> <i class="fa fa-info-circle text-muted float-end"
+                        <a href="{{ route('client.index') }}"> <i class="fa fa-info-circle text-muted float-end"
                                 data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
                         <h4 class="mt-0 font-16">Total Clients</h4>
@@ -52,7 +52,7 @@
             <div class="col-md-6 col-xl-2">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
-                        <a href="{{route('maid.index')}}"> <i class="fa fa-info-circle text-muted float-end"
+                        <a href="{{ route('maid.index') }}"> <i class="fa fa-info-circle text-muted float-end"
                                 data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                 title="" data-bs-original-title="More Info" aria-label="More Info"></i></a>
                         <h4 class="mt-0 font-16">Total Maids</h4>
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6 col-xl-2" >
+            <div class="col-md-6 col-xl-2">
                 <div class="card" id="tooltip-container">
                     <div class="card-body">
                         <a href="#offline_maids"> <i class="fa fa-info-circle text-muted float-end"
@@ -229,77 +229,82 @@
             </div> <!-- end card-->
         </div> <!-- end col --> --}}
 
-        <div class="col-xl-6 col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    
-                    <h4 class="header-title mb-3" id="maid_health_expiry">Maid Health expiry in 2 months</h4>
+            <div class="col-xl-6 col-lg-6">
+                <div class="card">
+                    <div class="card-body">
 
-                    <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
-                        <div class="simplebar-wrapper" style="margin: 0px;">
-                            <div class="simplebar-height-auto-observer-wrapper">
-                                <div class="simplebar-height-auto-observer"></div>
-                            </div>
-                            <div class="simplebar-mask">
-                                <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                    <div class="simplebar-content-wrapper"
-                                        style="height: auto; overflow: hidden scroll;">
-                                        <div class="
+                        <h4 class="header-title mb-3" id="maid_health_expiry">Maid Health expiry in 2 months</h4>
+
+                        <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
+                            <div class="simplebar-wrapper" style="margin: 0px;">
+                                <div class="simplebar-height-auto-observer-wrapper">
+                                    <div class="simplebar-height-auto-observer"></div>
+                                </div>
+                                <div class="simplebar-mask">
+                                    <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
+                                        <div class="simplebar-content-wrapper"
+                                            style="height: auto; overflow: hidden scroll;">
+                                            <div class="
                                                                                       "
-                                            style="padding: 0px;">
+                                                style="padding: 0px;">
 
-                                            <table id="selection-datatable" class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline" role="grid" aria-describedby="selection-datatable_info" style="width: 1008px;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Username</th>
-                                                        {{-- <th>Contact no</th> --}}
-                                                        <th>Expiry date</th>
-                                                      
-                                                        <th>Detail</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach ($data['health'] as $health)
+                                                <table id="selection-datatable"
+                                                    class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline"
+                                                    role="grid" aria-describedby="selection-datatable_info"
+                                                    style="width: 1008px;">
+                                                    <thead>
                                                         <tr>
-                                                            {{-- <td> --}}
+                                                            <th>Username</th>
+                                                            {{-- <th>Contact no</th> --}}
+                                                            <th>Expiry date</th>
+
+                                                            <th>Detail</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($data['health'] as $health)
+                                                            <tr>
+                                                                {{-- <td> --}}
                                                                 {{-- <div class="inbox-item">
                                                                     <div class="inbox-item-img"><img
                                                                             src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
                                                                             class="rounded-circle" alt="">
                                                                     </div>
                                                                 </div> --}}
-                                                            {{-- </td> --}}
-                                                            <td class="text-capitalize">{{ $health->user_name }}</td>
-                                                            {{-- <td>{{$health->health_certificate_status}}</td> --}}
-                                                            <td>{{ $health->health_card_expiry }}</td>
-                                                            
-                                                            <td class="text-center"><a href="{{ route('maid.show', $health->user_name) }}"><i class="fas fa-eye"></i></a></td>
-                                                        </tr>
-                                                    @endforeach
+                                                                {{-- </td> --}}
+                                                                <td class="text-capitalize">{{ $health->user_name }}</td>
+                                                                {{-- <td>{{$health->health_certificate_status}}</td> --}}
+                                                                <td>{{ $health->health_card_expiry }}</td>
 
-                                                </tbody>
-                                            </table>
-                                        </div> <!-- end table responsive-->
+                                                                <td class="text-center"><a
+                                                                        href="{{ route('maid.show', $health->user_name) }}"><i
+                                                                            class="fas fa-eye"></i></a></td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                            </div> <!-- end table responsive-->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
                         </div>
-                        <div class="simplebar-placeholder" style="width: auto; height: 451px;"></div>
-                    </div>
-                    <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
-                        <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
-                    </div>
-                    <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
-                        <div class="simplebar-scrollbar"
-                            style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
-                    </div>
-                </div> <!-- end inbox-widget -->
+                        <div class="simplebar-track simplebar-horizontal" style="visibility: hidden;">
+                            <div class="simplebar-scrollbar" style="width: 0px; display: none;"></div>
+                        </div>
+                        <div class="simplebar-track simplebar-vertical" style="visibility: visible;">
+                            <div class="simplebar-scrollbar"
+                                style="height: 367px; transform: translate3d(0px, 0px, 0px); display: block;"></div>
+                        </div>
+                    </div> <!-- end inbox-widget -->
+                </div>
             </div>
-        </div>
             <div class="col-xl-6 col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        
+
                         <h4 class="header-title mb-3" id="maid_visa_expiry">Maid Visa expiry in 2 months</h4>
 
                         <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
@@ -321,7 +326,7 @@
                                                             <th>Username</th>
                                                             {{-- <th>Contact no</th> --}}
                                                             <th>Expiry date</th>
-                                                          
+
                                                             <th>Detail</th>
                                                         </tr>
                                                     </thead>
@@ -329,7 +334,7 @@
                                                         @foreach ($data['maids'] as $maid)
                                                             <tr>
                                                                 {{-- <td> --}}
-                                                                    {{-- <div class="inbox-item">
+                                                                {{-- <div class="inbox-item">
                                                                         <div class="inbox-item-img"><img
                                                                                 src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
                                                                                 class="rounded-circle" alt="">
@@ -339,8 +344,10 @@
                                                                 <td class="text-capitalize">{{ $maid->user_name }}</td>
                                                                 {{-- <td>{{$maid->contact_number}}</td> --}}
                                                                 <td>{{ $maid->visa_expiry_date }}</td>
-                                                                
-                                                                <td class="text-center"><a href="{{ route('maid.show', $maid->user_name) }}"><i class="fas fa-eye"></i></a></td>
+
+                                                                <td class="text-center"><a
+                                                                        href="{{ route('maid.show', $maid->user_name) }}"><i
+                                                                            class="fas fa-eye"></i></a></td>
                                                             </tr>
                                                         @endforeach
 
@@ -368,9 +375,9 @@
 
 
     <div class="col-xl-6 col-lg-6">
-        <div class="card">
+        <div class="card mx-2">
             <div class="card-body">
-                
+
                 <h4 class="header-title mb-3" id="offline_maids">Offline Maids</h4>
 
                 <div class="inbox-widget" data-simplebar="init" style="max-height: 407px;">
@@ -380,38 +387,35 @@
                         </div>
                         <div class="simplebar-mask">
                             <div class="simplebar-offset" style="right: 0px; bottom: 0px;">
-                                <div class="simplebar-content-wrapper"
-                                    style="height: auto; overflow: hidden scroll;">
+                                <div class="simplebar-content-wrapper" style="height: auto; overflow: hidden scroll;">
                                     <div class="
                                                                                   "
                                         style="padding: 0px;">
 
-                                        <table id="selection-datatable" class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline" role="grid" aria-describedby="selection-datatable_info" style="width: 1008px;">
+                                        <table id="offline-datatable"
+                                            class="table dt-responsive nowrap w-100 dataTable no-footer dtr-inline"
+                                            role="grid" aria-describedby="selection-datatable_info"
+                                            style="width: 1008px;">
                                             <thead>
                                                 <tr>
                                                     <th>Username</th>
-                                                    {{-- <th>Contact no</th> --}}
+                                      
                                                     <th>Last update</th>
-                                                  
+
                                                     <th>Detail</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($data['offline'] as $health)
                                                     <tr>
-                                                        {{-- <td> --}}
-                                                            {{-- <div class="inbox-item">
-                                                                <div class="inbox-item-img"><img
-                                                                        src="{{ URL::asset('asset/images/Maid/' . $maid->profile_image) }}"
-                                                                        class="rounded-circle" alt="">
-                                                                </div>
-                                                            </div> --}}
-                                                        {{-- </td> --}}
+     
                                                         <td class="text-capitalize">{{ $health->user_name }}</td>
-                                                        {{-- <td>{{$health->health_certificate_status}}</td> --}}
+
                                                         <td>{{ $health->last_updated }}</td>
-                                                        
-                                                        <td class="text-center"><a href="{{ route('maid.show', $health->user_name) }}"><i class="fas fa-eye"></i></a></td>
+
+                                                        <td class="text-center"><a
+                                                                href="{{ route('maid.show', $health->user_name) }}"><i
+                                                                    class="fas fa-eye"></i></a></td>
                                                     </tr>
                                                 @endforeach
 
@@ -453,4 +457,8 @@
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
     <script src="{{ asset('assets/js/pages/dashboard-2.init.js') }}"></script>
     <!-- end demo js-->
+
+    <script>
+        $("#offline-datatable").DataTable();
+    </script>
 @endsection

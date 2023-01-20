@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="permanent_address">Agency pic number</label>
+                        <label for="permanent_address">Agency PIC Number</label>
                         <span class="text-danger">
                             @error('permanent_address')
                                 {{ $message }}

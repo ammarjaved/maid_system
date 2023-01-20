@@ -31,7 +31,7 @@ class MaidController extends Controller
     {
         //
 
-        if (Auth::user()->type == 'Agency') {
+        if (Auth::user()->type == 'agency') {
             $maids = maid::where('created_by', Auth::user()->name)->get();
             $client = Client::where('created_by', Auth::user()->name)->get();
             return view('Maids.index', ['maids' => $maids, 'clients' => $client]);

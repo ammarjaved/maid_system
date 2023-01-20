@@ -74,7 +74,7 @@
         
 
         <div class="col-md-6">
-            <label for="permanent_address">Agency pic number</label>
+            <label for="permanent_address">Agency PIC Number</label>
             <span class="text-danger">@error('permanent_address'){{ $message }}@enderror</span>
             <input id="permanent_address" name="permanent_address" class="form-control" value="{{old('permanent_address')}}">
         </div>
