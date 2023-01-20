@@ -226,6 +226,12 @@ class MaidController extends Controller
         $this->removeImage($maid->visa_image_back);
 
         User::where('name', $maid->user_name)->delete();
+        try{
+            DB::select("DELETE FROM table_salary WHERE user_name = '$maid->user_name'");
+            DB::select("DELETE FROM table_health WHERE user_name = '$maid->user_name'");
+        }catch(Exception $e){
+
+        }
 
         $maid->delete();
 

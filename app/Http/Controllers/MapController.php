@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Client;
+
+use function PHPSTORM_META\type;
+
 class MapController extends Controller
 {
     //
@@ -18,8 +21,10 @@ class MapController extends Controller
         if (Auth::user()->type == 'superAdmin') {
             $client = Client::all();
         } else {
-            $client = Client::where('created_by', Auth::user()->name)->get();
+           
+            $client = Client::where('created_by', 'aero')->get();
         }
+        // return $client->count();
         return view('Map.show', ['client' => $client]);
     }
 

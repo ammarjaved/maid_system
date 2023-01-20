@@ -111,6 +111,6 @@ class MapBoundry extends Controller
         return view('Boundary.show', ['client' => $client]);
     }
 
-    private $id = '';
+    // private $id = '';
     
 }
