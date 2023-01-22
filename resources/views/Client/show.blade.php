@@ -136,6 +136,7 @@
                         <div>
                             <label for="profile_image">Profile Image</label>
                         </div>
+                        
                         <a href="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Client/' . $client->profile_image) }}"
@@ -146,12 +147,18 @@
                         <div>
                             <label for="client_identity">Client Identity card / Passport no</label>
                         </div>
+
+                        @if (substr(strrchr( $client->client_identity_img, '.'), 1) == "pdf")
+                        <a href="/download-file/{{$client->client_identity_img}}/{{'client'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                        @else
                         <a href="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary"
                                 src="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
-                                style="height: 70px; width: 70px;">
+                                style="height: 100px; width: 100px;">
                         </a>
+                        @endif
+                        
                     </div>
                 </div>
             </div>

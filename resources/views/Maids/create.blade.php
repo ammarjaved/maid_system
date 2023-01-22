@@ -170,35 +170,35 @@
         <div class="col-md-6">
             <label for="profile_image">Profile Image</label>
             <span class="text-danger">@error('profile_image'){{ $message }}@enderror</span>
-            <input id="profile_image" type="file" name="profile_image" class="form-control" value="{{old('profile_image')}}">
+            <input id="profile_image" type="file" name="profile_image" class="form-control" value="{{old('profile_image')}}" accept="image/*">
         </div>
 
         <div class="col-md-6">
             <label for="passport_image_front">Passport Image 1</label>
             <span class="text-danger">@error('passport_image_front'){{ $message }}@enderror</span>
-            <input id="passport_image_front" name="passport_image_front" type="file" class="form-control" value="{{old('passport_image_front')}}">
+            <input id="passport_image_front" name="passport_image_front" type="file" class="form-control" value="{{old('passport_image_front')}}" accept="image/*,.pdf">
         </div>
 
         <div class="col-md-6">
             <label for="passport_image_back">Passport image 2</label>
             <span class="text-danger">@error('passport_image_front'){{ $message }}@enderror</span>
-            <input id="passport_image_back" type="file" name="passport_image_back" class="form-control" value="{{old('passport_image_back')}}">
+            <input id="passport_image_back" type="file" name="passport_image_back" class="form-control" value="{{old('passport_image_back')}}" accept="image/*,.pdf">
         </div>
         <div class="col-md-6">
             <label for="visa_image_front">Visa image 1</label>
             <span class="text-danger">@error('visa_image_front'){{ $message }}@enderror</span>
-            <input id="visa_image_front" name="visa_image_front" type="file" class="form-control" value="{{old('visa_image_front')}}">
+            <input id="visa_image_front" name="visa_image_front" type="file" class="form-control" value="{{old('visa_image_front')}}" accept="image/*,.pdf">
         </div>
         <div class="col-md-6">
             <label for="visa_image_back">Visa image 2</label>
             <span class="text-danger">@error('visa_image_back'){{ $message }}@enderror</span>
-            <input id="visa_image_back" name="visa_image_back" type="file" class="form-control" value="{{old('visa_image_back')}}">
+            <input id="visa_image_back" name="visa_image_back" type="file" class="form-control" value="{{old('visa_image_back')}}" accept="image/*,.pdf">
         </div>
 
         <div class="col-md-6">
             <label for="health_certificate">Health Certificate</label>
             <span class="text-danger">@error('health_certificate'){{ $message }}@enderror</span>
-            <input id="health_certificate" name="health_certificate" type="file" class="form-control" value="{{old('health_certificate')}}">
+            <input id="health_certificate" name="health_certificate" type="file" class="form-control" value="{{old('health_certificate')}}" accept="image/*,.pdf">
         </div>
   
         <div class="col-md-12">

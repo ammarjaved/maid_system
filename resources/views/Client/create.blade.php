@@ -146,7 +146,7 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="client_identity_img" type="file" name="client_identity_img" class="form-control"
+                        <input id="client_identity_img" type="file" name="client_identity_img" class="form-control" accept="image/*,.pdf"
                             value="{{ old('client_identity_img') }}">
                     </div>
 
@@ -161,7 +161,7 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="profile_image" type="file" name="profile_image" class="form-control"
+                        <input id="profile_image" type="file" name="profile_image" class="form-control" accept="image/*"
                             value="{{ old('profile_image') }}">
                     </div>
 

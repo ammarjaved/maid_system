@@ -51,9 +51,9 @@
                             <span class="text-danger ms-3" id="er_id"></span>
                             <select id="address" class="form-control" onchange="changeLayer(this)">
                                 <option value="" hidden>Select Client to view</option>
-                                @foreach ($client as $cli)
-                                    <option value="{{ $cli->user_name }}">{{ $cli->user_name }}</option>
-                                @endforeach
+                                @for ($i = 0; $i<sizeof($client) ;$i++)
+                                    <option value="{{ $client[$i] }}">{{ $client[$i] }}</option>
+                                @endfor
                             </select>
 
                         </div>
@@ -286,7 +286,7 @@
                 success: function(data) {
                     var ct = JSON.parse(data);
                     console.log(data);
-                    addMaidLayer(ct.features);
+                    // addMaidLayer(ct.features);
 
                     setTimeout(() => {
                 sseetByClient(id);
@@ -311,9 +311,12 @@
 
             features.map((value, i) => {
 
-
+if (value.geometry !== null) {
                 var cor = value.geometry.coordinates;
 
+                
+                    
+                
                 last_update = new Date(value.properties.last_updated)
                 if (fiveMinutesAgo.getTime() > last_update.getTime()) {
                     LeafIcon = L.Icon.extend({
@@ -366,7 +369,7 @@
                     "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
                     "</tr>" +
                     "</table>");
-
+                    }
             });
 
             layer = L.layerGroup(maker).addTo(map);

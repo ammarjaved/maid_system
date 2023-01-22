@@ -264,51 +264,70 @@
                     </div>
 
                     <div class="col-6 text-center p-3">
-                        <label for="passport_image_front" class="col-12 text-start">Passport Image front</label>
+                        <label for="passport_image_front" class="col-12 text-start">Passport Image 1</label>
+                        @if (substr(strrchr( $maid->passport_image_front, '.'), 1) == "pdf")
+                        <a href="/download-client-file/{{$maid->passport_image_front}}/{{'maid'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                    @else
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary"
                                 src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
                                 style="height: 70px; width: 70px;">
                         </a>
+                        @endif
                     </div>
 
                     <div class="col-6 text-center ">
-                        <label for="passport_image_back" class="col-12 text-start">Passport image back</label>
+                        <label for="passport_image_back" class="col-12 text-start">Passport image 2</label>
+                        @if (substr(strrchr( $maid->passport_image_back, '.'), 1) == "pdf")
+                        <a href="/download-client-file/{{$maid->passport_image_back}}/{{'maid'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                    @else
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
                                 style="height: 70px; width: 70px;">
                         </a>
+                        @endif
                     </div>
 
                     <div class="col-6 text-center">
-                        <label for="visa_image_front" class="col-12 text-start">Visa image front</label>
+                        <label for="visa_image_front" class="col-12 text-start">Visa image 1</label>
+                        @if (substr(strrchr( $maid->visa_image_front, '.'), 1) == "pdf")
+                        <a href="/download-client-file/{{$maid->visa_image_front}}/{{'maid'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                    @else
                         <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
                                 style="height: 70px; width: 70px;">
                         </a>
+                        @endif
                     </div>
 
                     <div class="col-6 text-center p-3">
-                        <label for="visa_image_back" class="col-12 text-start">Visa image back</label>
-                        <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
+                        <label for="visa_image_back" class="col-12 text-start">Visa image 2</label>
+                        @if (substr(strrchr( $maid->visa_image_back, '.'), 1) == "pdf")
+                        <a href="/download-client-file/{{$maid->visa_image_back}}/{{'maid'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                    @else
+                        <a href="{{ URL::asset('asset/images/Maidz/' . $maid->visa_image_back) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
                                 style="height: 70px; width: 70px;">
-                        </a>
+                        </a> 
+                        @endif
                     </div>
 
 
                     <div class="col-6 text-center p-3">
                         <label for="health_certificate" class="col-12 text-start">Health Certificate</label>
+                        @if (substr(strrchr( $health->health_certificate, '.'), 1) == "pdf")
+                        <a href="/download-client-file/{{$health->health_certificate}}/{{'maid'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                    @else
                         <a href="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                             data-lightbox="roadtrip">
                             <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                                 style="height: 70px; width: 70px;">
                         </a>
-                    
+                    @endif
                 </div>
 
                 </div>

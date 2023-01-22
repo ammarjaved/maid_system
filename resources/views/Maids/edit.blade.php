@@ -229,12 +229,13 @@
                             @enderror
                         </span>
                         <select class="form-control" name="health_certificate_status">
-                            <option value="{{old('health_certificate_status', $health->health_certificate_status)}}" hidden>
-                            {{old('health_certificate_status', $health->health_certificate_status)}}</option>
+                            <option value="{{ old('health_certificate_status', $health->health_certificate_status) }}"
+                                hidden>
+                                {{ old('health_certificate_status', $health->health_certificate_status) }}</option>
                             <option value="valid">valid</option>
                             <option value="expire">expire</option>
                         </select>
-                         {{-- <input id="health_certificate_status" type="text" name="health_certificate_status"
+                        {{-- <input id="health_certificate_status" type="text" name="health_certificate_status"
                             class="form-control"
                             value="{{ old('health_certificate_status', $health->health_certificate_status) }}"> --}}
                     </div>
@@ -271,8 +272,8 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="health_card_expiry" type="date" name="health_card_expiry" 
-                            class="form-control" value="{{ old('health_card_expiry', $health->health_card_expiry) }}">
+                        <input id="health_card_expiry" type="date" name="health_card_expiry" class="form-control"
+                            value="{{ old('health_card_expiry', $health->health_card_expiry) }}">
                     </div>
 
                     <div class="col-md-6 mt-2">
@@ -291,19 +292,25 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="profile_image" type="file" name="profile_image" class="form-control">
+                        <input id="profile_image" type="file" name="profile_image" class="form-control"
+                            accept="image/*">
                     </div>
 
 
                     <div class="col-md-6">
-                        <label for="passport_image_front">Passport Image front</label>
+                        <label for="passport_image_front">Passport Image 1</label>
                         <div class="col-6 text-center">
-                            <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
-                                data-lightbox="roadtrip">
-                                <img id="temprary" alt="no image found"
-                                    src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
-                                    style="height: 70px; width: 70px;">
-                            </a>
+                            @if (substr(strrchr($maid->passport_image_front, '.'), 1) == 'pdf')
+                                <a href="/download-file/{{ $maid->passport_image_front }}/{{ 'maid' }}">
+                                    <button type="button" class="btn btn-success mt-4">Download</button></a>
+                            @else
+                                <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
+                                    data-lightbox="roadtrip">
+                                    <img id="temprary" alt="no image found"
+                                        src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_front) }}"
+                                        style="height: 70px; width: 70px;">
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -312,20 +319,26 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="passport_image_front" name="passport_image_front" type="file"
-                            class="form-control">
+                        <input id="passport_image_front" name="passport_image_front" type="file" class="form-control"
+                            accept="image/*,.pdf">
                     </div>
 
 
                     <div class="col-md-6">
-                        <label for="passport_image_back">Passport image back</label>
+                        <label for="passport_image_back">Passport image 2</label>
                         <div class="col-6 text-center">
-                            <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
-                                data-lightbox="roadtrip">
-                                <img id="temprary"
-                                    src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
-                                    alt="no image found" style="height: 70px; width: 70px;">
-                            </a>
+                            @if (substr(strrchr($maid->passport_image_back, '.'), 1) == 'pdf')
+                                <a href="/download-file/{{ $maid->passport_image_back }}/{{ 'maid' }}">
+                                    <button type="button" class="btn btn-success mt-4">Download</button></a>
+                            @else
+                                <a href="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
+                                    data-lightbox="roadtrip">
+                                    <img id="temprary"
+                                        src="{{ URL::asset('asset/images/Maid/' . $maid->passport_image_back) }}"
+                                        alt="no image found" style="height: 70px; width: 70px;">
+                                </a>
+                            @endif
+
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -335,19 +348,25 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="passport_image_back" type="file" name="passport_image_back" class="form-control">
+                        <input id="passport_image_back" type="file" name="passport_image_back" class="form-control"
+                            accept="image/*,.pdf">
                     </div>
 
 
                     <div class="col-md-6">
-                        <label for="visa_image_front">Visa image front</label>
+                        <label for="visa_image_front">Visa image 1</label>
                         <div class="col-6 text-center">
-                            <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
-                                data-lightbox="roadtrip">
-                                <img id="temprary"
-                                    src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
-                                    alt="no image found" style="height: 70px; width: 70px;">
-                            </a>
+                            @if (substr(strrchr($maid->visa_image_front, '.'), 1) == 'pdf')
+                                <a href="/download-file/{{ $maid->visa_image_front }}/{{ 'maid' }}">
+                                    <button type="button" class="btn btn-success mt-4">Download</button></a>
+                            @else
+                                <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
+                                    data-lightbox="roadtrip">
+                                    <img id="temprary"
+                                        src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_front) }}"
+                                        alt="no image found" style="height: 70px; width: 70px;">
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -357,19 +376,27 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="visa_image_front" name="visa_image_front" type="file" class="form-control">
+                        <input id="visa_image_front" name="visa_image_front" type="file" class="form-control"
+                            accept="image/*,.pdf">
                     </div>
 
 
 
                     <div class="col-md-6">
-                        <label for="visa_image_back">Visa image back</label>
+                        <label for="visa_image_back">Visa image 2</label>
+
                         <div class="col-6 text-center">
-                            <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
-                                data-lightbox="roadtrip">
-                                <img id="temprary" src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
-                                    alt="no image found" style="height: 70px; width: 70px;">
-                            </a>
+                            @if (substr(strrchr($maid->visa_image_back, '.'), 1) == 'pdf')
+                                <a href="/download-file/{{ $maid->visa_image_back }}/{{ 'maid' }}"> <button
+                                        type="button" class="btn btn-success mt-4">Download</button></a>
+                            @else
+                                <a href="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
+                                    data-lightbox="roadtrip">
+                                    <img id="temprary"
+                                        src="{{ URL::asset('asset/images/Maid/' . $maid->visa_image_back) }}"
+                                        alt="no image found" style="height: 70px; width: 70px;">
+                                </a>
+                            @endif
                         </div>
                     </div>
 
@@ -380,18 +407,24 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="visa_image_back" name="visa_image_back" type="file" class="form-control">
+                        <input id="visa_image_back" name="visa_image_back" type="file" class="form-control"
+                            accept="image/*,.pdf">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="health_certificate">Visa image back</label>
+                        <label for="health_certificate">Health Certificate</label>
                         <div class="col-6 text-center">
-                            <a href="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
+                            @if (substr(strrchr($health->health_certificate, '.'), 1) == 'pdf')
+                                <a href="/download-file/{{ $health->health_certificate }}/{{ 'maid' }}">
+                                    <button type="button" class="btn btn-success mt-4">Download</button></a>
+                            @else
+                                <a href="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                                 data-lightbox="roadtrip">
                                 <img id="temprary"
                                     src="{{ URL::asset('asset/images/Maid/' . $health->health_certificate) }}"
                                     alt="no image found" style="height: 70px; width: 70px;">
-                            </a>
+                            </a> 
+                            @endif
                         </div>
                     </div>
 
@@ -402,7 +435,8 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <input id="health_certificate" name="health_certificate" type="file" class="form-control">
+                        <input id="health_certificate" name="health_certificate" type="file" class="form-control"
+                            accept="image/*,.pdf">
                     </div>
 
 

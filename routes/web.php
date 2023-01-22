@@ -11,6 +11,7 @@ use App\Http\Controllers\Maid\MaidController;
 use App\Http\Controllers\Client\MapBoundry;
 use App\Http\Controllers\Agency\DashboardController;
 use App\Http\Controllers\Client\SalaryController as ClientSalaryController;
+use App\Http\Controllers\DownloadFile;
 use App\Http\Controllers\mailController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\ServerEventContoller;
@@ -51,6 +52,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/get-geo-detail/{id}', [ClientController::class, 'getGeo']);
 
         Route::get('/ssee',[ServerEventContoller::class,'sse']);
+
+        Route::get('/download-file/{file_name}/{type}',[DownloadFile::class,'download']);
 
         //map routes
         // Route::get('/add-boundry/{username}',[MapBoundry::class,'create']);

@@ -165,7 +165,7 @@
                                     {{ $message }}
                                 @enderror
                             </span>
-                            <input id="profile_image" type="file" name="profile_image" class="form-control">
+                            <input id="profile_image" type="file" name="profile_image" class="form-control" accept="image/*">
                         </div>
                     </div>
 
@@ -175,16 +175,24 @@
                             <label for="client_identity_img">Client Identity card / Passport Image</label>
                             
                         <div class="col-6 text-center">
+                            @if (substr(strrchr( $client->client_identity_img, '.'), 1) == "pdf")
+                            
+                        
+                               <a href="/download-file/{{$client->client_identity_img}}/{{'client'}}"> <button type="button"  class="btn btn-success mt-4">Download</button></a>
+                            
+                            @else
                             <a href="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
                                 data-lightbox="roadtrip">
-                                <img id="temprary" src="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
-                                    style="height: 70px; width: 70px;">
+                                <img id="temprary"
+                                    src="{{ URL::asset('asset/images/Client/' . $client->client_identity_img) }}"
+                                    style="height: 100px; width: 100px;">
                             </a>
+                            @endif
                         </div>
                         <div class="col-6">
                             
                             <input id="client_identity_img" type="file" name="client_identity_img" class="form-control"
-                                value="{{ old('client_identity_img') }}">
+                                value="{{ old('client_identity_img') }}" accept="image/*,.pdf">
                         </div>
                     </div>
 
