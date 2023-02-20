@@ -67,7 +67,7 @@ class mailController extends Controller
     {
         $details = [
             // 'title'=>'Mail from me',
-            'subject' => 'Successfully registered in AeroSunergy',
+            'subject' => 'Successfully registered in Aerosynergy',
             'name' => 'sdfsdf',
             'password' => 'sdfsdfsdf',
             'url' => asset('/change-password') . '/sdfsdfsdf',

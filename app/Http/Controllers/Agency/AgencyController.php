@@ -85,7 +85,7 @@ class AgencyController extends Controller
 
             try {
                 $details = [
-                    'subject' => 'Successfully registered in AeroSunergy',
+                    'subject' => 'Successfully registered in Aerosynergy',
                     'name' => $request->name,
                     'password' => $request->password,
                     'url' => asset('/change-my-password') . '/' . $request->name . '/' . base64_encode($token),

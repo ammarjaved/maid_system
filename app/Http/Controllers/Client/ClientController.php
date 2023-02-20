@@ -116,7 +116,7 @@ class ClientController extends Controller
 
             $details = [
                 // 'title'=>'Mail from me',
-                'subject' => 'Successfully registered in AeroSunergy',
+                'subject' => 'Successfully registered in Aerosynergy',
                 'name'=>$request->user_name,
                 'password'=>$request->password,
                 'url'=> asset('/change-my-password').'/'.$request->user_name.'/'. base64_encode($token),

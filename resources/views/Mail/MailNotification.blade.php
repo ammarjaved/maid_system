@@ -16,7 +16,7 @@
         font-family: sans-serif;">
 
             <h2>Registered Successfully</h2>
-            <p style="line-height: 0; font-size: large;">You are successfully registered in AeroSynergy</p>
+            <p style="line-height: 0; font-size: large;">You are successfully registered in Aerosynergy</p>
             <p style="line-height: 0; font-size: large;"><span style="font-weight: 700">Username : </span>{{ $details['name'] }}</p>
             <p style="line-height: 0; font-size: large;"><span style="font-weight: 700">Password : </span> {{ $details['password'] }}</p>
             <a href="{{ $details['url'] }}"><button style="    font-size: 16px;
