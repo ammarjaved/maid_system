@@ -62,7 +62,7 @@
 
 
 
-                                    <td class="text-capitalize">{{ $client->user_name }}</td>
+                                    <td >{{ $client->user_name }}</td>
                                     <td>{{ $client->email }}</td>
                                     <td>{{ $client->contact_number }}</td>
                                    

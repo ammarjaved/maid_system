@@ -63,7 +63,7 @@
 
 
 
-                                    <td class="text-capitalize">{{ $maid->user_name }}</td>
+                                    <td >{{ $maid->user_name }}</td>
                                     <td>{{ $maid->email }}</td>
                                     @if (Auth::user()->type == 'superAdmin')
                                     <td>{{ $maid->created_by }}</td>

@@ -227,8 +227,9 @@ class MaidController extends Controller
 
         User::where('name', $maid->user_name)->delete();
         try{
-            DB::select("DELETE FROM table_salary WHERE user_name = '$maid->user_name'");
-            DB::select("DELETE FROM table_health WHERE user_name = '$maid->user_name'");
+           
+            DB::select("DELETE FROM tbl_salary WHERE user_name = '$maid->user_name'");
+            DB::select("DELETE FROM tbl_health WHERE user_name = '$maid->user_name'");
         }catch(Exception $e){
 
         }

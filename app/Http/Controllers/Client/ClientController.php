@@ -223,7 +223,12 @@ class ClientController extends Controller
      */
     public function destroy($username)
     {
-        Client::where('user_name',$username)->delete();
+        $maid = Client::where('user_name',$username)->first();
+
+         DB::select("UPDATE tbl_user SET client_id = ''  WHERE client_id = '$maid->id'");
+
+
+        $maid->delete();
         User::where('name',$username)->delete();
         return redirect()->route('client.index');
     }

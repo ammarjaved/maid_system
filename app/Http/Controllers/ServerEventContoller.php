@@ -51,7 +51,7 @@ class ServerEventContoller extends Controller
                     flush();
                 }
 
-                sleep(10);
+                sleep(15);
             }
         });
       
@@ -113,7 +113,7 @@ class ServerEventContoller extends Controller
                     flush();
                 }
 
-                sleep(10);
+                sleep(15);
             }
         });
       

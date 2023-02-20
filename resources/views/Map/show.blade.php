@@ -238,12 +238,12 @@
                     console.log('false');
                 }
 
+console.log("forremove");
+
+source.close();
+
 
             };
-
-
-
-
 
 
             }
@@ -251,6 +251,13 @@
 
 
 
+
+                    setTimeout(() => {
+                        console.log("firstione")
+                        let id = document.querySelector('#address').value;
+                sseetByClient(id);
+                console.log("secobdonr")
+                }, 20000);
 
 
 
