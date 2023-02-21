@@ -128,26 +128,7 @@
                         <input id="client_address" name="client_address" class="form-control"
                             value="{{ old('client_address', $client->client_address) }}">
                     </div>
-                    <div>
-                        <label for="house_coords">House coords</label>
-                        <span class="text-danger">
-                            @error('house_coords')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                        <input id="house_coords" name="house_coords" class="form-control"
-                            value="{{ old('house_coords', $client->house_coords) }}">
-                    </div>
-                    <div>
-                        <label for="maid_working_address">Maid working address</label>
-                        <span class="text-danger">
-                            @error('maid_working_address')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                        <input id="maid_working_address" name="maid_working_address" class="form-control"
-                            value="{{ old('maid_working_address', $client->maid_working_address) }}">
-                    </div>
+                   
 
                     <div class="row">
                         <label for="profile_image">Profile Image</label>
