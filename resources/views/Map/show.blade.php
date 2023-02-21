@@ -51,7 +51,7 @@
                             <span class="text-danger ms-3" id="er_id"></span>
                             <select id="address" class="form-control" onchange="changeLayer(this)">
                                 <option value="" hidden>Select Client to view</option>
-                                @for ($i = 0; $i<sizeof($client) ;$i++)
+                                @for ($i = 0; $i < sizeof($client); $i++)
                                     <option value="{{ $client[$i] }}">{{ $client[$i] }}</option>
                                 @endfor
                             </select>
@@ -116,6 +116,7 @@
 
         $(document).ready(function() {
             // getGeom();
+            console.log("ready")
             sseet();
         });
 
@@ -201,63 +202,116 @@
         var pre_layer;
         var layer;
         var source;
+        var cont = false;
+        var incnt = false;
 
         function sseet() {
-            source = new EventSource("/ssee");
-            console.log('232323');
-            source.onmessage = function(event) {
-                console.log('34343434');
-                var data = JSON.parse(event.data);
+            // source = new EventSource("/ssee");
+            // console.log('232323');
+            // source.onmessage = function(event) {
+            //     console.log('34343434');
+            //     var data = JSON.parse(event.data);
 
-                var ct = JSON.parse(data.geojson);
- 
-                console.log(ct.features);
-                if (JSON.stringify(ct.features) !== JSON.stringify(pre_layer)) {
-                    addMaidLayer(ct.features);
-                } else {
-                    console.log('false');
+            //     var ct = JSON.parse(data.geojson);
+
+            //     console.log(ct.features);
+            //     if (JSON.stringify(ct.features) !== JSON.stringify(pre_layer)) {
+            //         addMaidLayer(ct.features);
+            //     } else {
+            //         console.log('false');
+            //     }
+
+
+            // };
+
+            $.ajax({
+                type: "GET",
+                url: `/get-all-maid-locations`,
+                success: function(data) {
+                    if(cont == false){
+                    console.log(JSON.parse(data));
+                    var ct1 = JSON.parse(data);
+                    // var ct = JSON.parse(data.geojson);
+                    console.log('xuccess-2');
+                    if (JSON.stringify(ct1.features) !== JSON.stringify(pre_layer) ) {
+                        addMaidLayer(ct1.features);
+                        console.log('xuccess-3');
+                    } else {
+                        console.log('false');
+                    }
                 }
+                    if (cont == false) {
 
+setTimeout(() => {
+    sseet()
+}, 10000)
+}
+                }
+               
+            });
 
-            };
+           
 
         }
-            function sseetByClient(username) {
-            source = new EventSource("/ssee-by-client/"+username);
-            console.log('sseetByClient');
-            source.onmessage = function(event) {
-                console.log('sseetByClient inner');
-                var data = JSON.parse(event.data);
 
-                var ct = JSON.parse(data.geojson);
- 
-                console.log(ct.features);
-                if (JSON.stringify(ct.features) !== JSON.stringify(pre_layer)) {
-                    addMaidLayer(ct.features);
-                } else {
-                    console.log('false');
-                }
+        function sseetByClient(username) {
 
-console.log("forremove");
+            // source = new EventSource("/get-all-maid-locations/" + username);
+            // console.log('sseetByClient');
+            // source.onmessage = function(event) {
+            //     // console.log('sseetByClient inner');
+            //     var data = JSON.parse(event.data);
 
-source.close();
+            //     var ct = JSON.parse(data.geojson);
 
+            // // console.log(ct.features);
+            // if (JSON.stringify(ct.features) !== JSON.stringify(pre_layer)) {
+            //     addMaidLayer(ct.features);
+            // } else {
+            //     console.log('false');
+            // }
 
-            };
-
-
-            }
-
-
-
-
-
+            $.ajax({
+                type: "GET",
+                url: `/get-all-maid-locations/` + username,
+                success: function(data) {
+                    console.log(JSON.parse(data));
+                    var ct = JSON.parse(data);
+                    // var ct = JSON.parse(data.geojson);
+                    console.log('xuccess-5');
+                    if (JSON.stringify(ct.features) !== JSON.stringify(pre_layer)) {
+                        addMaidLayer(ct.features);
+                        console.log('xuccess-6');
+                    } else {
+                        console.log('false');
+                    }
+                    if(incnt == false){
                     setTimeout(() => {
-                        console.log("firstione")
-                        let id = document.querySelector('#address').value;
-                sseetByClient(id);
-                console.log("secobdonr")
-                }, 20000);
+                sseetByClient(username)
+            }, 10000)}
+                }
+            });
+
+            
+           
+            // source.close();
+
+
+        };
+
+
+        
+
+
+
+
+
+        // setTimeout(() => {
+        //     console.log("firstione")
+        //     let id = document.querySelector('#address').value;
+        //     sseetByClient(id);
+        //     console.log("secobdonr")
+        // }, 20000);
 
 
 
@@ -265,7 +319,9 @@ source.close();
 
         function changeLayer(element) {
 
-            source.close();
+            // source.close();
+            cont = true;
+            incnt = true;
             let id = document.querySelector('#address').value;
             var text = element.options[element.selectedIndex].text;
 
@@ -295,13 +351,13 @@ source.close();
                     console.log(data);
                     // addMaidLayer(ct.features);
 
-                    setTimeout(() => {
-                sseetByClient(id);
-                }, 20000);
+                        incnt = false;
+                        sseetByClient(id);
+                   
                 }
             });
 
-            
+
 
 
 
@@ -318,69 +374,71 @@ source.close();
 
             features.map((value, i) => {
 
-if (value.geometry !== null) {
-                var cor = value.geometry.coordinates;
+                if (value.geometry !== null) {
+                    var cor = value.geometry.coordinates;
 
-                
-                    
-                
-                last_update = new Date(value.properties.last_updated)
-                if (fiveMinutesAgo.getTime() > last_update.getTime()) {
-                    LeafIcon = L.Icon.extend({
-                        options: {
-                            iconSize: [55, 55],
-                            className: 'my-icon-white'
-                        }
-                    });
-                } else {
-                    LeafIcon = L.Icon.extend({
-                        options: {
-                            iconSize: [55, 55],
-                            className: 'my-icon-green'
-                        }
-                    });
-                }
-                greenIcon = new LeafIcon({
-                    iconUrl: '/asset/images/Maid/' + value.properties.profile_image
-                });
 
-                maker[i] = L.marker([cor[1], cor[0]], {
-                    icon: greenIcon
-                }).bindPopup("<table class='table table-bordered'>" +
-                    "<tr>" +
-                    "<th>Username</th>" +
-                    "<td>" + value.properties.user_name + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Gender</th>" +
-                    "<td>" + value.properties.gender + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Email</th>" +
-                    "<td>" + value.properties.email + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Contact no</th>" +
-                    "<td>" + value.properties.contact_number + "</td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Profile Image</th>" +
-                    "<td><a class='example-image-link' href='/asset/images/Maid/" +
-                    value.properties.profile_image +
-                    "' data-lightbox='example-set' data-title='Before Pic'><img src='/asset/images/Maid/" +
-                    value.properties.profile_image + "' height='50'/></a></td>" +
-                    "</tr>" +
-                    "<tr>" +
-                    "<th>Detail</th>" +
-                    "<td><a href='/maid/" + value.properties.user_name +
-                    "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
-                    "</tr>" +
-                    "</table>");
+
+
+                    last_update = new Date(value.properties.last_updated)
+                    if (fiveMinutesAgo.getTime() > last_update.getTime()) {
+                        LeafIcon = L.Icon.extend({
+                            options: {
+                                iconSize: [55, 55],
+                                className: 'my-icon-white'
+                            }
+                        });
+                    } else {
+                        LeafIcon = L.Icon.extend({
+                            options: {
+                                iconSize: [55, 55],
+                                className: 'my-icon-green'
+                            }
+                        });
                     }
+                    greenIcon = new LeafIcon({
+                        iconUrl: '/asset/images/Maid/' + value.properties.profile_image
+                    });
+
+                    maker[i] = L.marker([cor[1], cor[0]], {
+                        icon: greenIcon
+                    }).bindPopup("<table class='table table-bordered'>" +
+                        "<tr>" +
+                        "<th>Username</th>" +
+                        "<td>" + value.properties.user_name + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Gender</th>" +
+                        "<td>" + value.properties.gender + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Email</th>" +
+                        "<td>" + value.properties.email + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Contact no</th>" +
+                        "<td>" + value.properties.contact_number + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Profile Image</th>" +
+                        "<td><a class='example-image-link' href='/asset/images/Maid/" +
+                        value.properties.profile_image +
+                        "' data-lightbox='example-set' data-title='Before Pic'><img src='/asset/images/Maid/" +
+                        value.properties.profile_image + "' height='50'/></a></td>" +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>Detail</th>" +
+                        "<td><a href='/maid/" + value.properties.user_name +
+                        "' class='btn  btn-sm dropdown-item'>Detail</a></td>" +
+                        "</tr>" +
+                        "</table>");
+                }
             });
 
             layer = L.layerGroup(maker).addTo(map);
+            console.log(features);
             pre_layer = features;
+            
 
             layerControl.addOverlay(layer, "Maids");
             // source.close();

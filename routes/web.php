@@ -77,6 +77,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index']);
         Route::get('/slaray-detail/{name}', [ClientSalaryController::class, 'show']);
+
+        Route::get('/get-all-maid-locations',[MapController::class,'show']);
+        Route::get('/get-all-maid-locations/{username}',[MapController::class,'maidByClient']);
+
         
    
 

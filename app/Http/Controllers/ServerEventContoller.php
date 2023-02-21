@@ -18,17 +18,17 @@ class ServerEventContoller extends Controller
     public function EventByCLient($username)
     {
         $agency = Client::where('user_name', $username)->first();
-                    $this->id = $agency->id;
+        $this->id = $agency->id;
         $response = new StreamedResponse();
+        // $response->headers->set('Content-Type', 'text/event-stream');
+        // $response->headers->set('Cache-Control', 'no-cache');
+        // $response->headers->set('Connection', 'keep-alive');
         $response->headers->set('Content-Type', 'text/event-stream');
-        $response->headers->set('Cache-Control', 'no-cache');
-        $response->headers->set('Connection', 'keep-alive');
-
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cach-Control', 'no-cache');
         $response->setCallback(function () {
             while (true) {
-             
-                    
-                    $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
+                $data = DB::select("SELECT json_build_object('type', 'FeatureCollection','crs',  json_build_object('type','name', 'properties', json_build_object('name', 'EPSG:4326'  )),'features', json_agg(json_build_object('type','Feature','id',id,'geometry',ST_AsGeoJSON(geom)::json,
             'properties', json_build_object(
       'user_name', user_name,
             'gender',gender,
@@ -43,24 +43,19 @@ class ServerEventContoller extends Controller
        where a.user_id in(
        select id from tbl_user where client_id='$this->id'
        ) and b.id=a.user_id and a.geom!= ''	) as tbl1; ");
-                
+
                 if ($data) {
-                 
                     echo 'data: ' . json_encode($data[0]) . "\n\n";
                     ob_flush();
                     flush();
                 }
 
-                sleep(15);
+                // sleep(15);
             }
         });
-      
 
         return $response;
-
     }
-
-
 
     public function sse()
     {
@@ -113,12 +108,10 @@ class ServerEventContoller extends Controller
                     flush();
                 }
 
-                sleep(15);
+                sleep(1);
             }
         });
-      
 
         return $response;
     }
-
 }
