@@ -366,6 +366,8 @@ setTimeout(() => {
 
         function addMaidLayer(features) {
 
+            maker=[];
+
             if (layer) {
                 map.removeLayer(layer);
                 layerControl.removeLayer(layer);
