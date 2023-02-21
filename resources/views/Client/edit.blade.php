@@ -64,16 +64,7 @@
                             value="{{ old('last_name', $client->last_name) }}">
                     </div>
 
-                    <div>
-                        <label for="full_name">Full Name</label>
-                        <span class="text-danger">
-                            @error('full_name')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                        <input id="full_name" name="full_name" class="form-control"
-                            value="{{ old('full_name', $client->full_name) }}">
-                    </div>
+                     
 
                     <div>
                         <label for="email">Email</label>

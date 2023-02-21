@@ -31,7 +31,7 @@ class ClientRequest extends FormRequest
                 'name' => ['required', Rule::unique('users')],
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'full_name' => 'required',
+                // 'full_name' => 'required',
                 'email' => ['required','email', Rule::unique('users').$this->user()->id],
                 'contact_number' => 'required|min:9|max:11',
                 'emergency_contact' => 'required|min:9|max:11',
@@ -52,7 +52,7 @@ class ClientRequest extends FormRequest
            
             'first_name' => 'required',
             'last_name' => 'required',
-            'full_name' => 'required',
+            // 'full_name' => 'required',
             'email' => ['required','email'],
             'contact_number' => 'required|min:9|max:11',
             'emergency_contact' => 'required|min:9|max:11',

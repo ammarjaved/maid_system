@@ -63,7 +63,7 @@ class ClientController extends Controller
             $request['created_by'] = Auth::user()->name;
             $agency_id = agency::where('user_name',Auth::user()->name)->get('id');
             $request['agency_id'] =$agency_id[0]['id'];
-       
+            $request['full_name'] = $request->first_name . " " .$request->full_name;
 
         $request['user_name'] = $request->name;
 
@@ -173,7 +173,9 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ClientRequest $request, $id)
-    {
+    { 
+
+        $request['full_name'] = $request->first_name . " " .$request->full_name;
         
         $client = Client::find($id);
         try {
