@@ -153,7 +153,7 @@
             $('#layer').val('');
             $.ajax({
                 type: "GET",
-                url: `/get-boundary-layer/${id}`,
+                url: `get-boundary-layer/${id}`,
                 success: function(data) {
                     // console.log(JSON.parse(data));
                     var myLayer = L.geoJSON(JSON.parse(data));
@@ -192,6 +192,17 @@
                 ly === "" ? $('#er_layer').html('Select Boundary') : $('#er_layer').html('');
                 return false;
             }
+
+            $.ajax({
+                type: "POST",
+                url: `/update-boundry`,
+
+                dataType: 'json',
+                data: $('#boundaryFoam').serialize(),
+                success: function(data) {
+                    alert('save sucessfuly');
+                },
+            });
 
 
 
