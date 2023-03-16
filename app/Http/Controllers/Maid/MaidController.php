@@ -38,7 +38,7 @@ class MaidController extends Controller
         } else {
             $maids = maid::all();
             $client = Client::all();
-           
+
             return view('Maids.index', ['maids' => $maids, 'clients' => $client]);
         }
     }
@@ -68,20 +68,20 @@ class MaidController extends Controller
      */
     public function store(MaidRequest $request)
     {
-      
         $agency_id = agency::where('user_name', Auth::user()->name)->get('id');
         $request['agency_id'] = $agency_id[0]['id'];
         $request['created_by'] = Auth::user()->name;
-       
+
         $request['user_name'] = $request->name;
         $request['full_name'] = $request->first_name . ' ' . $request->last_name;
 
         // return $request;
         try {
-            health::create($request->all());
+            // return $request;
+
             $data = maid::create($request->all());
             // $request->addUser();
-
+            health::create($request->all());
             User::create([
                 'name' => $request->user_name,
                 'email' => $request->email,
@@ -226,12 +226,10 @@ class MaidController extends Controller
         $this->removeImage($maid->visa_image_back);
 
         User::where('name', $maid->user_name)->delete();
-        try{
-            
+        try {
             DB::select("DELETE FROM tbl_salary WHERE user_name = '$maid->user_name'");
             DB::select("DELETE FROM tbl_health WHERE user_name = '$maid->user_name'");
-        }catch(Exception $e){
-
+        } catch (Exception $e) {
         }
 
         $maid->delete();

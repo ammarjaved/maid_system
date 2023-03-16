@@ -24,7 +24,7 @@
             @if (Session::has('message'))
                 <p class="alert {{ Session::get('alert-class', 'alert-secondary') }}">{{ Session::get('message') }}</p>
             @endif
-            <form action="{{ route('maid.update', $maid->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('maid.update', $maid->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return submitFoam()">
                 @method('PATCH')
                 @csrf
                 <div class="row">
@@ -113,7 +113,7 @@
                                         {{ $message }}
                                     @enderror
                                 </span>
-                                <select name="country" class="form-select">
+                                <select name="country" class="form-select" id="country">
                                     <option value="{{ old('country', $maid->country) }}" selected="" hidden>
                                         {{ old('country', $maid->country) }}</option>
                                     @foreach ($countries as $country)
@@ -319,7 +319,7 @@
                                         @enderror
                                     </span>
                                     <input id="visa_expiry_date" type="date" name="visa_expiry_date"
-                                        class="form-control" value="{{ old('visa_expiry_date') }}">
+                                        class="form-control" value="{{ old('visa_expiry_date',$maid->visa_expiry_date) }}">
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -544,4 +544,109 @@
             </form>
 
         </div>
+    @endsection
+
+
+    @section('script')
+
+<script>
+        function submitFoam() {
+            let ret = true
+
+            const inputElements = document.querySelectorAll('input.form-control');
+            inputElements.forEach(inputElement => {
+                if(inputElement.type != "file"){
+                if ($(`#${inputElement.id}`).val() == "") {
+                    $(`#er_${inputElement.id}`).html("This feild is required");
+                    ret = false
+                }
+            }
+
+            });
+
+
+            const selectElements = document.querySelectorAll('.form-select');
+            selectElements.forEach(selectElement => {
+                if ($(`#${selectElement.id}`).val() == "") {
+                    $(`#er_${selectElement.id}`).html("This feild is required");
+                    ret = false
+                }
+
+            });
+
+            if($('#passport_number').val() == "" || $('#passport_expiry').val() == ""  )
+            {
+                $('#passport-tab').css("color", "red")
+            }else{
+                $('#passport-tab').css("color", "#6658dd")
+            }
+
+            if($('#visa_expiry_date').val() == "" )
+            {
+                $('#visa-tab').css("color", "red")
+            }else{
+                $('#visa-tab').css("color", "#6658dd")
+            }
+
+            if($('#health_certificate_status').val() == "" ||$('#health_card_expiry').val() == "")
+            {
+                $('#healthInfo-tab').css("color", "red")
+            }else{
+                $('#healthInfo-tab').css("color", "#6658dd")
+            }
+
+
+            
+            if($('#user_name').val() == "" || $('#password').val() == "" ||$('#password_confirmation').val() == "")
+            {
+                $('#login-tab').css("color", "red")
+            }else{
+                $('#login-tab').css("color", "#6658dd")
+            }
+
+            if($('#permanent_address').val() == "" || $('#emergency_contact').val() == "" ||$('#occupation').val() == "" ||$('#religion').val() == "" )
+            {
+                $('#otherInfo-tab').css("color", "red")
+            }else{
+                $('#otherInfo-tab').css("color", "#6658dd")
+            }
+
+
+
+
+            if ($('#contact_number').val().length < 9 || $('#contact_number').val().length > 11) {
+                $('#er_contact_number').html("Number must be between 9 - 11")
+                ret = false
+            }
+            if ($('#emergency_contact').val().length < 9 || $('#emergency_contact').val().length > 11) {
+                $('#er_emergency_contact').html("Number must be between 9 - 11")
+                $('#otherInfo-tab').css("color", "red")
+                ret = false
+            }
+         
+            return ret
+        }
+
+
+        $("input").change(function() {
+
+            if ($(`#${this.id}`).val() !== '') {
+                $(`#er_${this.id}`).html("")
+            } else {
+
+            }
+
+        })
+
+        $("select").change(function() {
+
+if ($(`#${this.id}`).val() !== '') {
+    $(`#er_${this.id}`).html("")
+} else {
+
+}
+
+})
+</script>
+
     @endsection

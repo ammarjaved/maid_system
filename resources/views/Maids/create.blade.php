@@ -45,7 +45,7 @@
     <div class="container col-md-11">
         <div class="card p-3 ">
 
-            <form action="{{ route('maid.store') }}" method="POST"
+            <form action="{{ route('maid.store') }}" method="POST" onsubmit="return submitFoam()"
                 enctype="multipart/form-data">
                 @csrf
 
@@ -139,7 +139,7 @@
                                         {{ $message }}
                                     @enderror
                                 </span>
-                                <select name="country" class="form-select">
+                                <select name="country" class="form-select" id="country">
                                     <option value="{{ old('country') }}" selected="" hidden>
                                         {{ old('country', 'Select Country') }}</option>
                                     @foreach ($countries as $country)
@@ -536,23 +536,77 @@
                 }
 
             });
+
+
+            const selectElements = document.querySelectorAll('.form-select');
+            selectElements.forEach(selectElement => {
+                if ($(`#${selectElement.id}`).val() == "") {
+                    $(`#er_${selectElement.id}`).html("This feild is required");
+                    ret = false
+                }
+
+            });
+
+            if($('#passport_number').val() == "" || $('#passport_expiry').val() == "" ||$('#passport_image_front').val() == "" ||$('#passport_image_back').val() == "" )
+            {
+                $('#passport-tab').css("color", "red")
+            }else{
+                $('#passport-tab').css("color", "#6658dd")
+            }
+
+            if($('#visa_expiry_date').val() == "" || $('#visa_image_front').val() == "" ||$('#visa_image_back').val() == "")
+            {
+                $('#visa-tab').css("color", "red")
+            }else{
+                $('#visa-tab').css("color", "#6658dd")
+            }
+
+            if($('#health_certificate_status').val() == "" || $('#health_certificate').val() == "" ||$('#health_card_expiry').val() == "")
+            {
+                $('#healthInfo-tab').css("color", "red")
+            }else{
+                $('#healthInfo-tab').css("color", "#6658dd")
+            }
+
+
+            
+            if($('#user_name').val() == "" || $('#password').val() == "" ||$('#password_confirmation').val() == "")
+            {
+                $('#login-tab').css("color", "red")
+            }else{
+                $('#login-tab').css("color", "#6658dd")
+            }
+
+            if($('#permanent_address').val() == "" || $('#emergency_contact').val() == "" ||$('#occupation').val() == "" ||$('#religion').val() == "" )
+            {
+                $('#otherInfo-tab').css("color", "red")
+            }else{
+                $('#otherInfo-tab').css("color", "#6658dd")
+            }
+
+
+
+
             if ($('#contact_number').val().length < 9 || $('#contact_number').val().length > 11) {
                 $('#er_contact_number').html("Number must be between 9 - 11")
                 ret = false
             }
             if ($('#emergency_contact').val().length < 9 || $('#emergency_contact').val().length > 11) {
                 $('#er_emergency_contact').html("Number must be between 9 - 11")
+                $('#otherInfo-tab').css("color", "red")
                 ret = false
             }
-            if($('#password').val.length < 8){
+            if($('#password').val().length < 8){
                 $('er_password').html("Password must be atleast 8 character")
+                $('#login-tab').css("color", "red")
                 ret =  false
             }
-            if($('#password').val != $('#password_confirmation').val()){
+            if($('#password').val() != $('#password_confirmation').val()){
                 $('#er_password_confirmation').html("Password dosn't match")
+                $('#login-tab').css("color", "red")
                 ret = false
             }
-
+ 
             return ret
         }
 
@@ -566,6 +620,16 @@
             }
 
         })
+
+        $("select").change(function() {
+
+if ($(`#${this.id}`).val() !== '') {
+    $(`#er_${this.id}`).html("")
+} else {
+
+}
+
+})
 
 
         //         $('input[type="file"]').change(function(){

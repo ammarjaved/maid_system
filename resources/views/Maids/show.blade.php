@@ -287,7 +287,7 @@
                                         @enderror
                                     </span>
                                     <input id="visa_expiry_date" type="date" name="visa_expiry_date"
-                                        class="form-control" value="{{ old('visa_expiry_date') }}" disabled>
+                                        class="form-control" value="{{ $maid->visa_expiry_date }}" disabled>
                                 </div>
                                 <label for="visa_image_front">Visa image 1</label>
                                     <div class="col-md-6 text-center">
